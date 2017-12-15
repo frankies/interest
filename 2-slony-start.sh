@@ -1,0 +1,4 @@
+#!/bin/bash
+source ./setEnv.sh
+slon $CLUSTERNAME "dbname=$MASTERDBNAME host=$MASTERHOST port=$MASTERHOST_PORT user=$REPLICATIONUSER"
+slon $CLUSTERNAME "dbname=$SLAVEDBNAME host=$SLAVEHOST port=$SLAVEHOST_PORT user=$REPLICATIONUSER"
