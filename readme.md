@@ -1,8 +1,7 @@
 说明
-
 ===
 
-···
+```
 /**  可以通过引入ant脚本中target产生 gradle的task ***/
 //这里设置传入ant 的引用jar 库
 ant.properties['refJar'] =  configurations.compile.asPath  
@@ -22,4 +21,8 @@ task testSiteMesh {
 }
 
 
-···
+```
+
+- 命令使用
+ - `gradle testSiteMesh` 打印所有的ant相关target名称
+ - `gradle test-sitemeshfilesetWithDecorator` 调用build.xml中定义的`sitemeshfilesetWithDecorator`任务
