@@ -5,19 +5,21 @@
 /******************************************************************************/
 package org.my.mockito.sample;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.my.mockito.sample.model.ArticleCalculator;
 import org.my.mockito.sample.model.ArticleDatabase;
 import org.my.mockito.sample.model.ArticleListener;
 import org.my.mockito.sample.model.ConsumerUserProvider;
+import org.my.mockito.sample.model.User;
 import org.my.mockito.sample.model.UserProvider;
-import org.springframework.security.core.userdetails.User;
 
 /**
  *

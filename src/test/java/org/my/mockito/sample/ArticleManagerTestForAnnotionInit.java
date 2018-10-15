@@ -5,8 +5,8 @@
 /******************************************************************************/
 package org.my.mockito.sample;
 
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,8 +18,8 @@ import org.my.mockito.sample.model.ArticleCalculator;
 import org.my.mockito.sample.model.ArticleDatabase;
 import org.my.mockito.sample.model.ArticleListener;
 import org.my.mockito.sample.model.ConsumerUserProvider;
+import org.my.mockito.sample.model.User;
 import org.my.mockito.sample.model.UserProvider;
-import org.springframework.security.core.userdetails.User;
 
 /**
  *
