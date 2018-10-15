@@ -1,5 +1,5 @@
 /******************************************************************************/
-/* SYSTEM     : YNA2.0                                                      */
+/* SYSTEM     :                                                       */
 /*                                                                            */
 /*                                                           */
 /******************************************************************************/
@@ -11,7 +11,7 @@ import org.my.mockito.sample.model.IMethods;
 import static org.mockito.Mockito.*;
 /**
  *
- * @author  YMSLX
+ * @author  
  * @version 1.0
  *
  */
