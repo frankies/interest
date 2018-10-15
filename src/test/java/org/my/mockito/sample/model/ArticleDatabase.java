@@ -1,0 +1,18 @@
+/******************************************************************************/
+/* SYSTEM     : YNA2.0                                                      */
+/*                                                                            */
+/*                                                           */
+/******************************************************************************/
+package org.my.mockito.sample.model;
+
+/**
+ *
+ * @author  YMSLX
+ * @version 1.0
+ *
+ */
+public interface ArticleDatabase {
+
+
+    void addListener(ArticleListener lstr);
+}
