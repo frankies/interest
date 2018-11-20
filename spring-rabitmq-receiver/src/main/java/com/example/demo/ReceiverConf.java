@@ -7,6 +7,7 @@ package com.example.demo;
 
 import java.io.Serializable;
 
+import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,13 +26,13 @@ public class ReceiverConf {
 
     private final static String QNAME = "queue";
 
-/*    @Bean
+    @Bean
     public Queue queue() {
          return new Queue(QNAME);
     }
-*/
+
     @Bean
-    public Receiver sender() {
+    public Receiver receiver() {
          return new Receiver();
     }
 
@@ -41,7 +42,8 @@ public class ReceiverConf {
         @RabbitListener(queues = QNAME)    //监听器监听指定的Queue
         public void processC(Serializable str) {
 //            new RuntimeException().printStackTrace();
-            log.info("Receive:"+str);
+            log.info("Receive {}:"+str, QNAME);
+
         }
     }
 }

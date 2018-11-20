@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.example.demo.SendFanoutExchangeConf.FanoutExchangeSender;
 import com.example.demo.SenderConf.Sender;
 import com.example.demo.SenderTopicConf.TopicSender;
 import com.example.demo.model.User;
@@ -25,6 +26,9 @@ public class MqSendApplicationTests {
     @Autowired
     private TopicSender helloTopicSender;
 
+    @Autowired
+    private FanoutExchangeSender fanoutExchangeSender;
+
     @Test
     public void testRabbit() throws InterruptedException {
 
@@ -41,8 +45,17 @@ public class MqSendApplicationTests {
     public void testTopicRabbit() throws InterruptedException {
 
         for (int i = 1; i <= 100; i++) {
-            log.info("Sending direct {}", (i+1) );
             helloTopicSender.send(String.format("%d. Topic message", i));
+            TimeUnit.SECONDS.sleep(2);
+        }
+    }
+
+
+    @Test
+    public void testFanOutRabbit() throws InterruptedException {
+
+        for (int i = 1; i <= 100; i++) {
+            fanoutExchangeSender.send();
             TimeUnit.SECONDS.sleep(2);
         }
     }

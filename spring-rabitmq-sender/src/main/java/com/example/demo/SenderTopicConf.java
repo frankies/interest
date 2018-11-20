@@ -16,6 +16,8 @@ import org.springframework.context.annotation.Configuration;
 
 import com.example.demo.SenderConf.Sender;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  *
  * @author  YMSLX
@@ -23,6 +25,7 @@ import com.example.demo.SenderConf.Sender;
  *
  */
 @Configuration
+@Slf4j
 public class SenderTopicConf {
 
     private final static String QMNAME = "topic.message";
@@ -66,8 +69,14 @@ public class SenderTopicConf {
         @Autowired
         private AmqpTemplate template;
 
+        private String[] routeKeys = new String[] {"topic.%d", TOPIC_ONE};
+
         public void send(String msg) {
-            template.convertAndSend(EXCHAGE, TOPIC_ONE, msg);
+            double j = Math.random() * (routeKeys.length-1);
+             int idx = Long.valueOf(Math.round(j)).intValue();
+             String rk = String.format(routeKeys[idx], System.currentTimeMillis());
+            log.info("Send '{}' with routkey '{}'", msg, rk);
+            template.convertAndSend(EXCHAGE, rk, msg);
         }
 
     }

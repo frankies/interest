@@ -42,6 +42,7 @@ public class SenderConf {
         private AmqpTemplate template;
 
         public void send(Serializable msg) {
+            AnsiColorLogger.ANSI_CYAN.log("Send message: ", msg);
             template.convertAndSend(QNAME,  msg);
         }
 
