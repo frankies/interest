@@ -7,5 +7,6 @@
 3. <u>[Gradle 中调用Ant任务执行](https://github.com/frankies/interest/tree/pg_slony)</u>  **(2018-02-03）**
 4. ​ <u>[Docker 中部署Springboot+mysql+nginx](https://github.com/frankies/interest/tree/docker-springboot-nginx-mysql)</u>  **(2018-03-27）**
 5. <u>[Web页面调用客户端的本地应用的例子](https://github.com/frankies/interest/tree/page-inovke-local-app)</u>  **(2018-06-12）**
-5. <u>[Springboot 调用 rabbitMQ 的例子](https://github.com/frankies/interest/tree/spring-rabitmq-demo)</u>  **(2018-11-20）**
+6. <u>[Springboot 调用 rabbitMQ 的例子](https://github.com/frankies/interest/tree/spring-rabitmq-demo)</u>  **(2018-11-20）**
+7. <u>[Websocket客户端的Java代码使用例子](https://github.com/frankies/interest/tree/websocket-client-java-backend)</u> 
 6. 待续。。。。
