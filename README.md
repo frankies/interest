@@ -1,12 +1,37 @@
-# Best Practise(最佳实践)
+# Spring 实现 3 种异步流式接口
 
+## 介绍
 
+利用spring 3 个接口类：
 
-1. <u>[Postgres 的流复制工具Slony使用示例](https://github.com/frankies/interest/tree/pg_slony)</u>  **(2017-12-15）**
-2. <u>[自启动脚本](https://github.com/frankies/interest/tree/shell_service_install_service)</u>  **(2017-12-25）**
-3. <u>[Gradle 中调用Ant任务执行](https://github.com/frankies/interest/tree/pg_slony)</u>  **(2018-02-03）**
-4. ​ <u>[Docker 中部署Springboot+mysql+nginx](https://github.com/frankies/interest/tree/docker-springboot-nginx-mysql)</u>  **(2018-03-27）**
-5. <u>[Web页面调用客户端的本地应用的例子](https://github.com/frankies/interest/tree/page-inovke-local-app)</u>  **(2018-06-12）**
-6. <u>[Springboot 调用 rabbitMQ 的例子](https://github.com/frankies/interest/tree/spring-rabitmq-demo)</u>  **(2018-11-20）**
-7. <u>[Websocket客户端的Java代码使用例子](https://github.com/frankies/interest/tree/websocket-client-java-backend)</u> 
-6. 待续。。。。
+- **ResponseBodyEmitter**
+
+```shell
+curl http://localhost:8080/async/bodyEmitter
+```
+
+- **SseEmitter**
+
+- **StreamingResponseBody** 
+
+```shell
+http://localhost:8080/async/streamingResponse
+```
+
+实现异步从后台推数据到前台
+
+详见： `AsynTestController`类
+
+## 启动
+
+需要jdk8或以上JVM环境
+
+启动命令：
+
+```shell
+mvnw  spring-boot:run
+```
+
+## 访问入口
+
+[http://localhost:8080/](http://localhost:8080/)
