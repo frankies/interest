@@ -10,4 +10,5 @@
 6. <u>[Springboot 调用 rabbitMQ 的例子](https://github.com/frankies/interest/tree/spring-rabitmq-demo)</u>  **(2018-11-20）**
 7. <u>[Websocket客户端的Java代码使用例子](https://github.com/frankies/interest/tree/websocket-client-java-backend)</u> 
 8. <u>[Spring MVC Async](https://github.com/frankies/interest/tree/spring-mvc-async)</u> 
+9. <u>[利用python uv进行飞鸟云订阅地址解析处理](https://github.com/frankies/interest/tree/python-uv)</u> 
  待续。。。。
