@@ -81,7 +81,7 @@ build/
 # Unit test / coverage reports
 htmlcov/
 # VS Code Python
-.vscode/
+#.vscode/
 # Local test databases
 db.sqlite3
 # Spyder project settings

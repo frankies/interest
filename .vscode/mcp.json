@@ -1,0 +1,36 @@
+{
+    
+    "servers": {
+        "my-mcp-server-eea8ff26": {
+            "type": "stdio",
+            "command": "uv",
+            "args": [
+                "--directory",
+                "/workspaces/interest",
+                "run",
+                "weather.py"
+            ]
+        }, 
+         "filesystem": {
+            "command": "cmd",
+            "args": [
+                "/c",
+                "npx",
+                "-y",
+                "@modelcontextprotocol/server-filesystem",
+                "/workspaces/interest"
+            ],
+            "name": "filesystem" 
+        },
+        "run-mcp": {
+            "type": "stdio",
+            "command": "uv", 
+            "args": [
+                "--directory",
+                "/workspaces/interest",
+                "run",
+                "weather.py"
+            ]
+        }
+    }
+}

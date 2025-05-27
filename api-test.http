@@ -1,0 +1,6 @@
+
+GET https://api.openweathermap.org/data/2.5/weather?lat=24.57&lon=118.09&appid=f77481ccfa9e3311f14c3159548ead9c
+
+
+### OpenWeatherMap API request to get weather data for Wuhan
+GET https://api.openweathermap.org/data/2.5/weather?lang=zh&q=xiamen&appid=f77481ccfa9e3311f14c3159548ead9c
