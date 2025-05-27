@@ -1,17 +1,6 @@
 {
-    
     "servers": {
-        "my-mcp-server-eea8ff26": {
-            "type": "stdio",
-            "command": "uv",
-            "args": [
-                "--directory",
-                "/workspaces/interest",
-                "run",
-                "weather.py"
-            ]
-        }, 
-         "filesystem": {
+        "filesystem": {
             "command": "cmd",
             "args": [
                 "/c",
@@ -20,8 +9,12 @@
                 "@modelcontextprotocol/server-filesystem",
                 "/workspaces/interest"
             ],
-            "name": "filesystem" 
+            "name": "filesystem"
+        }, 
+        "mpc-sse": {
+            "url": "http://localhost:8000/sse"
         },
+
         "run-mcp": {
             "type": "stdio",
             "command": "uv", 
