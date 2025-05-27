@@ -16,13 +16,15 @@ A simple command-line weather information tool that provides current weather dat
 - `httpx` library for HTTP requests
 - `mcp.server.fastmcp` for MCP server functionality
 - OpenWeatherMap API key
+- Install `uv` by command `pip install uv`
 
 ## Installation
 
 1. Clone the repository
 2. Install dependencies:
 ```bash
-pip install httpx mcp-server
+uv sync
+source .venv/bin/activate
 ```
 
 ## Usage
@@ -31,19 +33,19 @@ pip install httpx mcp-server
 
 Get weather by city name:
 ```bash
-python weather.py <city_name>
+uv run weather.py <city_name>
 ```
 
 Example:
 ```bash
-python weather.py shanghai
+uv run weather.py shanghai
 ```
 
 ### As MCP Server
 
 Run as an MCP server:
 ```bash
-python weather.py
+uv run weather.py 
 ```
 
 ## Output Format
