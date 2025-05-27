@@ -11,4 +11,7 @@
 7. <u>[Websocket客户端的Java代码使用例子](https://github.com/frankies/interest/tree/websocket-client-java-backend)</u> 
 8. <u>[Spring MVC Async](https://github.com/frankies/interest/tree/spring-mvc-async)</u> 
 9. <u>[利用python uv进行飞鸟云订阅地址解析处理](https://github.com/frankies/interest/tree/python-uv)</u> 
+10. <u>[MCP服务器搭建-基于openweathermap.org的开放Api的天气查询](https://github.com/frankies/interest/tree/mcp-server)</u> 
+11.  <u>[https站点并发压力测试](https://github.com/frankies/interest/blob/https-press-test/api-test.http)</u> 
+
  待续。。。。
