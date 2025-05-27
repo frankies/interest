@@ -5,6 +5,10 @@ plugins {
 
 mainClassName = 'RestTest'
 
+// Define the source compatibility
+sourceCompatibility = '21'
+targetCompatibility = '21'
+
 
 dependencies { 
   implementation 'com.konghq:unirest-java:3.1.02'
