@@ -1,0 +1,27 @@
+<project xmlns:ivy="antlib:org.apache.ivy.ant">
+
+    <property name="hibernate.tools.version" value=the-hibernate-tools-version-to-use/>
+    <property name="h2.version" value=the-h2-version-to-use/>
+
+    <ivy:cachepath organisation="org.hibernate.tool" module="hibernate-tools-ant" revision="${hibernate.tools.version}"
+                   pathid="hibernate-tools" inline="true"/>
+    <ivy:cachepath organisation="com.h2database" module="h2" revision="${h2.version}"
+                   pathid="h2" inline="true"/>
+
+    <path id="classpath">
+        <path refid="hibernate-tools"/>
+        <path refid="h2"/>
+    </path>
+
+    <taskdef name="hibernatetool"
+             classname="org.hibernate.tool.ant.HibernateToolTask"
+             classpathref="classpath" />
+
+    <target name="reveng">
+        <hibernatetool destdir="generated-sources">
+            <jdbcconfiguration propertyfile="hibernate.properties" />
+            <hbm2java/>
+        </hibernatetool>
+    </target>
+
+</project>
