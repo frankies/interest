@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: product-analysis-graph
+  cloud:
+    ai:
+      dashscope:
+        api-key: ${AI_DASHSCOPE_API_KEY}
+        chat:
+          options:
+            model: qwen-max
+server:
+  port: 8080

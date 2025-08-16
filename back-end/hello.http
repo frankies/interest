@@ -1,0 +1,8 @@
+### Simple Http
+
+GET http://localhost:18080/helloworld/simple/chat?query=给我讲一个笑话吧
+
+
+### Stream http
+
+GET http://localhost:18080/helloworld/stream/chat?query=给我讲一个笑话吧

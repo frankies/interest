@@ -1,0 +1,4 @@
+POST http://localhost:10092/sql
+Content-Type: application/json
+
+{"question":"How many books has Craig Walls written?"}

@@ -1,0 +1,2 @@
+### chat
+GET http://localhost:8080/custom/observation/chat
