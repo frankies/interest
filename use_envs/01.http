@@ -1,0 +1,15 @@
+@contentType = application/json
+
+# @name getList
+GET https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo HTTP/1.1
+content-type: {{contentType}}
+
+###
+
+POST https://dummy.restapiexample.com/api/v1/create
+content-type: {{contentType}}
+
+{"name":"test","salary":"123","age":"23"}
+
+
+#{{getList.response.body}}

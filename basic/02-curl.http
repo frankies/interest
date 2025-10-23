@@ -1,0 +1,6 @@
+
+###
+curl -X POST "http://dummy.restapiexample.com/api/v1/create" -d "Hello World"
+
+###
+curl -X GET "https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo"

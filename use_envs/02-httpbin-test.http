@@ -1,0 +1,136 @@
+
+
+# @baseURL=http://localhost
+@acceptJsonType=application/json
+@contentJsonType=application/json
+
+@acceptXml=text/xml
+
+### 
+#---- Example XML response from /xml endpoint ----
+# <?xml version='1.0' encoding='us-ascii'?>
+# <!--  A SAMPLE set of slides  -->
+# <slideshow 
+#     title="Sample Slide Show"
+#     date="Date of publication"
+#     author="Yours Truly"
+#     >
+#   <!-- TITLE SLIDE -->
+#   <slide type="all">
+#     <title>Wake up to WonderWidgets!</title>
+#   </slide>
+#   <!-- OVERVIEW -->
+#   <slide type="all">
+#     <title>Overview</title>
+#     <item>Why 
+#       <em>WonderWidgets</em> are great
+#     </item>
+#     <item/>
+#     <item>Who 
+#       <em>buys</em> WonderWidgets
+#     </item>
+#   </slide>
+# </slideshow>
+
+# @name getXmlResponse
+GET {{baseURL}}/xml 
+Accept: {{acceptXml}}
+
+
+### Get a  json
+# @name getJsonResponse
+GET {{baseURL}}/json
+Content-Type: application/json
+
+
+### 
+@firstSlideTitleFromXmls = {{getXmlResponse.response.body.//slide[1]/title}}
+@secSlideTitleFromJson = {{getJsonResponse.response.body.$.slideshow.slides[1].title}}
+POST {{baseURL}}/post
+Accept: {{acceptJsonType}}
+Content-Type: {{contentJsonType}}
+
+{ 
+  "firstSlideTitle": "{{firstSlideTitleFromXmls}}",
+  "secSlideTitleFromJson": "{{secSlideTitleFromJson}}"
+} 
+
+### Get a teapot status
+
+GET {{baseURL}}/status/418
+
+### Get request headers back
+
+GET {{baseURL}}/headers
+
+### Get a 404 status
+GET {{baseURL}}/status/404
+
+# --- Cache ---
+
+### Get a 200 status with cache
+# @name cache60
+GET {{baseURL}}/cache?s=HelloWorld&max_age=60
+
+
+### Get cached data by etag
+GET {{baseURL}}/etag/{{cache60.response.headers.etag}}
+
+### Get response headers
+GET {{baseURL}}/response-headers?freeform=hello-world&sample=value
+
+
+### Get a delayed response
+GET {{baseURL}}/delay/3
+
+### Get a redirect response
+GET {{baseURL}}/redirect-to?url=/get
+
+
+
+### Response anything you send
+
+#@ prompt username
+@createdAt = {{$datetime iso8601}}
+@modifiedBy = {{$processEnv USER}}
+PUT   {{baseURL}}/anything
+Accept: {{acceptJsonType}}
+Content-Type: {{contentJsonType}}
+
+{
+  "message": "This is a test message",
+  "number": 12345,
+  "status": true,
+  "createdAt": "{{createdAt}}",
+  "modifiedBy": "{{modifiedBy}}",
+  "user_name": "{{$dotenv USERNAME}}",
+    "request_id": "{{$guid}}",
+    "updated_at": "{{$timestamp}}",
+    "created_at": "{{$timestamp -1 d}}",
+    "review_count": "{{$randomInt 5 200}}",
+    "custom_date": "{{$datetime 'YYYY-MM-DD'}}",
+    "local_custom_date": "{{$localDatetime 'YYYY-MM-DD'}}"
+}
+
+### 
+POST {{baseURL}}/anything HTTP/1.1
+Content-Type: application/json
+Date: {{$datetime rfc1123}}
+
+{
+    "user_name": "{{$dotenv USERNAME}}",
+    "request_id": "{{$guid}}",
+    "updated_at": "{{$timestamp}}",
+    "created_at": "{{$timestamp -1 d}}",
+    "review_count": "{{$randomInt 5 200}}",
+    "custom_date": "{{$datetime 'YYYY-MM-DD'}}",
+    "local_custom_date": "{{$localDatetime 'YYYY-MM-DD'}}"
+}
+
+
+## --- Cookies ---
+### Set a cookie
+GET {{baseURL}}/cookies/set?mycookie=myvalue
+
+### Get cookies
+GET {{baseURL}}/cookies
