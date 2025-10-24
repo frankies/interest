@@ -21,3 +21,8 @@ docker run -p 80:80 kennethreitz/httpbin
         "baseURL": "http://localhost"
     },
 ```
+
+
+## Reference
+
+- [Rest api - playground](https://restful-api.dev/)
