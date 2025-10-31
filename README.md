@@ -1,28 +1,15 @@
-# Exeute Restful HTTP Reqeust in VSCODE
+# POC of keycloak SSO
 
-[2025/10/23]
+[2025/10/31]
 
-
-
-## Run httpbin server by docker 
+## Build docker image - Dockfile
 
 ```shell
-docker run -p 80:80 kennethreitz/httpbin
-```
-
-## Change the 'baseURL' in .vscode/settings.json
-
-```json
-{
-
-   "rest-client.environmentVariables": {
-    "$shared": {
-        ...
-        "baseURL": "http://localhost"
-    },
+ 
 ```
 
 
 ## Reference
 
-- [Rest api - playground](https://restful-api.dev/)
+
+- [Docker build of keycloak server](https://www.keycloak.org/server/containers)

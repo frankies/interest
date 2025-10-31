@@ -1,0 +1,59 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-myuser}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-mypassword}
+      POSTGRES_DB: ${POSTGRES_DB:-mydatabase}
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@local}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
+      PGADMIN_DEFAULT_SERVER: db
+      PGADMIN_DEFAULT_SERVER_PORT: 5432
+      PGADMIN_DEFAULT_SERVER_USER: ${POSTGRES_USER:-myuser}
+      PGADMIN_DEFAULT_SERVER_PASSWORD: ${POSTGRES_PASSWORD:-mypassword}
+    ports:
+      - "8081:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+      - ./pgadmin-servers.json:/pgadmin4/servers.json
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  keycloak:
+    build:
+      context: keycloak-server/
+    image: custom-keycloak:latest
+    environment:
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN:-admin}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-admin}
+      KC_DB: postgres
+      KC_DB_URL_HOST: db
+      KC_DB_USERNAME: ${POSTGRES_USER:-myuser}
+      KC_DB_PASSWORD: ${POSTGRES_PASSWORD:-mypassword}
+      DB_VENDOR: postgres
+      DB_ADDR: db
+      DB_DATABASE: ${POSTGRES_DB:-mydatabase}
+      DB_USER: ${POSTGRES_USER:-myuser}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-mypassword}
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    restart: unless-stopped
+
+volumes:
+  pgadmin_data:
+  db_data:
