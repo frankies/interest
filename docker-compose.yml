@@ -35,26 +35,41 @@ services:
     restart: unless-stopped
 
   keycloak:
-    build:
-      context: keycloak-server
-    image: custom-keycloak:latest
+    image: quay.io/keycloak/keycloak:26.4.2
     environment:
-      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN:-admin}
-      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-admin}
-      KC_DB: postgres
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_DB:  postgres
       KC_DB_URL_HOST: db
+      KC_DB_URL_DATABASE: ${POSTGRES_DB:-mydatabase}
       KC_DB_USERNAME: ${POSTGRES_USER:-myuser}
       KC_DB_PASSWORD: ${POSTGRES_PASSWORD:-mypassword}
-      DB_VENDOR: postgres
-      DB_ADDR: db
-      DB_DATABASE: ${POSTGRES_DB:-mydatabase}
-      DB_USER: ${POSTGRES_USER:-myuser}
-      DB_PASSWORD: ${POSTGRES_PASSWORD:-mypassword}
     ports:
       - "8080:8080"
-    depends_on:
-      - db
+    command: start-dev
     restart: unless-stopped
+
+  # keycloak:
+  #   build:
+  #     context: keycloak-server
+  #   image: custom-keycloak:latest
+  #   environment:
+  #     KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN:-admin}
+  #     KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-admin}
+  #     KC_DB: postgres
+  #     KC_DB_URL_HOST: db
+  #     KC_DB_USERNAME: ${POSTGRES_USER:-myuser}
+  #     KC_DB_PASSWORD: ${POSTGRES_PASSWORD:-mypassword}
+  #     DB_VENDOR: postgres
+  #     DB_ADDR: db
+  #     DB_DATABASE: ${POSTGRES_DB:-mydatabase}
+  #     DB_USER: ${POSTGRES_USER:-myuser}
+  #     DB_PASSWORD: ${POSTGRES_PASSWORD:-mypassword}
+  #   ports:
+  #     - "8080:8080"
+  #   depends_on:
+  #     - db
+  #   restart: unless-stopped
 
 volumes:
   pgadmin_data:
