@@ -1,4 +1,4 @@
-ARG KC_VERSION=26.4
+ARG KC_VERSION=latest
 FROM quay.io/keycloak/keycloak:${KC_VERSION} AS builder
 
 # Enable health and metrics support

@@ -15,7 +15,9 @@ services:
   pgadmin:
     image: dpage/pgadmin4
     environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@local}
+      PGADMIN_CONFIG_GLOBALLY_DELIVERABLE: "False"
+      PGADMIN_CONFIG_ALLOW_SPECIAL_EMAIL_DOMAINS: "['localhost']"
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin@localhost}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
       PGADMIN_CONFIG_SERVER_MODE: 'False'
       PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
@@ -27,14 +29,14 @@ services:
       - "8081:80"
     volumes:
       - pgadmin_data:/var/lib/pgadmin
-      - ./pgadmin-servers.json:/pgadmin4/servers.json
+      - ./pgadmin/pgadmin-servers.json:/pgadmin4/servers.json
     depends_on:
       - db
     restart: unless-stopped
 
   keycloak:
     build:
-      context: keycloak-server/
+      context: keycloak-server
     image: custom-keycloak:latest
     environment:
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN:-admin}
