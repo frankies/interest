@@ -1,0 +1,59 @@
+# 基础镜像：Node 20 LTS
+FROM node:20-bullseye
+
+#LABEL maintainer="YourCompany DevOps <devops@yourcompany.com>"
+#LABEL description="Cordova + Android SDK 35 + JDK17 Build Image for GitLab CI"
+
+# ---- 接收代理参数 ----
+ARG http_proxy
+ARG https_proxy
+ARG no_proxy
+
+# 设置构建时代理环境变量
+ENV http_proxy=${http_proxy}
+ENV https_proxy=${https_proxy}
+ENV no_proxy=${no_proxy}
+
+# 环境变量
+ENV DEBIAN_FRONTEND=noninteractive
+ENV ANDROID_SDK_ROOT="/opt/android-sdk"
+ENV PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools"
+
+
+# 安装必要工具与 JDK 17
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    openjdk-17-jdk \
+    unzip \
+    wget \
+    git \
+    gradle \
+    && rm -rf /var/lib/apt/lists/*
+
+# 安装 Android SDK Commandline Tools
+RUN mkdir -p ${ANDROID_HOME}/cmdline-tools && \
+    cd ${ANDROID_HOME}/cmdline-tools && \
+    wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O tools.zip && \
+    unzip tools.zip -d ${ANDROID_HOME}/cmdline-tools && \
+    mv ${ANDROID_HOME}/cmdline-tools/cmdline-tools ${ANDROID_HOME}/cmdline-tools/latest && \
+    rm tools.zip
+
+# 接受 SDK 许可并安装 API 35
+RUN mkdir -p $ANDROID_SDK_ROOT \
+    && wget -O android-sdk.zip https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip \
+    && unzip android-sdk.zip -d $ANDROID_SDK_ROOT/cmdline-tools \
+    && mv $ANDROID_SDK_ROOT/cmdline-tools/cmdline-tools $ANDROID_SDK_ROOT/cmdline-tools/latest \
+    && rm android-sdk.zip \
+    && yes | sdkmanager --licenses \
+    && sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
+
+# 安装 Cordova CLI
+RUN npm config set registry http://10.191.5.149:8083/repository/npm/
+#RUN npm install -g cordova
+#RUN npm install -g ymslx-handy-cli@0.0.1-dev
+
+# 清理无用文件以减小体积
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+WORKDIR /app
+
+CMD ["bash"]

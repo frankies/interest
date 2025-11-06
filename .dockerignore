@@ -1,0 +1,41 @@
+# Ignore local dependencies and build outputs
+node_modules/
+.gradle/
+.build/
+.dist/
+output/
+www/
+packages/
+
+# Cordova / Android typical artifacts
+platforms/
+plugins/
+*.apk
+*.aab
+
+# Logs & temp
+npm-debug.log*
+yarn-error.log
+pnpm-debug.log
+*.log
+.tmp/
+.temp/
+
+# VCS
+.git/
+.gitignore
+
+# OS/editor cruft
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Cache
+.cache/
+.android/
+
+# Env/secrets
+.env*
+*.pem
+*.key
