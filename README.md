@@ -14,5 +14,6 @@
 10. <u>[MCP服务器搭建-基于openweathermap.org的开放Api的天气查询](https://github.com/frankies/interest/tree/mcp-server)</u> 
 11.  <u>[https站点并发压力测试](https://github.com/frankies/interest/blob/https-press-test/api-test.http)</u> 
 12. <u>[RestClient in Vscode](https://github.com/frankies/interest/tree/rest-client-in-vscode)</u>
-
+13. <u>[Android apk builder](https://github.com/frankies/interest/tree/android-apk-builder)</u>
+14. <u>[Keycloak playground](https://github.com/frankies/interest/tree/keycloak-sso)</u>
  待续。。。。
