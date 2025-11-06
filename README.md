@@ -1,15 +1,4 @@
-# POC of keycloak SSO
+# Android apk build environment
 
-[2025/10/31]
-
-## Build docker image - Dockfile
-
-```shell
+[2025/11/06] 
  
-```
-
-
-## Reference
-
-
-- [Docker build of keycloak server](https://www.keycloak.org/server/containers)
