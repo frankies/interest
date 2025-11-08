@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  app:
+    image: my-wildfly-app
+    build:
+      context: .
+    read_only: true
+    tmpfs:
+     - /opt/jboss/wildfly/standalone/log:uid=1000,gid=1000
+     - /opt/jboss/wildfly/standalone/data:uid=1000,gid=1000
+     - /opt/jboss/wildfly/standalone/tmp:uid=1000,gid=1000
+     - /opt/jboss/wildfly/standalone/deployments:uid=1000,gid=1000
+     - /opt/jboss/wildfly/standalone/configuration:uid=1000,gid=1000
+    ports:
+      - "8080:8080"
+      - "9990:9990"
+    # command: ["/bin/bash", "/opt/jboss/wildfly/startup.sh"]
