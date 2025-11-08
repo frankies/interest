@@ -16,4 +16,5 @@
 12. <u>[RestClient in Vscode](https://github.com/frankies/interest/tree/rest-client-in-vscode)</u>
 13. <u>[Android apk builder](https://github.com/frankies/interest/tree/android-apk-builder)</u>
 14. <u>[Keycloak playground](https://github.com/frankies/interest/tree/keycloak-sso)</u>
+15. <u>[Kotlin Quick Start 入门练习](https://github.com/frankies/interest/tree/kotlin-quick-start)</u>
  待续。。。。
