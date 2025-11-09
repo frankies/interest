@@ -1,5 +1,3 @@
-import javafx.scene.paint.Color.color
-
 open class Tag(val name: String) {
     val children = mutableListOf<Tag>()
     val attributes = mutableListOf<Attribute>()
