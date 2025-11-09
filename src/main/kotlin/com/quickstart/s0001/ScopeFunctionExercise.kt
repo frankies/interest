@@ -1,6 +1,5 @@
 package com.quickstart.com.quickstart.s0001
 
-import java.net.URI
 import kotlin.random.Random
 
 /**
@@ -149,11 +148,12 @@ fun main() {
     fun processNonNullString(str: String) { println("Processing string: $str") }
     val str2: String? = "Hello"
     //processNonNullString(str)       // 编译错误：str 可能为空
-    val length = str?.let {
+    val length = str2?.let {
         println("let() called on $it")
         processNonNullString(it)      // 编译通过：'it' 在 '?.let { }' 中必不为空
         it.length // 返回结果
     }
+    println("let return length: $length")
 
     // Pipeline process
     val numbers4 = listOf("one", "two", "three", "four")
