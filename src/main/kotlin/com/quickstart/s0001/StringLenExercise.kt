@@ -1,4 +1,4 @@
-package com.quickstart.com.quickstart.s0001
+package com.quickstart.s0001
 
 fun stringLength(a: String?): Int = a?.length ?: 0
 

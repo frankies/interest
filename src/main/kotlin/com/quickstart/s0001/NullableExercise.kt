@@ -1,4 +1,4 @@
-package com.quickstart.com.quickstart.s0001
+package com.quickstart.s0001
 
 import kotlin.random.Random
 import kotlin.time.Clock

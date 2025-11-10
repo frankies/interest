@@ -1,4 +1,4 @@
-package com.quickstart.com.quickstart.s0001
+package com.quickstart.s0001
 
 
 data class Item(val name: String, val price: Double, val quantity: Int = 1)

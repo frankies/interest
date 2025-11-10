@@ -1,4 +1,4 @@
-package com.quickstart.com.quickstart.s0001
+package com.quickstart.s0001
 
 fun buildString(build: StringBuilder.() -> Unit): String {
     println("Begin fun -> buildString")

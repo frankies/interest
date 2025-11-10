@@ -1,4 +1,4 @@
-package com.quickstart.com.quickstart.s0001
+package com.quickstart.s0001
 
 fun <T> T.myApply(f: T.() -> Unit): T {
     f()
@@ -22,6 +22,7 @@ fun createMap(): Map<Int, String> {
         }
     }
 }
+
 
 
 fun main() {
