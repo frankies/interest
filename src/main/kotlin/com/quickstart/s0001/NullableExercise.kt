@@ -60,6 +60,6 @@ fun main() {
         println("let() called on $it")
         processNonNullString(it)      // OK: 'it' is not null inside '?.let { }'
         it.length
-    }
+    }?: 0;
     println("length: $length")
 }
