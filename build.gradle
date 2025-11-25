@@ -18,7 +18,6 @@ dependencies {
     implementation "io.ktor:ktor-server-core-jvm:$krtVersion"
     implementation "io.ktor:ktor-server-resources:$krtVersion"
     implementation("io.ktor:ktor-server-netty:$krtVersion")
-
     implementation("ch.qos.logback:logback-classic:1.5.18")
 
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
@@ -29,6 +28,14 @@ test {
 }
 kotlin {
     jvmToolchain(17)
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': application.mainClass
+        )
+    }
 }
 
 application {

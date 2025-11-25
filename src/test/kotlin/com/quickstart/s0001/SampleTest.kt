@@ -1,6 +1,6 @@
 package com.quickstart.s0001
 
-import com.quickstart.com.quickstart.s0001.Sample
+
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import kotlin.test.expect
