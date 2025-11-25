@@ -27,6 +27,7 @@ fun processCreditCardPayment(number: String, expiryDate: String) {
   println("Payment of credit card: $number, expiryDate: $expiryDate")
 }
 
+///
 fun main() {
     processPayment(Payment.CreditCard("12233-4443-44", "2014-03-02" ))
     processPayment(Payment.PayPal("12233@163.com"))
