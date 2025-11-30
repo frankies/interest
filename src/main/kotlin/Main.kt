@@ -1,5 +1,3 @@
-package com.quickstart
-
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import io.ktor.server.response.respondText

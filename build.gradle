@@ -39,5 +39,5 @@ jar {
 }
 
 application {
-    mainClass = 'com.quickstart.MainKt'
+    mainClass = 'MainKt'
 }
