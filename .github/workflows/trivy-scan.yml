@@ -74,6 +74,20 @@ jobs:
             } >> $GITHUB_STEP_SUMMARY
           fi
 
+      - name: Run Trivy vulnerability scanner with license check
+        uses: aquasecurity/trivy-action@master
+        with:
+         scan-type: 'fs'
+         scan-ref: '.' 
+         exit-code: 0
+         ignore-unfixed: false
+         vuln-type: 'os,library'
+         severity: 'UNKNOWN,HIGH,CRITICAL'
+         scanners: license
+         timeout: 30m0s
+         skip-setup-trivy: true
+        continue-on-error: true
+
       - name: Run Trivy vulnerability scanner with 'sarif' output
         uses: aquasecurity/trivy-action@master
         with:
