@@ -40,7 +40,7 @@ jobs:
 
       - name: Generate Gradle lock files
         run: |
-         ./gradlew dependencies --write-locks
+         ./gradlew dependencies --write-locks -q
 
       - name: Build jar file
         run: |
@@ -58,6 +58,7 @@ jobs:
          timeout: 30m0s
          hide-progress: true
          output: trivy.txt
+         trivy-version: '0.68.1'
         continue-on-error: true
 
       - name: Publish Trivy Output to Summary
