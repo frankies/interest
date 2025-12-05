@@ -3,8 +3,6 @@ name: Trivy Workflow CI
 on:
   workflow_dispatch:
   push:
-    branches:
-      - "test-trviy-to-summary"
 
 env:
   APP_PJ_PREFIX: "blank"
