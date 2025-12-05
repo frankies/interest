@@ -85,8 +85,24 @@ jobs:
          severity: 'UNKNOWN,HIGH,CRITICAL'
          scanners: license
          timeout: 30m0s
+         hide-progress: true
+         output: trivy-license.txt
          skip-setup-trivy: true
         continue-on-error: true
+      
+      - name: Publish Trivy license Output to Summary
+        run: |
+          if [[ -s trivy-license.txt ]]; then
+            {
+              echo "### Security License Output"
+              echo "<details><summary>Click to expand</summary>"
+              echo ""
+              echo '```terraform'
+              cat trivy-license.txt
+              echo '```'
+              echo "</details>"
+            } >> $GITHUB_STEP_SUMMARY
+          fi
 
       - name: Run Trivy vulnerability scanner with 'sarif' output
         uses: aquasecurity/trivy-action@master
@@ -108,4 +124,25 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
          sarif_file: 'trivy-results.sarif'
-       
+      
+
+      - name: Run Trivy vulnerability scanner with 'sarif' output for license check
+        uses: aquasecurity/trivy-action@master
+        with:
+         scan-type: 'fs'
+         scan-ref: '.'
+         format: 'sarif'
+         output: 'trivy-license-results.sarif'
+         exit-code: 1
+         ignore-unfixed: false
+         vuln-type: 'os,library'
+         severity: 'UNKNOWN,HIGH,CRITICAL'
+         scanners: license
+         timeout: 30m0s
+         skip-setup-trivy: true
+        continue-on-error: true
+
+      - name: Upload Trivy license scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+         sarif_file: 'trivy-license-results.sarif'
