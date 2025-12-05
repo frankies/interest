@@ -49,6 +49,12 @@ tasks.register('resolveAndLockAll') {
 }
 
 // Enable dependency locking for all configurations
-dependencyLocking {
-	lockAllConfigurations()
-}
+// dependencyLocking {
+// 	lockAllConfigurations()
+// }
+
+configurations {
+		runtimeClasspath {
+			resolutionStrategy.activateDependencyLocking()
+		}
+	} 
