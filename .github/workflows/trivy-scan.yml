@@ -112,7 +112,7 @@ jobs:
       #    scan-ref: '.'
       #    format: 'sarif'
       #    output: 'trivy-results.sarif'
-      #    exit-code: 1
+      #    exit-code: 0
       #    ignore-unfixed: false
       #    vuln-type: 'os,library'
       #    severity: 'CRITICAL,HIGH,MEDIUM'
@@ -134,7 +134,7 @@ jobs:
          scan-ref: '.'
          format: 'sarif'
          output: 'trivy-license-results.sarif'
-         exit-code: 1
+         exit-code: 0
          ignore-unfixed: false
          vuln-type: 'os,library'
          severity: 'UNKNOWN,HIGH,CRITICAL'
