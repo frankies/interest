@@ -17,4 +17,6 @@
 13. <u>[Android apk builder](https://github.com/frankies/interest/tree/android-apk-builder)</u>
 14. <u>[Keycloak playground](https://github.com/frankies/interest/tree/keycloak-sso)</u>
 15. <u>[Kotlin Quick Start 入门练习](https://github.com/frankies/interest/tree/kotlin-quick-start)</u>
- 待续。。。。
+16. <u>[Springboot 4 preview](https://github.com/frankies/interest/tree/springboot4-preview-test)</u>
+ 
+待续。。。。
