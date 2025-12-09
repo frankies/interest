@@ -1,4 +1,4 @@
-package com.quickstart.com.quickstart.s0001
+package com.quickstart.s0001
 
 data class Shop(val name: String, val customers: List<Customer>)
 
