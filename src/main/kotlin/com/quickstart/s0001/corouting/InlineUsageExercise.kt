@@ -1,4 +1,4 @@
-package com.quickstart.s0001.coroute
+package com.quickstart.s0001.corouting
 
 import kotlinx.coroutines.delay
 import java.time.LocalDateTime

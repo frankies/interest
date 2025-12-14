@@ -1,9 +1,10 @@
-package com.quickstart.s0001
+package com.quickstart.s0001.pattrenmatch
+ 
 
 interface Expr
 class Num(val value: Int): Expr
 class Sum(val left: Expr, val right: Expr): Expr
-fun eval2(exp: Expr) : Int {
+fun eval(exp: Expr) : Int {
     if(exp is Num) {
         return exp.value
     }
@@ -16,7 +17,7 @@ fun eval2(exp: Expr) : Int {
 }
 
 fun main() {
-    val res = eval2(Sum(Sum(Num(1), Num(2)), Num(3)))
+    val res = eval(Sum(Sum(Num(1), Num(2)), Num(3)))
     assert(res == 6)
     println(res)
 }

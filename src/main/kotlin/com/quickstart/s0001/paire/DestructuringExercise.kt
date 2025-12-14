@@ -1,11 +1,13 @@
-package com.quickstart.s0001
+package com.quickstart.s0001.paire
+
+import kotlin.collections.iterator
 
 // data 修饰符时，对象就已经有 component1 和 component2 方法，
 // 也就自然就支持解构操作
 data class User(val name: String, val addr: String, val age: Int) //<-- data is key
 
 // 普通一个类就需要实现  component1 和 component2 方法
-class Vect2(val x: Int, val y: Int) {
+class Vect(val x: Int, val y: Int) {
     operator fun component1() = x
     operator fun component2() = y
 }
@@ -45,6 +47,6 @@ fun main() {
     println("$name, $addr")
 
     //
-    val (x, y) = Vect2(x = 1, y = 2)
+    val (x, y) = Vect(x = 1, y = 2)
     println("Vecotr: $x, $y")
 }
