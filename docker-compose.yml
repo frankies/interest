@@ -1,0 +1,56 @@
+services:
+    wildfly:
+        image: wildfly-standalone-base:20
+        container_name: app
+        build:
+          context: ./docker
+          dockerfile: Dockerfile
+        volumes:
+          - ./standalone.xml.20:/opt/jboss/wildfly/standalone/configuration/standalone.xml
+          - ./deployments:/opt/jboss/wildfly/standalone/deployments
+          - ./exporter.yaml:/opt/jboss/wildfly/standalone/conf/exporter.yaml
+          - ./jmx_prometheus_javaagent-0.7.jar:/opt/jboss/wildfly/standalone/conf/jmx_prometheus_javaagent.jar
+        ports:
+          #- "9901:9901"
+          - "9990:9990"
+          - "8080:8080"
+        environment:
+         - TZ=Asia/Shanghai
+         - DEBUG_MODE=true
+         - "WILDFLY_OPTS=-Dwildfly.datasources.statistics-enabled=true -Djboss.bind.address.management=0.0.0.0"
+        # - "WILDFLY_OPTS=-javaagent:/opt/jboss/wildfly/standalone/conf/jmx_prometheus_javaagent.jar=9901:/opt/jboss/wildfly/standalone/conf/exporter.yaml -Xbootclasspath/p:/opt/jboss/wildfly/modules/system/layers/base/org/jboss/logmanager/main/jboss-logmanager-2.1.15.Final.jar:/opt/jboss/wildfly/modules/system/layers/base/org/wildfly/common/main/wildfly-common-1.5.4.Final.jar -Djboss.modules.system.pkgs=org.jboss.byteman,org.jboss.logmanager -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Djmx.prometheus.exporter.developer.debug=true"
+        # - "WILDFLY_OPTS=-javaagent:/opt/jboss/wildfly/standalone/conf/jmx_prometheus_javaagent.jar=9901:/opt/jboss/wildfly/standalone/conf/exporter.yaml -Xbootclasspath/p:/opt/jboss/wildfly/modules/system/layers/base/org/jboss/logmanager/main/jboss-logmanager-2.1.11.Final.jar:/opt/jboss/wildfly/modules/system/layers/base/org/wildfly/common/main/wildfly-common-1.5.1.Final.jar -Djboss.modules.system.pkgs=org.jboss.byteman,org.jboss.logmanager -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Djmx.prometheus.exporter.developer.debug=true -Dwildfly.datasources.statistics-enabled=true"
+        healthcheck:
+          test: ["CMD", "curl", "-f", "http://localhost:8080"]
+          interval: 1m30s
+          timeout: 10s
+          retries: 3
+          start_period: 40s
+        ulimits:
+          nofile:
+            soft: 131072
+            hard: 131072
+          nproc:
+            soft: 8192
+            hard: 8192
+        networks:
+          - custom_network
+    exporter:
+        image: eclipse-temurin:8-jre
+        ports:
+          - "9404:9404"
+        depends_on:
+           wildfly:
+             condition: service_healthy
+        volumes:
+         - ./jmx_prometheus_httpserver-1.0.1.jar:/opt/jmx_prometheus_httpserver.jar
+         - ./standalone-exporter.yaml:/opt/exporter.yaml
+         - ./wildfly-client-all-17.0.1.Final.jar:/opt/wildfly-client-all.jar
+        command: "java -cp /opt/jmx_prometheus_httpserver.jar:/opt/wildfly-client-all.jar io.prometheus.jmx.WebServer 9404 /opt/exporter.yaml"
+        networks:
+          - custom_network
+
+networks:
+  custom_network:
+    driver: bridge
+

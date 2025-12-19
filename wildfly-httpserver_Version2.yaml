@@ -1,0 +1,22 @@
+---
+# 使用 WildFly 的 HTTP-based JMX URL
+jmxUrl: service:jmx:remote+http://localhost:9990
+
+# 如果启用了认证（推荐）
+username: wildfly-admin
+password: admin
+
+ssl: false
+startDelaySeconds:  0
+
+includeObjectNames:
+  - "jboss.as:subsystem=datasources,data-source=*,statistics=pool"
+  - "jboss.as:subsystem=datasources,xa-data-source=*,statistics=pool"
+  - "jboss.as:management-root=server"
+
+rules:
+  - pattern: 'jboss. as<subsystem=datasources, data-source=(.*), statistics=pool><(. *)>'
+    name: wildfly_datasource_pool_$2
+    type: GAUGE
+    labels:
+      datasource: "$1"

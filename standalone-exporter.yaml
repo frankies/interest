@@ -1,0 +1,174 @@
+---
+  # Prometheus JMX Exporter Configuration for Wildfly
+  # It's a 'jboss.as' mbean missing issue:
+  # https://github.com/prometheus/jmx_exporter/issues/128
+  # It only works in jmx_prometheus_javaagent-0.20.jar
+
+jmxUrl: "service:jmx:remote+http://wildfly:9990"
+username: "wildfly-admin"
+password: "admin"
+
+startDelaySeconds: 0
+ssl: false
+lowercaseOutputName: true
+lowercaseOutputLabelNames: true
+excludeJvmMetrics: true
+
+#includeObjectNames:
+#  - "jboss.as:subsystem=datasources,data-source=*,statistics=pool"
+#  - "jboss.as:subsystem=datasources,xa-data-source=*,statistics=pool"
+#  #- "java.lang:type=Memory"
+#  #- "java.lang:type=MemoryPool,*"
+#  #- "java.lang:type=ClassLoading"
+#  #- "java.lang:type=GarbageCollector,*"
+#  #- "java.lang:type=Threading"
+#  - "java.lang:*"
+  
+rules: 
+ # - pattern: ".*"
+
+  - pattern: "^jboss.as<subsystem=datasources, (?:xa-)*data-source=(.+), statistics=(.+)><>(ActiveCount)"
+    name: ds_pool_active_count
+    labels:
+       pool: "$1"
+    help: "Current active connections of datasource pool $1"
+    type: GAUGE
+
+  - pattern: "^jboss.as<subsystem=datasources, (?:xa-)*data-source=(.+), statistics=(.+)><>(AvailableCount)"
+    name: ds_pool_max_size
+    labels:
+       pool: "$1"
+    help: "Max connections of datasource pool $1"
+    type: GAUGE
+
+  # ============================================================================
+  # JVM Classes Metrics
+  # ============================================================================
+  - pattern: "java.lang<type=ClassLoading><>LoadedClassCount"
+    name:  jvm_classes_currently_loaded
+    type: GAUGE
+    help: "The number of classes currently loaded in the JVM"
+
+  # ============================================================================
+  # JVM Garbage Collection Metrics
+  # ============================================================================
+  - pattern: "java.lang<type=GarbageCollector, name=(.+)><>(CollectionTime)"
+    name: jvm_gc_collection_seconds_sum
+    type: GAUGE
+    labels:
+      gc: "$1"
+    # Convert milliseconds to seconds
+    help: "Time spent in garbage collection in seconds"
+  - pattern: "java.lang<type=GarbageCollector, name=(.+)><>(CollectionCount)"
+    name:  "jvm_gc_collection_seconds_count"
+    type: GAUGE
+    labels:
+      gc:  "$1"
+    help: "Number of garbage collection cycles"
+
+  # ============================================================================
+  # JVM Thread Metrics
+  # ============================================================================
+  - pattern: "java.lang<type=Threading><>ThreadCount"
+    name: jvm_threads_current
+    type:  GAUGE
+    help: "Current thread count"
+
+  - pattern: "java.lang<type=Threading><>PeakThreadCount"
+    name: jvm_threads_peak
+    type: GAUGE
+    help: "Peak thread count"
+
+    # Note: This maps to deadlocked threads if exposed by your JMX
+    # You may need to adjust based on your actual MBean structure
+
+  # Alternative for deadlocked threads (if available)
+  - pattern: "java.lang<type=Threading><>FindDeadlockedThreads"
+    name: jvm_threads_deadlocked
+    type:  GAUGE
+    help: "Number of deadlocked threads"
+    
+  # ============================================================================
+  # JVM Memory Metrics - Heap
+  # ============================================================================
+  - pattern: "java.lang<type=Memory><HeapMemoryUsage>max"
+    name: jvm_memory_max_bytes
+    type: GAUGE
+    labels:
+      area: "heap"
+    help: "Maximum heap memory in bytes"
+
+  - pattern: "java.lang<type=Memory><HeapMemoryUsage>used"
+    name: jvm_memory_used_bytes
+    type:  GAUGE
+    labels:
+      area: "heap"
+    help: "Used heap memory in bytes"
+
+  # ============================================================================
+  # JVM Memory Metrics - Non-Heap
+  # ============================================================================
+  - pattern: "java.lang<type=Memory><NonHeapMemoryUsage>max"
+    name: jvm_memory_max_bytes
+    type: GAUGE
+    labels:
+      area:  "nonheap"
+    help: "Maximum non-heap memory in bytes"
+
+  - pattern: "java.lang<type=Memory><NonHeapMemoryUsage>used"
+    name: jvm_memory_used_bytes
+    type: GAUGE
+    labels: 
+      area: "nonheap"
+    help: "Used non-heap memory in bytes"
+
+  # ============================================================================
+  # JVM Memory Pool Metrics - G1 Old Gen
+  # ============================================================================
+  - pattern: "java.lang<type=MemoryPool, name=G1 Old Gen><Usage>max"
+    name: jvm_memory_pool_max_bytes
+    type: GAUGE
+    labels:
+      pool: "G1 Old Gen"
+    help: "Maximum bytes of G1 Old Gen memory pool"
+
+  - pattern: "java.lang<type=MemoryPool, name=G1 Old Gen><Usage>used"
+    name:  jvm_memory_pool_used_bytes
+    type: GAUGE
+    labels:
+      pool:  "G1 Old Gen"
+    help: "Used bytes of G1 Old Gen memory pool"
+
+  # ============================================================================
+  # JVM Memory Pool Metrics - G1 Survivor Space
+  # ============================================================================
+  - pattern: "java.lang<type=MemoryPool, name=G1 Survivor Space><Usage>committed"
+    name: jvm_memory_pool_committed_bytes
+    type: GAUGE
+    labels:
+      pool: "G1 Survivor Space"
+    help: "Committed bytes of G1 Survivor Space memory pool"
+
+  - pattern: "java.lang<type=MemoryPool, name=G1 Survivor Space><Usage>used"
+    name: jvm_memory_pool_used_bytes
+    type:  GAUGE
+    labels:
+      pool: "G1 Survivor Space"
+    help: "Used bytes of G1 Survivor Space memory pool"
+
+  # ============================================================================
+  # JVM Memory Pool Metrics - G1 Eden Space
+  # ============================================================================
+  - pattern: "java.lang<type=MemoryPool, name=G1 Eden Space><Usage>committed"
+    name: jvm_memory_pool_committed_bytes
+    type: GAUGE
+    labels:
+      pool: "G1 Eden Space"
+    help: "Committed bytes of G1 Eden Space memory pool"
+
+  - pattern: "java.lang<type=MemoryPool, name=G1 Eden Space><Usage>used"
+    name: jvm_memory_pool_used_bytes
+    type: GAUGE
+    labels:
+      pool: "G1 Eden Space"
+    help: "Used bytes of G1 Eden Space memory pool"
