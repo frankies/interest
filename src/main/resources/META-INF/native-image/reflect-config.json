@@ -1,0 +1,11 @@
+[{
+    "name":"com.example.demo.TestPrinter",  
+    "methods":[{
+        "name":"<init>",    
+        "parameterTypes":[]   
+    },
+    {
+        "name":"print",      
+        "parameterTypes":[]   
+    }] 
+}]

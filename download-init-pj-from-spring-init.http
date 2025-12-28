@@ -1,0 +1,1 @@
+GET https://start.spring.io/starter.zip?type=gradle-project&language=java&bootVersion=4.0.1&baseDir=demo&groupId=com.example&artifactId=demo&name=native-reflection-json-demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&packaging=jar&javaVersion=25&configurationFileFormat=yaml&dependencies=native,devtools,configuration-processor

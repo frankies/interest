@@ -1,22 +1,61 @@
-# Best Practise(最佳实践)
+# Reflection demo of Graalvm native application
 
+> From [GraalVM Native Image Reflect Config Demystified][1]
 
+## 安装graavel agent 
 
-1. <u>[Postgres 的流复制工具Slony使用示例](https://github.com/frankies/interest/tree/pg_slony)</u>  **(2017-12-15）**
-2. <u>[自启动脚本](https://github.com/frankies/interest/tree/shell_service_install_service)</u>  **(2017-12-25）**
-3. <u>[Gradle 中调用Ant任务执行](https://github.com/frankies/interest/tree/pg_slony)</u>  **(2018-02-03）**
-4. ​ <u>[Docker 中部署Springboot+mysql+nginx](https://github.com/frankies/interest/tree/docker-springboot-nginx-mysql)</u>  **(2018-03-27）**
-5. <u>[Web页面调用客户端的本地应用的例子](https://github.com/frankies/interest/tree/page-inovke-local-app)</u>  **(2018-06-12）**
-6. <u>[Springboot 调用 rabbitMQ 的例子](https://github.com/frankies/interest/tree/spring-rabitmq-demo)</u>  **(2018-11-20）**
-7. <u>[Websocket客户端的Java代码使用例子](https://github.com/frankies/interest/tree/websocket-client-java-backend)</u> 
-8. <u>[Spring MVC Async](https://github.com/frankies/interest/tree/spring-mvc-async)</u> 
-9. <u>[利用python uv进行飞鸟云订阅地址解析处理](https://github.com/frankies/interest/tree/python-uv)</u> 
-10. <u>[MCP服务器搭建-基于openweathermap.org的开放Api的天气查询](https://github.com/frankies/interest/tree/mcp-server)</u> 
-11.  <u>[https站点并发压力测试](https://github.com/frankies/interest/blob/https-press-test/api-test.http)</u> 
-12. <u>[RestClient in Vscode](https://github.com/frankies/interest/tree/rest-client-in-vscode)</u>
-13. <u>[Android apk builder](https://github.com/frankies/interest/tree/android-apk-builder)</u>
-14. <u>[Keycloak playground](https://github.com/frankies/interest/tree/keycloak-sso)</u>
-15. <u>[Kotlin Quick Start 入门练习](https://github.com/frankies/interest/tree/kotlin-quick-start)</u>
-16. <u>[Springboot 4 preview](https://github.com/frankies/interest/tree/springboot4-preview-test)</u>
+```bash
+sdk install java 25.0.1-graalce
+sdk default java 25.0.1-graalce
+```
+
+## 生成jar包
+
+```bash
+./gradlew build
+```
+
+- 生成 `reflect-config.json`
+
+```bash
+java -agentlib:native-image-agent=config-merge-dir=./config -jar build/libs/demo-0.0.1-SNAPSHOT.jar
+```
+将生成的 `reflect-config.json`文件放入 `src/main/resources/META-INF/native-image`目录下
+
+## bootRun 运行JVM
  
-待续。。。。
+```bash
+./gradlew bootRun
+```
+
+- 输出
+
+```txt
+2025-12-28T04:53:12.499Z  INFO 42178 --- [native-reflection-json-demo] [  restartedMain] .e.d.NativeReflectionJsonDemoApplication : Started NativeReflectionJsonDemoApplication in 0.72 seconds (process running for 1.058)
+```
+
+## nativeRun 用native方式运行
+
+```bash
+ ./gradlew nativeRun 
+```
+
+- 输出
+ 
+```txt
+2025-12-28T04:51:24.678Z  INFO 41272 --- [native-reflection-json-demo] [           main] .e.d.NativeReflectionJsonDemoApplication : Started NativeReflectionJsonDemoApplication in 0.02 seconds (process running for 0.026)
+```
+
+
+## Comparation
+
+
+
+
+## Reference
+
+[1]: https://stevenpg.com/posts/graalvm-reflect-config-demystified/
+
+
+
+
