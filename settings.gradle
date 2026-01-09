@@ -1,1 +1,3 @@
-rootProject.name = 'gateway'
+rootProject.name = 'gateway-demo'
+
+include 'ms-gateway'

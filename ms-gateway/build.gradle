@@ -4,14 +4,28 @@ plugins {
 	id 'io.spring.dependency-management' version '1.1.7'
 	id 'org.graalvm.buildtools.native' version '0.11.3'
 }
- 
-description = 'Spring Cloud Gateway Microservice'
 
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(25)
+	}
+}
+
+ext {
+	set('springCloudVersion', "2025.0.1")
+}
 
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
+}
+
+repositories {
+	mavenCentral()
 }
 
 dependencies {
@@ -52,7 +66,13 @@ dependencies {
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-} 
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
 
 tasks.named('test') {
 	useJUnitPlatform()
