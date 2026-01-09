@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '4.0.1'
+	id 'org.springframework.boot' version '3.5.9'
 	id 'io.spring.dependency-management' version '1.1.7'
 	id 'org.graalvm.buildtools.native' version '0.11.3'
 }
@@ -16,7 +16,7 @@ java {
 }
 
 ext {
-	set('springCloudVersion', "2024.0.0")
+	set('springCloudVersion', "2025.0.1")
 }
 
 configurations {
@@ -31,7 +31,7 @@ repositories {
 
 dependencies {
 	// Spring Cloud Gateway
-	implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
+	implementation 'org.springframework.cloud:spring-cloud-starter-gateway-server-webflux'
 	
 	// Security & JWT
 	implementation 'org.springframework.boot:spring-boot-starter-security'
