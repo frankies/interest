@@ -1,3 +1,4 @@
 rootProject.name = 'gateway-demo'
 
 include 'ms-gateway'
+include 'ms-order-service'
