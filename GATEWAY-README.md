@@ -48,7 +48,7 @@
 
 ## 技术栈
 
-- **Spring Boot 4.0.1** - 基础框架
+- **Spring Boot 3.5.9** - 基础框架
 - **Spring Cloud Gateway** - 网关核心
 - **Spring Security** - 安全认证
 - **JWT (JJWT 0.12.5)** - 令牌认证
@@ -78,8 +78,21 @@ docker run -d -p 6379:6379 redis:latest
 
 2. 启动 Nacos（可选）
 ```bash
-docker run -d -p 8848:8848 -e MODE=standalone nacos/nacos-server:latest
+docker run --name nacos-standalone-derby \
+    -e MODE=standalone \
+    -e NACOS_AUTH_TOKEN=MjM0YXNka2ZsamwyM18jIyUlJSM0MzQzMzMzMzQzMjQzNDIjMDAkJSUlJSUlIyMlIyUyMzQlJSUjNDM0MzMzMjM0JSUlIzQzNDMzMwo \
+    -e NACOS_AUTH_IDENTITY_KEY=hello \
+    -e NACOS_AUTH_IDENTITY_VALUE=world \
+    -p 8080:8080 \
+    -p 8848:8848 \
+    -p 9848:9848 \
+    -d \
+    nacos/nacos-server:latest
 ```
+
+- NACOS_AUTH_TOKEN: Nacos 用于生成JWT Token的密钥，使用长度大于32字符的字符串，再经过Base64编码。`echo "234asdkfljl23_##$ASDFASDF1234%%%#$4434333334324342#$#$#$%%%%%%##%#%234%%%#$4434333234%%%#$4434333"|base64`
+- NACOS_AUTH_IDENTITY_KEY: Nacos Server端之间 Inner API的身份标识的Key，必填。
+- NACOS_AUTH_IDENTITY_VALUE: Nacos Server端之间 Inner API的身份标识的Value，必填。
 
 3. 启动 Zipkin（可选）
 ```bash

@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: order-service
+  config:
+    import: optional:nacos:
   
   cloud:
     nacos:

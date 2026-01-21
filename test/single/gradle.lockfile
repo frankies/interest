@@ -1,0 +1,10 @@
+# This is a Gradle generated file for dependency locking.
+# Manual edits can break the build and are not advised.
+# This file is expected to be part of source control.
+com.google.errorprone:error_prone_annotations:2.36.0=runtimeClasspath
+com.google.guava:failureaccess:1.0.3=runtimeClasspath
+com.google.guava:guava:33.4.6-jre=runtimeClasspath
+com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava=runtimeClasspath
+com.google.j2objc:j2objc-annotations:3.0.0=runtimeClasspath
+org.jspecify:jspecify:1.0.0=runtimeClasspath
+empty=

@@ -1,9 +1,11 @@
 server:
   port: 8080
 
-spring.profiles.active: local
+# spring.profiles.active: local
 
 spring:
+  config:
+    import: "optional:nacos:api-gateway.yaml"
   application:
     name: api-gateway
   
@@ -16,6 +18,7 @@ spring:
         server-addr: localhost:8848
         enabled: true
         file-extension: yaml
+        data-id: api-gateway
     
     gateway:
       server:
@@ -85,7 +88,7 @@ spring:
   # Security
   security:
     jwt:
-      secret: your-256-bit-secret-key-change-this-in-production
+      secret: MjM0YXNka2ZsamwyM18jIyUlJSM0MzQzMzMzMzQzMjQzNDIjMDAkJSUlJSUlIyMlIyUyMzQlJSUjNDM0MzMzMjM0JSUlIzQzNDMzMwo
       expiration: 86400000 # 24 hours
 
 # Resilience4j Circuit Breaker

@@ -1,0 +1,50 @@
+          apply plugin: GenerateGradleLocksPlugin
+          class GenerateGradleLocksPlugin implements Plugin<Gradle> {
+          
+              void apply(Gradle gradle) { 
+          		gradle.rootProject {
+          			// 配置 subprojects 的依赖锁定（如果存在）
+          			subprojects {
+          				configurations.configureEach {
+          					if (it.name == 'runtimeClasspath') {
+							   println("＝＝＝>>>activateDependencyLocking for root project －＞＞＞＞" )
+          					
+          						resolutionStrategy.activateDependencyLocking()
+          					}
+          				}
+          			}
+          			
+          			// 配置 root project 的依赖锁定
+          			configurations.configureEach {
+          				if (it.name == 'runtimeClasspath') {
+						   println("＝＝＝>>>activateDependencyLocking for root project －＞＞＞＞" + it.name)
+          					resolutionStrategy.activateDependencyLocking()
+          				}
+          			}
+          			
+          			tasks.register("generateAllLockfiles") {
+          			  group = "report"
+          			  description="Generate lock files"
+          			  def n = "dependencies"
+          			  
+          			  // 添加 root project 的 dependencies 任务
+          			  def rootTask = tasks.findByName(n)
+          			  if(rootTask != null) {
+          				println("=Dep===>:${rootTask}")
+          				dependsOn(rootTask)
+          			  }
+          			  
+          			  // 添加 subprojects 的 dependencies 任务
+          			  subprojects.each {  
+          				def found = tasks.findByPath(":${it.name}:${n}")
+          				if(found != null) {
+          					println("==>>>> :${found}")
+          					dependsOn(found)
+          				} 
+          			  } 
+          		}
+          		// println("Generate **.gradle.locks by command: gradlew generateAllLockfiles --write-locks")
+          	}
+          	
+          }
+		}

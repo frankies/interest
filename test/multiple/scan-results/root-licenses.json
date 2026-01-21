@@ -1,0 +1,142 @@
+{
+  "SchemaVersion": 2,
+  "ReportID": "019bd1d8-f766-7b98-a970-b297755672b8",
+  "CreatedAt": "2026-01-18T16:03:35.910762088Z",
+  "ArtifactName": ".",
+  "ArtifactType": "filesystem",
+  "Results": [
+    {
+      "Target": "blank-domain/gradle.lockfile",
+      "Class": "lang-pkgs",
+      "Type": "gradle",
+      "Packages": [
+        {
+          "ID": "com.google.errorprone:error_prone_annotations:2.36.0",
+          "Name": "com.google.errorprone:error_prone_annotations",
+          "Identifier": {
+            "PURL": "pkg:maven/com.google.errorprone/error_prone_annotations@2.36.0",
+            "UID": "808629bf186ad002"
+          },
+          "Version": "2.36.0",
+          "Locations": [
+            {
+              "StartLine": 4,
+              "EndLine": 4
+            }
+          ]
+        },
+        {
+          "ID": "com.google.guava:failureaccess:1.0.3",
+          "Name": "com.google.guava:failureaccess",
+          "Identifier": {
+            "PURL": "pkg:maven/com.google.guava/failureaccess@1.0.3",
+            "UID": "9f40a6f03d277d95"
+          },
+          "Version": "1.0.3",
+          "Locations": [
+            {
+              "StartLine": 5,
+              "EndLine": 5
+            }
+          ]
+        },
+        {
+          "ID": "com.google.guava:guava:33.4.6-jre",
+          "Name": "com.google.guava:guava",
+          "Identifier": {
+            "PURL": "pkg:maven/com.google.guava/guava@33.4.6-jre",
+            "UID": "ebf6408aa348dacf"
+          },
+          "Version": "33.4.6-jre",
+          "DependsOn": [
+            "com.google.guava:failureaccess:1.0.3",
+            "com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava"
+          ],
+          "Locations": [
+            {
+              "StartLine": 6,
+              "EndLine": 6
+            }
+          ]
+        },
+        {
+          "ID": "com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava",
+          "Name": "com.google.guava:listenablefuture",
+          "Identifier": {
+            "PURL": "pkg:maven/com.google.guava/listenablefuture@9999.0-empty-to-avoid-conflict-with-guava",
+            "UID": "9b723a8abb151020"
+          },
+          "Version": "9999.0-empty-to-avoid-conflict-with-guava",
+          "Locations": [
+            {
+              "StartLine": 7,
+              "EndLine": 7
+            }
+          ]
+        },
+        {
+          "ID": "com.google.j2objc:j2objc-annotations:3.0.0",
+          "Name": "com.google.j2objc:j2objc-annotations",
+          "Identifier": {
+            "PURL": "pkg:maven/com.google.j2objc/j2objc-annotations@3.0.0",
+            "UID": "3e55a47f5706b5c9"
+          },
+          "Version": "3.0.0",
+          "Licenses": [
+            "Apache License, Version 2.0"
+          ],
+          "Locations": [
+            {
+              "StartLine": 8,
+              "EndLine": 8
+            }
+          ]
+        },
+        {
+          "ID": "org.jspecify:jspecify:1.0.0",
+          "Name": "org.jspecify:jspecify",
+          "Identifier": {
+            "PURL": "pkg:maven/org.jspecify/jspecify@1.0.0",
+            "UID": "a6c5f7fffc51167e"
+          },
+          "Version": "1.0.0",
+          "Licenses": [
+            "The Apache License, Version 2.0"
+          ],
+          "Locations": [
+            {
+              "StartLine": 9,
+              "EndLine": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Target": "blank-domain/gradle.lockfile",
+      "Class": "license",
+      "Licenses": [
+        {
+          "Severity": "LOW",
+          "Category": "notice",
+          "PkgName": "com.google.j2objc:j2objc-annotations",
+          "FilePath": "blank-domain/gradle.lockfile",
+          "Name": "Apache License, Version 2.0",
+          "Text": "",
+          "Confidence": 1,
+          "Link": ""
+        },
+        {
+          "Severity": "LOW",
+          "Category": "notice",
+          "PkgName": "org.jspecify:jspecify",
+          "FilePath": "blank-domain/gradle.lockfile",
+          "Name": "The Apache License, Version 2.0",
+          "Text": "",
+          "Confidence": 1,
+          "Link": ""
+        }
+      ]
+    }
+  ]
+}
