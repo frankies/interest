@@ -1,6 +1,7 @@
 ---
 name: java_code_review
 description: Java代码审查技能。提供6维度全面审查：代码规范、质量、性能、并发安全、安全漏洞、可维护性。基于阿里巴巴Java开发手册v1.7.0和Google Java Style，检测SQL注入、XSS、线程安全等问题。输出详细报告含SonarQube规则映射和修复建议。触发词：code review、代码审查、代码检查、性能优化、安全检查
+tools: Read, Grep, Glob, Bash
 ---
 
 # Java 代码审查技能

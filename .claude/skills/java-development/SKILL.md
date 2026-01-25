@@ -1,6 +1,7 @@
 ---
 name: java_enterprise_development
 description: 企业级Java开发技能。使用Spring Boot 3.x + Spring Cloud构建高并发微服务系统，严格遵守阿里巴巴Java开发手册和Google Java Style。支持完整分层架构、设计模式应用、分布式事务处理。代码覆盖率>80%，通过SonarQube检查。触发词：java、spring boot、微服务、rest api、service
+tools: [Bash, Read, Write, Edit, Grep, Glob]
 ---
 
 # Java 企业级开发技能
