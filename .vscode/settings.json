@@ -1,0 +1,23 @@
+{
+  "markdown.styles": [
+            "./.vscode/markdown.css"                         // 相对路径
+    ],
+    
+    "markdown.preview.fontFamily": "'Microsoft YaHei', 'Segoe UI', -apple-system, sans-serif",
+    "markdown.preview.fontSize": 15,
+    "markdown.preview.lineHeight": 1.8,
+    "markdown.preview.lineNumbers": false,
+    "markdown.preview.scrollEditorWithPreview": true,
+    "markdown.preview.scrollPreviewWithEditor": true,
+    "markdown.preview.markdownEditorSelectionUpdate": true,
+    "markdown.preview.doubleClickToSwitchToEditor": true,
+    
+    // 语法高亮
+    "markdown.preview.codeBlockTheme": "atom-one-dark.css",
+    
+    // 数学公式
+    "markdown.math.enabled": true,
+    "markdown.math.macros": {
+        "\\RR": "\\mathbb{R}"
+    }
+}
