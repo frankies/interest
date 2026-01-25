@@ -63,6 +63,25 @@ hello_world()
 
 ## 警告提示框
 
+### 使用 HTML 标签（推荐，支持自定义样式）
+
+<div class="warning">
+⚠️ <strong>警告</strong><br>
+这是一个警告提示框。请注意这个重要的信息！
+</div>
+
+<div class="info">
+ℹ️ <strong>信息</strong><br>
+这是一个信息提示框，用于显示一般性的提示信息。
+</div>
+
+<div class="note">
+📝 <strong>注意</strong><br>
+这是一个笔记提示框，用于记录重要的笔记内容。
+</div>
+
+### 使用 GitHub 风格（部分编辑器支持）
+
 > [!WARNING]
 > 这是一个警告提示框。请注意这个重要的信息！
 

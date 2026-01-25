@@ -1,6 +1,7 @@
 {
   "markdown.styles": [
-            "./.vscode/markdown.css"                         // 相对路径
+      "./.vscode/markdown-kiro-light.css"               ,          // 相对路径
+            "./.vscode/markdown-kiro-dark.css"            ,             // 相对路径
     ],
     
     "markdown.preview.fontFamily": "'Microsoft YaHei', 'Segoe UI', -apple-system, sans-serif",

@@ -1,0 +1,414 @@
+/* Kiro Light 风格 - 精美的 Markdown 样式 */
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    line-height: 1.8;
+    color: #1e293b;
+    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+    margin: 0;
+    padding: 40px 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    min-height: 100vh;
+}
+
+/* 标题样式 */
+h1 {
+    font-size: 32px;
+    color: #ffffff;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    padding: 20px 25px;
+    margin: 30px 0 25px 0;
+    font-weight: 700;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(99, 102, 241, 0.2);
+    letter-spacing: 0.5px;
+}
+
+h2 {
+    font-size: 26px;
+    color: #4f46e5;
+    border-left: 5px solid #6366f1;
+    padding-left: 20px;
+    margin: 35px 0 20px 0;
+    font-weight: 600;
+    position: relative;
+}
+
+h2::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(180deg, #6366f1 0%, #8b5cf6 100%);
+    border-radius: 3px;
+}
+
+h3 {
+    font-size: 22px;
+    color: #7c3aed;
+    margin: 30px 0 15px 0;
+    font-weight: 600;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e0e7ff;
+}
+
+h4, h5, h6 {
+    font-size: 18px;
+    color: #475569;
+    margin: 25px 0 12px 0;
+    font-weight: 500;
+}
+
+/* 段落 */
+p {
+    margin: 18px 0;
+    text-align: justify;
+    color: #334155;
+    font-size: 16px;
+}
+
+/* 文本格式 */
+strong {
+    color: #ea580c;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(234, 88, 12, 0.1);
+}
+
+em {
+    color: #7c3aed;
+    font-style: italic;
+}
+
+del {
+    text-decoration: line-through;
+    color: #ef4444;
+    opacity: 0.7;
+}
+
+/* 代码块样式 */
+pre {
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    border-radius: 0;
+    padding: 25px;
+    margin: 25px 0;
+    overflow-x: auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    border: 1px solid #cbd5e1;
+    position: relative;
+}
+
+pre::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 35px;
+    background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+    border-radius: 0;
+    border-bottom: 1px solid #94a3b8;
+}
+
+pre code {
+    background: transparent;
+    border: none;
+    padding: 0;
+    color: #1e293b;
+}
+
+code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Consolas', monospace;
+    background: linear-gradient(135deg, #e0e7ff 0%, #ddd6fe 100%);
+    color: #5b21b6;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    border: 1px solid #c7d2fe;
+    box-shadow: 0 2px 4px rgba(99, 102, 241, 0.1);
+}
+
+/* 链接样式 */
+a {
+    color: #3b82f6;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
+    transition: width 0.3s ease;
+}
+
+a:hover::after {
+    width: 100%;
+}
+
+a:hover {
+    text-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+}
+
+/* 表格样式 */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 30px 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background: #ffffff;
+}
+
+th {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: #ffffff;
+    padding: 18px;
+    text-align: left;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 14px;
+}
+
+td {
+    border: 1px solid #e2e8f0;
+    padding: 15px;
+    background-color: #ffffff;
+    color: #334155;
+}
+
+tr:nth-child(even) td {
+    background-color: #f8fafc;
+}
+
+tr:hover td {
+    background: linear-gradient(135deg, #f1f5f9 0%, #e0e7ff 100%);
+    transition: all 0.3s ease;
+}
+
+/* 引用块样式 */
+blockquote {
+    border-left: 5px solid #6366f1;
+    background: linear-gradient(135deg, #f1f5f9 0%, #e0e7ff 100%);
+    padding: 25px 30px;
+    margin: 30px 0;
+    border-radius: 12px;
+    font-style: italic;
+    color: #4f46e5;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1), inset 0 1px 0 rgba(99, 102, 241, 0.1);
+    position: relative;
+}
+
+blockquote::before {
+    content: '"';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    font-size: 60px;
+    color: #6366f1;
+    opacity: 0.2;
+    font-family: Georgia, serif;
+}
+
+/* 列表样式 */
+ul, ol {
+    padding-left: 30px;
+    margin: 20px 0;
+}
+
+li {
+    margin: 12px 0;
+    padding-left: 8px;
+    color: #334155;
+}
+
+ul li::marker {
+    color: #6366f1;
+    font-size: 1.2em;
+}
+
+ol li::marker {
+    color: #8b5cf6;
+    font-weight: 700;
+}
+
+/* 警告和提示框 */
+.warning {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-left: 5px solid #f59e0b;
+    color: #92400e;
+    padding: 20px 25px;
+    border-radius: 12px;
+    margin: 25px 0;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
+}
+
+.info {
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    border-left: 5px solid #3b82f6;
+    color: #1e40af;
+    padding: 20px 25px;
+    border-radius: 12px;
+    margin: 25px 0;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+.note {
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    border-left: 5px solid #10b981;
+    color: #065f46;
+    padding: 20px 25px;
+    border-radius: 12px;
+    margin: 25px 0;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+}
+
+/* 自定义容器 */
+.custom-container {
+    border: 2px solid transparent;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    padding: 25px;
+    border-radius: 16px;
+    margin: 30px 0;
+    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.25);
+    position: relative;
+    overflow: hidden;
+}
+
+.custom-container::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #6366f1, #8b5cf6, #ec4899, #f59e0b);
+    border-radius: 16px;
+    z-index: -1;
+    opacity: 0.3;
+    filter: blur(10px);
+}
+
+/* 特殊代码块 */
+pre[class*="language-"] {
+    position: relative;
+    padding-top: 50px;
+}
+
+pre[class*="language-"]::before {
+    content: attr(class);
+    position: absolute;
+    top: 8px;
+    right: 15px;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: #ffffff;
+    padding: 6px 14px;
+    font-size: 11px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+
+/* 图片样式 */
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    margin: 30px 0;
+    border: 2px solid #e2e8f0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 30px rgba(99, 102, 241, 0.2);
+}
+
+/* 水平线 */
+hr {
+    border: none;
+    height: 3px;
+    background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+    margin: 40px 0;
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+}
+
+/* 任务列表 */
+.task-list-item {
+    list-style: none;
+    margin-left: -30px;
+}
+
+.task-list-item input[type="checkbox"] {
+    margin-right: 12px;
+    width: 18px;
+    height: 18px;
+    accent-color: #6366f1;
+    cursor: pointer;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    border-radius: 10px;
+    border: 2px solid #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+}
+
+/* 选中文本样式 */
+::selection {
+    background: rgba(99, 102, 241, 0.2);
+    color: #1e293b;
+}
+
+/* 响应式设计 */
+@media (max-width: 600px) {
+    body {
+        padding: 20px 15px;
+    }
+
+    h1 {
+        font-size: 26px;
+        padding: 15px 20px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    pre, blockquote, .warning, .info, .note {
+        padding: 18px;
+    }
+}
