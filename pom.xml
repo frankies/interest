@@ -17,14 +17,16 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <!-- External Tomcat context file for local JNDI resources (configured via VS Code tasks) -->
+        <tomcat.contextFile></tomcat.contextFile>
     </properties>
 
     <dependencies>
-        <!-- Servlet API -->
+        <!-- Servlet API (2.4) -->
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
+            <artifactId>servlet-api</artifactId>
+            <version>2.4</version>
             <scope>provided</scope>
         </dependency>
 
@@ -43,10 +45,30 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- JDBC drivers (required for Tomcat JNDI DataSource Resources) -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.4</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.49</version>
+        </dependency>
+
         <!-- Embedded Tomcat for integration tests -->
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
+            <version>8.5.100</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- DBCP for JNDI DataSource resources in embedded Tomcat tests -->
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-dbcp</artifactId>
             <version>8.5.100</version>
             <scope>test</scope>
         </dependency>
@@ -72,15 +94,32 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <!--
+                      Keep compile-time servlet-api at 2.4, but do not put it on the test runtime classpath.
+                      Embedded Tomcat (8.5.x) needs newer Servlet APIs at runtime.
+                    -->
+                    <classpathDependencyExcludes>
+                        <classpathDependencyExclude>javax.servlet:servlet-api</classpathDependencyExclude>
+                    </classpathDependencyExcludes>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
                 <configuration>
                     <port>8080</port>
-                    <path>/</path>
+                    <path>/a1stream</path>
                     <uriEncoding>UTF-8</uriEncoding>
                     <server>tomcat7</server>
+                    <!-- Use external Context XML (provided under .vscode) when set -->
+                    <contextFile>${tomcat.contextFile}</contextFile>
                 </configuration>
             </plugin>
         </plugins>
