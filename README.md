@@ -133,16 +133,13 @@ mvnw.cmd package
 
 另外包含 Tomcat 相关任务：
 
-- `tomcat: run` / `tomcat: debug` - 使用 `tomcat7-maven-plugin` 启动（debug 端口 8000）
-- `tomcat: shutdown (tomcat7:shutdown)` - 优雅停止 Tomcat（推荐优先用这个）
+- `tomcat: run` / `tomcat: debug` - 使用 `tomcat7-maven-plugin` 启动（debug 端口 8000）, `Ctrl+C` 直接关闭
+- `tomcat: shutdown (tomcat7:shutdown)` - 停止 Tomcat
 - `tomcat: stop` - 强制停止（杀掉占用 8080 的监听进程，兜底用）
-- `tomcat: run (a1stream JNDI)` / `tomcat: debug (a1stream JNDI)` - 启动时额外加载 `.vscode/tomcat/Catalina/localhost/*.xml` 的 JNDI DataSource
 
-#### 通用 contextPath（推荐）
+#### 设置 contextPath
 
-历史上该项目固定使用 `/a1stream` 作为 contextPath。现在已将其做成可配置，方便复用到其它项目：
-
-- Maven 属性：`app.contextPath`（默认 `/a1stream`，见 `pom.xml`）
+- Maven 属性：`app.contextPath`（默认 `/`，见 `pom.xml`）
 - VS Code：工作区设置 `applicationContextPath`（默认 `/a1stream`，见 `.vscode/settings.json`）
 
 你可以用以下任一方式覆盖 contextPath：
@@ -159,21 +156,62 @@ mvnw.cmd "-Dapp.contextPath=/demo" tomcat7:run
 
 #### Context XML 命名规则（JNDI DataSource）
 
-当你使用 `tomcat: run (a1stream JNDI)` / `tomcat: debug (a1stream JNDI)` 时，会根据 contextPath 自动选择 Context XML：
+当你使用 `tomcat: run (JNDI Context XML)` / `tomcat: debug (JNDI Context XML)` 时，会根据 contextPath 自动选择 Context XML：
 
-- `applicationContextPath=/a1stream` → 使用 `.vscode/tomcat/Catalina/localhost/a1stream.xml`
 - `applicationContextPath=/demo` → 使用 `.vscode/tomcat/Catalina/localhost/demo.xml`
 - `applicationContextPath=/` 或空 → 使用 `.vscode/tomcat/Catalina/localhost/ROOT.xml`
 
 也就是说，后续迁移到其它项目时，通常只需要：
 
 - 修改 `applicationContextPath`
-- 复制一份 `.vscode/tomcat/Catalina/localhost/a1stream.xml` 为对应名称的 xml（并按项目修改 JDBC URL/账号等）
+- 复制一份 `.vscode/tomcat/Catalina/localhost/demo.xml` 为对应名称的 xml（并按项目修改 JDBC URL/账号等）
+
+#### 如何新增 `.vscode\\tomcat\\Catalina\\localhost\\*.xml`
+
+1. 先决定你的 contextPath（例如 `/demo`、`/`）：
+
+- 推荐修改 `.vscode/settings.json` 里的 `applicationContextPath`
+
+2. 计算 context 对应的文件名：
+
+- 规则：去掉前导 `/`，剩下的就是文件名
+- 特例：`/`（或空）使用 `ROOT.xml`
+
+示例：
+
+- `/demo` → `demo.xml`
+- `/` → `ROOT.xml`
+
+3. 在 `.vscode/tomcat/Catalina/localhost/` 下创建对应文件（例如 `ROOT.xml`），内容示例：
+
+```xml
+<Context reloadable="false">
+	<Resource
+			auth="Container"
+			name="jdbc/a1_dms"
+			type="javax.sql.DataSource"
+			driverClassName="org.postgresql.Driver"
+			url="jdbc:postgresql://127.0.0.1:5432/yourdb"
+			username="your_user"
+			password="your_pass"
+			maxTotal="50"
+			maxIdle="10"
+			maxWaitMillis="10000"/>
+</Context>
+```
+
+注意：
+
+- 只需要 `<Context> + <Resource>`，不要写 `docBase` / `path`（避免嵌入式/插件模式下路径不一致导致启动失败）
+- `<Resource name="jdbc/...">` 对应 `web.xml` 里的 `<resource-ref>`，以及运行时 lookup 的 `java:comp/env/jdbc/...`
+
+4. 启动：
+
+- 用 VS Code：在`TERMINAL`视图中 `Run Task...` 运行 `tomcat: run`（或 debug 版本）
 
 ### 调试配置
 
 - **Debug (Attach) - Tomcat** - 附加到运行中的Tomcat（端口8000）
-- **Debug HelloServlet** - 直接调试Servlet类
 - **Run All Tests** - 运行所有测试
 
 ### 代码片段

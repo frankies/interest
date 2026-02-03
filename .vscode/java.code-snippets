@@ -1,19 +1,18 @@
 {
-    "Servlet Class": {
+    "Servlet Class (web.xml mapping)": {
         "prefix": "servlet",
         "body": [
             "package ${1:com.example};",
             "",
             "import javax.servlet.ServletException;",
-            "import javax.servlet.annotation.WebServlet;",
             "import javax.servlet.http.HttpServlet;",
             "import javax.servlet.http.HttpServletRequest;",
             "import javax.servlet.http.HttpServletResponse;",
             "import java.io.IOException;",
             "import java.io.PrintWriter;",
             "",
-            "@WebServlet(\"/${2:path}\")",
-            "public class ${3:MyServlet} extends HttpServlet {",
+            "// NOTE: Servlet 2.4 does not support @WebServlet; map this servlet in WEB-INF/web.xml",
+            "public class ${2:MyServlet} extends HttpServlet {",
             "    ",
             "    @Override",
             "    protected void doGet(HttpServletRequest request, HttpServletResponse response)",
@@ -34,7 +33,7 @@
             "    }",
             "}"
         ],
-        "description": "创建一个Servlet类"
+        "description": "创建一个Servlet类（Servlet 2.4：通过 web.xml 映射）"
     },
     "JUnit Test Class": {
         "prefix": "test",
@@ -66,6 +65,48 @@
             "}"
         ],
         "description": "创建一个JUnit测试类"
+    },
+    "Embedded Tomcat HTTP Test (TomcatTestSupport)": {
+        "prefix": "tomcatTest",
+        "body": [
+            "package ${1:com.example};",
+            "",
+            "import org.apache.catalina.startup.Tomcat;",
+            "import org.junit.AfterClass;",
+            "import org.junit.BeforeClass;",
+            "import org.junit.Test;",
+            "",
+            "import static org.junit.Assert.assertTrue;",
+            "",
+            "public class ${2:MyServletHttpTest} {",
+            "",
+            "    private static TomcatTestSupport.RunningTomcat server;",
+            "    private static final String CONTEXT_PATH = \"${3:}\"; // empty or starts with '/'",
+            "",
+            "    @BeforeClass",
+            "    public static void startTomcat() throws Exception {",
+            "        server = TomcatTestSupport.start(CONTEXT_PATH, false, ctx -> {",
+            "            Tomcat.addServlet(ctx, \"${4:servletName}\", new ${5:HelloServlet}());",
+            "            ctx.addServletMappingDecoded(\"${6:/hello}\", \"${4:servletName}\");",
+            "        });",
+            "    }",
+            "",
+            "    @AfterClass",
+            "    public static void stopTomcat() throws Exception {",
+            "        if (server != null) {",
+            "            server.close();",
+            "            server = null;",
+            "        }",
+            "    }",
+            "",
+            "    @Test",
+            "    public void shouldReturnExpectedHtml() throws Exception {",
+            "        String body = TomcatTestSupport.httpGetText(server.getPort(), CONTEXT_PATH + \"${6:/hello}\");",
+            "        assertTrue(body.contains(\"${7:Hello}\"));",
+            "    }",
+            "}"
+        ],
+        "description": "创建一个使用内嵌 Tomcat + TomcatTestSupport 的 HTTP 集成测试"
     },
     "OAuth2 Request": {
         "prefix": "oauth2",
