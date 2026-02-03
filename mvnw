@@ -195,6 +195,9 @@ if [ -z "$BASE_DIR" ]; then
   exit 1;
 fi
 
+# Ensure MAVEN_PROJECTBASEDIR uses the detected BASE_DIR (fix for incorrect variable name)
+export MAVEN_PROJECTBASEDIR="$BASE_DIR"
+
 ##########################################################################################
 # Extension to allow automatically downloading the maven-wrapper.jar from Maven-central
 # This allows using the maven wrapper in projects that prohibit checking in binary data.
@@ -274,7 +277,8 @@ fi
 # End of extension
 ##########################################################################################
 
-export MAVEN_PROJECTBASEDIR=$MAVEN_BASEDIR
+# Ensure MAVEN_PROJECTBASEDIR is set to the detected BASE_DIR (fix incorrect variable name)
+export MAVEN_PROJECTBASEDIR="$BASE_DIR"
 
 # If specified, validate the SHA-256 sum of the Maven wrapper jar file
 BASE64_ENCODED_SHA=

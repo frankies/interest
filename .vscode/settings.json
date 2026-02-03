@@ -1,9 +1,12 @@
 {
     // App context path (used by VS Code tasks / Tomcat run scripts)
-    "applicationContextPath": "/", 
+    "applicationContextPath": "/",
     "java.configuration.updateBuildConfiguration": "automatic",
     "java.compile.nullAnalysis.mode": "automatic",
     "maven.executable.path": ".\\mvnw.cmd",
+    "maven.executable.path.windows": ".\\mvnw.cmd",
+    "maven.executable.path.linux": "${workspaceFolder}/mvnw",
+    "maven.executable.path.osx": "${workspaceFolder}/mvnw",
     "maven.settingsFile": "${workspaceFolder}/.mvn/settings.xml",
     "maven.terminal.useJavaHome": true,
     "maven.terminal.customEnv": [
