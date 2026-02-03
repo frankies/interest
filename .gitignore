@@ -1,0 +1,16 @@
+target/
+.mvn/.m2/repository/
+*.class
+*.jar
+*.war
+*.ear
+*.logs
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+*.swp
+*.bak
+*~
