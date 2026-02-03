@@ -1,20 +1,9 @@
 {
     // App context path (used by VS Code tasks / Tomcat run scripts)
-    "applicationContextPath": "/",
-    // Backward-compatible alias (deprecated): keep until all tasks/docs migrated
-    // "simpleMavenPj.appContextPath": "/a1stream",
-    // Java配置
+    "applicationContextPath": "/", 
     "java.configuration.updateBuildConfiguration": "automatic",
     "java.compile.nullAnalysis.mode": "automatic",
-    "java.configuration.runtimes": [
-        {
-            "name": "JavaSE-1.8",
-            "path": "${env:JAVA_8_HOME}",
-            "default": true
-        }
-    ],
-    // Maven配置
-    "maven.executable.path": "${workspaceFolder}/mvnw.cmd",
+    "maven.executable.path": ".\\mvnw.cmd",
     "maven.settingsFile": "${workspaceFolder}/.mvn/settings.xml",
     "maven.terminal.useJavaHome": true,
     "maven.terminal.customEnv": [
@@ -89,5 +78,6 @@
     "workbench.iconTheme": "vscode-icons",
     "explorer.confirmDelete": false,
     "explorer.confirmDragAndDrop": false,
-    "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx4G -Xms100m -Xlog:disable"
+    "java.jdt.ls.vmargs": "-XX:+UseG1GC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx2G -Xms100m -Xlog:disable",
+    "maven.view": "flat"
 }

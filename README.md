@@ -22,7 +22,8 @@ simple-maven-pj/
 │   ├── main/
 │   │   ├── java/
 │   │   │   └── com/example/
-│   │   │       └── HelloServlet.java
+│   │   │       ├── HelloServlet.java
+│   │   │       └── JndiCheckServlet.java
 │   │   ├── resources/          # 资源文件目录（可选配置文件等）
 │   │   └── webapp/
 │   │       ├── WEB-INF/
@@ -31,7 +32,11 @@ simple-maven-pj/
 │   └── test/
 │       └── java/
 │           └── com/example/
-│               └── HelloServletTest.java
+│               ├── HelloServletTest.java
+│               ├── JndiResourcesTest.java
+│               └── TomcatTestSupport.java
+├── .vscode/                 # VS Code 配置（tasks/launch/settings等）
+│   └── tomcat/              # 本地 Tomcat/JNDI 相关脚本与 Context XML
 ├── mvnw                    # Maven Wrapper脚本（Unix/Linux/Mac）
 ├── mvnw.cmd                # Maven Wrapper脚本（Windows）
 ├── pom.xml                 # Maven项目配置
@@ -40,7 +45,7 @@ simple-maven-pj/
 
 ## 依赖说明
 
-- **javax.servlet-api** (3.1.0): Servlet API，用于Web开发
+- **javax.servlet:servlet-api** (2.4, provided): Servlet API，用于Web开发（兼容老容器/老项目）
 - **org.apache.oltu.oauth2.client** (1.0.1): OAuth2客户端库
 - **junit** (4.12): 单元测试框架
 
@@ -88,7 +93,7 @@ mvnw.cmd package
 
 ## 部署说明
 
-生成的WAR文件可以部署到任何支持Servlet 3.1的Web容器中，例如：
+生成的WAR文件可以部署到任何支持Servlet 2.4+的Web容器中，例如：
 
 - Apache Tomcat 8.x 或更高版本
 - Jetty 9.x 或更高版本
@@ -126,6 +131,45 @@ mvnw.cmd package
 - `maven: install` - 清理并安装（默认构建任务，快捷键 `Ctrl+Shift+B`）
 - `maven: clean install (skip tests)` - 跳过测试的快速构建
 
+另外包含 Tomcat 相关任务：
+
+- `tomcat: run` / `tomcat: debug` - 使用 `tomcat7-maven-plugin` 启动（debug 端口 8000）
+- `tomcat: shutdown (tomcat7:shutdown)` - 优雅停止 Tomcat（推荐优先用这个）
+- `tomcat: stop` - 强制停止（杀掉占用 8080 的监听进程，兜底用）
+- `tomcat: run (a1stream JNDI)` / `tomcat: debug (a1stream JNDI)` - 启动时额外加载 `.vscode/tomcat/Catalina/localhost/*.xml` 的 JNDI DataSource
+
+#### 通用 contextPath（推荐）
+
+历史上该项目固定使用 `/a1stream` 作为 contextPath。现在已将其做成可配置，方便复用到其它项目：
+
+- Maven 属性：`app.contextPath`（默认 `/a1stream`，见 `pom.xml`）
+- VS Code：工作区设置 `applicationContextPath`（默认 `/a1stream`，见 `.vscode/settings.json`）
+
+你可以用以下任一方式覆盖 contextPath：
+
+1. 直接用 Maven 命令覆盖：
+
+```bash
+mvnw.cmd "-Dapp.contextPath=/demo" tomcat7:run
+```
+
+2. 用 VS Code 任务覆盖：
+
+- 打开 `.vscode/settings.json`，修改 `applicationContextPath`（例如 `/demo`）
+
+#### Context XML 命名规则（JNDI DataSource）
+
+当你使用 `tomcat: run (a1stream JNDI)` / `tomcat: debug (a1stream JNDI)` 时，会根据 contextPath 自动选择 Context XML：
+
+- `applicationContextPath=/a1stream` → 使用 `.vscode/tomcat/Catalina/localhost/a1stream.xml`
+- `applicationContextPath=/demo` → 使用 `.vscode/tomcat/Catalina/localhost/demo.xml`
+- `applicationContextPath=/` 或空 → 使用 `.vscode/tomcat/Catalina/localhost/ROOT.xml`
+
+也就是说，后续迁移到其它项目时，通常只需要：
+
+- 修改 `applicationContextPath`
+- 复制一份 `.vscode/tomcat/Catalina/localhost/a1stream.xml` 为对应名称的 xml（并按项目修改 JDBC URL/账号等）
+
 ### 调试配置
 
 - **Debug (Attach) - Tomcat** - 附加到运行中的Tomcat（端口8000）
@@ -146,3 +190,16 @@ mvnw.cmd package
 2. 本地仓库配置在 `.mvn/settings.xml` 中
 3. 项目使用UTF-8编码
 4. 确保安装了JDK 1.8并正确配置了JAVA_HOME环境变量
+
+## 本地 JNDI 可用性验证（可选）
+
+项目提供了一个检测端点与对应的集成测试，用于验证 `java:comp/env/jdbc/*` 是否已绑定：
+
+- 运行时 Servlet：`/__jndi`（见 `WEB-INF/web.xml` 映射）
+- 集成测试：`JndiResourcesTest`
+
+如果你切换了 contextPath（例如 `/demo`），并且也准备了对应的 Context XML（例如 `demo.xml`），可这样跑单测：
+
+```bash
+mvnw.cmd "-Dapp.contextPath=/demo" "-Dtest=JndiResourcesTest" test
+```
