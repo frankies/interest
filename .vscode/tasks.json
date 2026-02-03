@@ -54,25 +54,7 @@
 				"panel": "shared"
 			},
 			"problemMatcher": []
-		},
-		{
-			"label": "maven: test (JndiResourcesTest)",
-			"type": "shell",
-			"command": ".\\mvnw.cmd",
-			"options": {
-				"cwd": "${workspaceFolder}"
-			},
-			"args": [
-				"-Dtest=JndiResourcesTest",
-				"test"
-			],
-			"group": "test",
-			"presentation": {
-				"reveal": "always",
-				"panel": "shared"
-			},
-			"problemMatcher": []
-		},
+		}, 
 		{
 			"label": "maven: package",
 			"type": "shell",
@@ -205,77 +187,7 @@
 			"problemMatcher": []
 		},
 		{
-			"label": "tomcat: run (Windows CMD)",
-			"type": "shell",
-			"command": "cmd",
-			"options": {
-				"cwd": "${workspaceFolder}"
-			},
-			"args": [
-				"/c",
-				"set \"APP_CONTEXT_PATH=${config:applicationContextPath}\" & .\\.vscode\\tomcat\\run.cmd"
-			],
-			"isBackground": true,
-			"presentation": {
-				"reveal": "always",
-				"panel": "dedicated"
-			},
-			"problemMatcher": []
-		},
-		{
-			"label": "tomcat: debug (Windows CMD)",
-			"type": "shell",
-			"command": "cmd",
-			"options": {
-				"cwd": "${workspaceFolder}"
-			},
-			"args": [
-				"/c",
-				"set \"APP_CONTEXT_PATH=${config:applicationContextPath}\" & .\\.vscode\\tomcat\\debug.cmd"
-			],
-			"isBackground": true,
-			"presentation": {
-				"reveal": "always",
-				"panel": "dedicated"
-			},
-			"problemMatcher": []
-		},
-		{
-			"label": "tomcat: run-war",
-			"type": "shell",
-			"command": ".\\mvnw.cmd",
-			"options": {
-				"cwd": "${workspaceFolder}",
-				"shell": {
-					"executable": "cmd.exe",
-					"args": [
-						"/d",
-						"/c"
-					]
-				}
-			},
-			"args": [
-				"tomcat7:run-war"
-			],
-			"isBackground": true,
-			"presentation": {
-				"reveal": "always",
-				"panel": "dedicated"
-			},
-			"problemMatcher": []
-		},
-		{
 			"label": "Open Browser",
-			"type": "shell",
-			"command": "Start-Sleep -Seconds 8; Start-Process 'http://localhost:8080'",
-			"presentation": {
-				"reveal": "silent",
-				"panel": "shared"
-			},
-			"problemMatcher": []
-		},
-		{
-			"label": "Open Browser (a1stream)",
 			"type": "shell",
 			"command": "Start-Sleep -Seconds 8; Start-Process 'http://localhost:8080${config:applicationContextPath}/'",
 			"presentation": {
@@ -301,41 +213,7 @@
 				"Open Browser"
 			],
 			"problemMatcher": []
-		},
-		{
-			"label": "tomcat: run (Windows CMD) and open browser",
-			"dependsOrder": "sequence",
-			"dependsOn": [
-				"tomcat: run (Windows CMD)",
-				"Open Browser (a1stream)"
-			],
-			"problemMatcher": []
-		},
-		{
-			"label": "tomcat: debug (Windows CMD) and open browser",
-			"dependsOrder": "sequence",
-			"dependsOn": [
-				"tomcat: debug (Windows CMD)",
-				"Open Browser (a1stream)"
-			],
-			"problemMatcher": []
-		},
-		{
-			"label": "tomcat: shutdown (tomcat7:shutdown)",
-			"type": "shell",
-			"command": ".\\mvnw.cmd",
-			"options": {
-				"cwd": "${workspaceFolder}"
-			},
-			"args": [
-				"tomcat7:shutdown"
-			],
-			"presentation": {
-				"reveal": "always",
-				"panel": "shared"
-			},
-			"problemMatcher": []
-		},
+		}, 
 		{
 			"label": "tomcat: stop",
 			"type": "shell",
@@ -355,6 +233,22 @@
 				"panel": "shared"
 			},
 			"problemMatcher": []
-		} 
+		},
+		{
+			"label": "tomcat: shutdown (tomcat7:shutdown) - remote",
+			"type": "shell",
+			"command": ".\\mvnw.cmd",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"args": [
+				"tomcat7:shutdown"
+			],
+			"presentation": {
+				"reveal": "always",
+				"panel": "shared"
+			},
+			"problemMatcher": []
+		}
 	]
 }
