@@ -17,6 +17,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <!-- Default context path for local Tomcat runs; override with -Dapp.contextPath=/yourapp -->
+        <app.contextPath>/</app.contextPath>
         <!-- External Tomcat context file for local JNDI resources (configured via VS Code tasks) -->
         <tomcat.contextFile></tomcat.contextFile>
     </properties>
@@ -115,7 +117,7 @@
                 <version>2.2</version>
                 <configuration>
                     <port>8080</port>
-                    <path>/a1stream</path>
+                    <path>${app.contextPath}</path>
                     <uriEncoding>UTF-8</uriEncoding>
                     <server>tomcat7</server>
                     <!-- Use external Context XML (provided under .vscode) when set -->

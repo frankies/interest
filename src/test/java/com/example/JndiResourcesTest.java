@@ -9,15 +9,25 @@ import org.junit.Test;
 public class JndiResourcesTest {
 
     private static TomcatTestSupport.RunningTomcat server;
+    private static String contextPath;
 
     @BeforeClass
     public static void startTomcatWithJndi() throws Exception {
-        File contextXml = new File(".vscode/tomcat/Catalina/localhost/a1stream.xml");
+        contextPath = System.getProperty("app.contextPath", "/");
+        String contextName = contextPath;
+        if (contextName.startsWith("/")) {
+            contextName = contextName.substring(1);
+        }
+        if (contextName.isEmpty()) {
+            contextName = "ROOT";
+        }
+
+        File contextXml = new File(".vscode/tomcat/Catalina/localhost/" + contextName + ".xml");
         Assert.assertTrue("Missing context XML: " + contextXml.getAbsolutePath(), contextXml.isFile());
 
         System.setProperty("jndi.contextFile", contextXml.getAbsolutePath());
 
-        server = TomcatTestSupport.start("/a1stream", true, ctx -> {
+        server = TomcatTestSupport.start(contextPath, true, ctx -> {
             TomcatTestSupport.addJndiResourcesFromContextXml(ctx, contextXml);
 
             org.apache.catalina.startup.Tomcat.addServlet(ctx, "jndiCheck", new JndiCheckServlet());
@@ -36,7 +46,7 @@ public class JndiResourcesTest {
 
     @Test
     public void shouldLookupAllJndiResources() throws Exception {
-        String body = TomcatTestSupport.httpGetText(server.getPort(), "/a1stream/__jndi");
+        String body = TomcatTestSupport.httpGetText(server.getPort(), contextPath + "/__jndi");
 
         // We expect at least these resources, and we expect them to be bound as
         // DataSource.
