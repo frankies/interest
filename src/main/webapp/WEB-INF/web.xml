@@ -30,21 +30,21 @@
     </servlet-mapping>
 
     <resource-ref>
-        <description>a1stream PostgreSQL datasource</description>
+        <description>PostgreSQL datasource</description>
         <res-ref-name>jdbc/a1_dms</res-ref-name>
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
     </resource-ref>
 
     <resource-ref>
-        <description>a1stream PostgreSQL (cmmdb) datasource</description>
+        <description>PostgreSQL (cmmdb) datasource</description>
         <res-ref-name>jdbc/a1_dms_cmmdb</res-ref-name>
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
     </resource-ref>
 
     <resource-ref>
-        <description>a1stream MySQL (BI) datasource</description>
+        <description>MySQL (BI) datasource</description>
         <res-ref-name>jdbc/a1dms_bi</res-ref-name>
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
