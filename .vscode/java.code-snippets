@@ -1,0 +1,83 @@
+{
+    "Servlet Class": {
+        "prefix": "servlet",
+        "body": [
+            "package ${1:com.example};",
+            "",
+            "import javax.servlet.ServletException;",
+            "import javax.servlet.annotation.WebServlet;",
+            "import javax.servlet.http.HttpServlet;",
+            "import javax.servlet.http.HttpServletRequest;",
+            "import javax.servlet.http.HttpServletResponse;",
+            "import java.io.IOException;",
+            "import java.io.PrintWriter;",
+            "",
+            "@WebServlet(\"/${2:path}\")",
+            "public class ${3:MyServlet} extends HttpServlet {",
+            "    ",
+            "    @Override",
+            "    protected void doGet(HttpServletRequest request, HttpServletResponse response)",
+            "            throws ServletException, IOException {",
+            "        response.setContentType(\"text/html;charset=UTF-8\");",
+            "        PrintWriter out = response.getWriter();",
+            "        try {",
+            "            ${4:// Your code here}",
+            "        } finally {",
+            "            out.close();",
+            "        }",
+            "    }",
+            "    ",
+            "    @Override",
+            "    protected void doPost(HttpServletRequest request, HttpServletResponse response)",
+            "            throws ServletException, IOException {",
+            "        doGet(request, response);",
+            "    }",
+            "}"
+        ],
+        "description": "创建一个Servlet类"
+    },
+    "JUnit Test Class": {
+        "prefix": "test",
+        "body": [
+            "package ${1:com.example};",
+            "",
+            "import org.junit.Test;",
+            "import org.junit.Before;",
+            "import org.junit.After;",
+            "import static org.junit.Assert.*;",
+            "",
+            "public class ${2:MyTest} {",
+            "    ",
+            "    @Before",
+            "    public void setUp() throws Exception {",
+            "        ${3:// Setup code}",
+            "    }",
+            "    ",
+            "    @After",
+            "    public void tearDown() throws Exception {",
+            "        ${4:// Cleanup code}",
+            "    }",
+            "    ",
+            "    @Test",
+            "    public void ${5:testMethod}() {",
+            "        ${6:// Test code}",
+            "        ${7:fail(\"Not yet implemented\");}",
+            "    }",
+            "}"
+        ],
+        "description": "创建一个JUnit测试类"
+    },
+    "OAuth2 Request": {
+        "prefix": "oauth2",
+        "body": [
+            "OAuthClientRequest request = OAuthClientRequest",
+            "    .tokenLocation(\"${1:https://oauth2server.com/token}\")",
+            "    .setGrantType(GrantType.${2|AUTHORIZATION_CODE,CLIENT_CREDENTIALS,PASSWORD,REFRESH_TOKEN|})",
+            "    .setClientId(\"${3:clientId}\")",
+            "    .setClientSecret(\"${4:clientSecret}\")",
+            "    ${5:.setCode(\"authorizationCode\")}",
+            "    .buildBodyMessage();"
+        ],
+        "description": "创建OAuth2请求"
+    }
+}

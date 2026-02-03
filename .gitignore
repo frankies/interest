@@ -7,7 +7,9 @@ target/
 *.logs
 .idea/
 *.iml
-.vscode/
+.vscode/*
+!.vscode/*.json
+!.vscode/*.code-snippets
 .settings/
 .project
 .classpath

@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Attach) - Tomcat",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": 8000,
+            "projectName": "simple-maven-pj"
+        },
+        {
+            "type": "java",
+            "name": "Run All Tests",
+            "request": "launch",
+            "mainClass": "",
+            "projectName": "simple-maven-pj",
+            "preLaunchTask": "maven: test"
+        }
+    ]
+}

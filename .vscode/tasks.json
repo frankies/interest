@@ -1,0 +1,360 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "maven: clean",
+			"type": "shell",
+			"command": ".\\mvnw.cmd",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"args": [
+				"clean"
+			],
+			"group": "build",
+			"presentation": {
+				"reveal": "always",
+				"panel": "shared"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "maven: compile",
+			"type": "shell",
+			"command": ".\\mvnw.cmd",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"args": [
+				"compile"
+			],
+			"group": "build",
+			"presentation": {
+				"reveal": "always",
+				"panel": "shared"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "maven: test",
+			"type": "shell",
+			"command": ".\\mvnw.cmd",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"args": [
+				"test"
+			],
+			"group": {
+				"kind": "test",
+				"isDefault": true
+			},
+			"presentation": {
+				"reveal": "always",
+				"panel": "shared"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "maven: test (JndiResourcesTest)",
+			"type": "shell",
+			"command": ".\\mvnw.cmd",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"args": [
+				"-Dtest=JndiResourcesTest",
+				"test"
+			],
+			"group": "test",
+			"presentation": {
+				"reveal": "always",
+				"panel": "shared"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "maven: package",
+			"type": "shell",
+			"command": ".\\mvnw.cmd",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"args": [
+				"package"
+			],
+			"group": "build",
+			"presentation": {
+				"reveal": "always",
+				"panel": "shared"
+			},
+			"problemMatcher": [],
+			"dependsOn": [
+				"maven: clean"
+			]
+		},
+		{
+			"label": "maven: install",
+			"type": "shell",
+			"command": ".\\mvnw.cmd",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"args": [
+				"clean",
+				"install"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"presentation": {
+				"reveal": "always",
+				"panel": "shared"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "maven: clean install (skip tests)",
+			"type": "shell",
+			"command": ".\\mvnw.cmd",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"args": [
+				"clean",
+				"install",
+				"-DskipTests"
+			],
+			"group": "build",
+			"presentation": {
+				"reveal": "always",
+				"panel": "shared"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "maven: dependency tree",
+			"type": "shell",
+			"command": ".\\mvnw.cmd",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"args": [
+				"dependency:tree"
+			],
+			"presentation": {
+				"reveal": "always",
+				"panel": "shared"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "tomcat: run",
+			"type": "shell",
+			"command": ".\\mvnw.cmd",
+			"options": {
+				"cwd": "${workspaceFolder}",
+				"shell": {
+					"executable": "cmd.exe",
+					"args": [
+						"/d",
+						"/c"
+					]
+				}
+			},
+			"args": [
+				"-Dapp.contextPath=${config:applicationContextPath}",
+				"tomcat7:run"
+			],
+			"isBackground": true,
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "tomcat: debug",
+			"type": "shell",
+			"command": ".\\mvnw.cmd",
+			"options": {
+				"cwd": "${workspaceFolder}",
+				"shell": {
+					"executable": "cmd.exe",
+					"args": [
+						"/d",
+						"/c"
+					]
+				},
+				"env": {
+					"JAVA_HOME": "${env:JAVA_8_HOME}",
+					"PATH": "${env:JAVA_8_HOME}\\bin;${env:PATH}",
+					"MAVEN_OPTS": "-Xmx1024m -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000"
+				}
+			},
+			"args": [
+				"-Dapp.contextPath=${config:applicationContextPath}",
+				"tomcat7:run"
+			],
+			"isBackground": true,
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "tomcat: run (Windows CMD)",
+			"type": "shell",
+			"command": "cmd",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"args": [
+				"/c",
+				"set \"APP_CONTEXT_PATH=${config:applicationContextPath}\" & .\\.vscode\\tomcat\\run.cmd"
+			],
+			"isBackground": true,
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "tomcat: debug (Windows CMD)",
+			"type": "shell",
+			"command": "cmd",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"args": [
+				"/c",
+				"set \"APP_CONTEXT_PATH=${config:applicationContextPath}\" & .\\.vscode\\tomcat\\debug.cmd"
+			],
+			"isBackground": true,
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "tomcat: run-war",
+			"type": "shell",
+			"command": ".\\mvnw.cmd",
+			"options": {
+				"cwd": "${workspaceFolder}",
+				"shell": {
+					"executable": "cmd.exe",
+					"args": [
+						"/d",
+						"/c"
+					]
+				}
+			},
+			"args": [
+				"tomcat7:run-war"
+			],
+			"isBackground": true,
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Open Browser",
+			"type": "shell",
+			"command": "Start-Sleep -Seconds 8; Start-Process 'http://localhost:8080'",
+			"presentation": {
+				"reveal": "silent",
+				"panel": "shared"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Open Browser (a1stream)",
+			"type": "shell",
+			"command": "Start-Sleep -Seconds 8; Start-Process 'http://localhost:8080${config:applicationContextPath}/'",
+			"presentation": {
+				"reveal": "silent",
+				"panel": "shared"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "tomcat: run and open browser",
+			"dependsOrder": "sequence",
+			"dependsOn": [
+				"tomcat: run",
+				"Open Browser"
+			],
+			"problemMatcher": []
+		},
+		{
+			"label": "tomcat: debug and open browser",
+			"dependsOrder": "sequence",
+			"dependsOn": [
+				"tomcat: debug",
+				"Open Browser"
+			],
+			"problemMatcher": []
+		},
+		{
+			"label": "tomcat: run (Windows CMD) and open browser",
+			"dependsOrder": "sequence",
+			"dependsOn": [
+				"tomcat: run (Windows CMD)",
+				"Open Browser (a1stream)"
+			],
+			"problemMatcher": []
+		},
+		{
+			"label": "tomcat: debug (Windows CMD) and open browser",
+			"dependsOrder": "sequence",
+			"dependsOn": [
+				"tomcat: debug (Windows CMD)",
+				"Open Browser (a1stream)"
+			],
+			"problemMatcher": []
+		},
+		{
+			"label": "tomcat: shutdown (tomcat7:shutdown)",
+			"type": "shell",
+			"command": ".\\mvnw.cmd",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"args": [
+				"tomcat7:shutdown"
+			],
+			"presentation": {
+				"reveal": "always",
+				"panel": "shared"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "tomcat: stop",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"$p = (Get-NetTCPConnection -LocalPort 8080 -State Listen -ErrorAction SilentlyContinue | Select-Object -First 1).OwningProcess; if ($p) { Stop-Process -Id $p -Force; Write-Host ('Stopped process on 8080: ' + $p) } else { Write-Host 'No listening process found on 8080' }"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"presentation": {
+				"reveal": "always",
+				"panel": "shared"
+			},
+			"problemMatcher": []
+		} 
+	]
+}

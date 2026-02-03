@@ -1,0 +1,38 @@
+{
+    "recommendations": [
+        // Java开发核心扩展
+        "vscjava.vscode-java-pack",
+        "redhat.java",
+        "vscjava.vscode-java-debug",
+        "vscjava.vscode-java-test",
+        "vscjava.vscode-java-dependency",
+        // Maven支持
+        "vscjava.vscode-maven",
+        // Tomcat和服务器支持
+        "adashen.vscode-tomcat",
+        // XML支持
+        // "redhat.vscode-xml",
+        // Web开发
+        // "formulahendry.auto-rename-tag",
+        // "pranaygp.vscode-css-peek",
+        // "ecmel.vscode-html-css",
+        // // Git支持
+        "eamodio.gitlens",
+        "mhutchie.git-graph",
+        // 代码质量
+        // "sonarsource.sonarlint-vscode",
+        // "shengchen.vscode-checkstyle",
+        // // 实用工具
+        "vscode-icons-team.vscode-icons",
+        "esbenp.prettier-vscode",
+        "streetsidesoftware.code-spell-checker",
+        "wayou.vscode-todo-highlight",
+        "aaron-bond.better-comments",
+        // REST客户端
+        "humao.rest-client",
+        // 代码片段
+        // "vscjava.vscode-spring-boot-dashboard",
+        // "pivotal.vscode-boot-dev-pack"
+    ],
+    "unwantedRecommendations": []
+}
