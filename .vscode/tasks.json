@@ -189,7 +189,7 @@
 		{
 			"label": "Open Browser",
 			"type": "shell",
-			"command": "Start-Sleep -Seconds 8; Start-Process 'http://localhost:8080${config:applicationContextPath}/'",
+			"command": "Start-Sleep -Seconds 8; Start-Process 'http://localhost:8080${config:applicationContextPath}'",
 			"presentation": {
 				"reveal": "silent",
 				"panel": "shared"
@@ -198,7 +198,7 @@
 		},
 		{
 			"label": "tomcat: run and open browser",
-			"dependsOrder": "sequence",
+			"dependsOrder": "parallel",
 			"dependsOn": [
 				"tomcat: run",
 				"Open Browser"
@@ -207,7 +207,7 @@
 		},
 		{
 			"label": "tomcat: debug and open browser",
-			"dependsOrder": "sequence",
+			"dependsOrder": "parallel",
 			"dependsOn": [
 				"tomcat: debug",
 				"Open Browser"
