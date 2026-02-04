@@ -85,6 +85,40 @@ mvnw.cmd package
 
 The packaged WAR file will be located at `target/simple-maven-pj.war`
 
+### Run Locally (Tomcat Plugin)
+
+Start the app using the Maven Tomcat plugin:
+
+On Windows:
+
+```bash
+mvnw.cmd tomcat7:run
+```
+
+Or use VS Code tasks:
+
+- Run: `tomcat: run`
+- Debug: `tomcat: debug` or `tomcat: debug and open browser`
+
+Access in browser:
+
+- Home: http://localhost:8080/
+- Hello servlet: http://localhost:8080/hello
+
+Stop:
+
+- VS Code task: `tomcat: stop` (kills the process on 8080)
+- Maven: `mvnw.cmd tomcat7:shutdown`
+
+### Debug + Hot Code Replace (HCR)
+
+- Start with VS Code task `tomcat: debug` (JDWP on port 8000).
+- Attach debugger: Run and Debug → "Debug (Attach) - Tomcat".
+- Edit method bodies (e.g., inside `HelloServlet#doGet()`), then save.
+- With workspace settings enabling HCR, changes apply live; refresh the page.
+
+Limitations: HCR supports method body edits; structural changes (new methods/fields, signatures, class hierarchy) usually require a restart.
+
 ## Maven Configuration
 
 The project is configured with a custom Maven local repository path: `.mvn/.m2/repository`
@@ -140,7 +174,7 @@ Additionally includes Tomcat related tasks:
 #### Setting contextPath
 
 - Maven property: `app.contextPath` (default `/`, see `pom.xml`)
-- VS Code: workspace setting `applicationContextPath` (default `/a1stream`, see `.vscode/settings.json`)
+- VS Code: workspace setting `applicationContextPath` (default `/`, see `.vscode/settings.json`)
 
 You can override contextPath using either of these methods:
 

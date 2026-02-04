@@ -73,9 +73,13 @@ public class HelloServlet extends HttpServlet {
             out.println("<h1>Hello, Maven Web Project!</h1>");
             out.println("<p>This is a simple Maven web application with OAuth2 support.</p>");
             out.println(
+                    "<p><strong>Web Application Root Directory:</strong> " + escapeHtml(getWebAppRootPath()) + "</p>");
+            out.println(
                     "<p><strong>javax.servlet.Servlet JAR Path:</strong> " + escapeHtml(getServletJarPath()) + "</p>");
-            out.println("<p><strong>com.example.HelloServlet Class Path:</strong> " + escapeHtml(getHelloServletPath())
-                    + "</p>");
+            out.println(
+                    "<p><strong>com.example.HelloServlet Class Path:</strong> "
+                            + escapeHtml(getHelloServletPath())
+                            + "</p>");
 
             out.println("<details>");
             out.println("<summary>OS Environment Variables (System.getenv)</summary>");
@@ -96,6 +100,21 @@ public class HelloServlet extends HttpServlet {
         } finally {
             out.close();
         }
+    }
+
+    /**
+     * Retrieves the web application root directory path.
+     * <p>
+     * This method uses the ServletContext to get the real file system path
+     * of the web application's root directory. This is useful for debugging
+     * deployment issues and understanding where the application is deployed.
+     * </p>
+     * 
+     * @return the file system path of the web application root directory
+     */
+    private String getWebAppRootPath() {
+        String realPath = getServletContext().getRealPath("/");
+        return realPath != null ? realPath : "Unable to determine real path";
     }
 
     /**
