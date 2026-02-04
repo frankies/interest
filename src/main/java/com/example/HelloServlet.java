@@ -72,6 +72,10 @@ public class HelloServlet extends HttpServlet {
             out.println("<body>");
             out.println("<h1>Hello, Maven Web Project!</h1>");
             out.println("<p>This is a simple Maven web application with OAuth2 support.</p>");
+            out.println(
+                    "<p><strong>javax.servlet.Servlet JAR Path:</strong> " + escapeHtml(getServletJarPath()) + "</p>");
+            out.println("<p><strong>com.example.HelloServlet Class Path:</strong> " + escapeHtml(getHelloServletPath())
+                    + "</p>");
 
             out.println("<details>");
             out.println("<summary>OS Environment Variables (System.getenv)</summary>");
@@ -91,6 +95,48 @@ public class HelloServlet extends HttpServlet {
             out.println("</html>");
         } finally {
             out.close();
+        }
+    }
+
+    /**
+     * Retrieves the file path of the servlet API JAR.
+     * <p>
+     * This method uses reflection to locate the JAR file containing the
+     * javax.servlet classes. It is useful for debugging classpath issues
+     * related to servlet API dependencies.
+     * </p>
+     * 
+     * @return the file path of the servlet API JAR, or a message if not found
+     */
+    private String getServletJarPath() {
+        try {
+            Class<?> servletClass = Class.forName("javax.servlet.Servlet");
+            java.net.URL location = servletClass.getProtectionDomain().getCodeSource().getLocation();
+            return location != null ? location.getPath() : "Location not found";
+        } catch (ClassNotFoundException e) {
+            return "javax.servlet.Servlet not found";
+        }
+    }
+
+    /**
+     * Retrieves the file path of the HelloServlet class.
+     * <p>
+     * This method uses the ProtectionDomain to locate the directory or JAR file
+     * containing the HelloServlet class. It is useful for debugging classpath
+     * issues
+     * and understanding where the compiled class is loaded from.
+     * </p>
+     * 
+     * @return the file path of the HelloServlet class location, or a message if not
+     *         found
+     */
+    private String getHelloServletPath() {
+        try {
+            Class<?> helloServletClass = Class.forName("com.example.HelloServlet");
+            java.net.URL location = helloServletClass.getProtectionDomain().getCodeSource().getLocation();
+            return location != null ? location.getPath() : "Location not found";
+        } catch (ClassNotFoundException e) {
+            return "com.example.HelloServlet not found";
         }
     }
 
