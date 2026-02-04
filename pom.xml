@@ -15,8 +15,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.6</maven.compiler.target>
         <!-- Default context path for local Tomcat runs; override with -Dapp.contextPath=/yourapp -->
         <app.contextPath>/</app.contextPath>
         <!-- External Tomcat context file for local JNDI resources (configured via VS Code tasks) -->
@@ -24,6 +24,15 @@
     </properties>
 
     <dependencies>
+        <!-- Servlet API 3.1 for test runtime (provides getContextPath() method) -->
+        <!-- MUST be first to take precedence over other servlet APIs -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>test</scope>
+        </dependency>
+        
         <!-- Servlet API (2.4) -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -63,15 +72,37 @@
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
-            <version>8.5.100</version>
+            <version>7.0.99</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.tomcat</groupId>
+                    <artifactId>tomcat-servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- DBCP for JNDI DataSource resources in embedded Tomcat tests -->
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-dbcp</artifactId>
-            <version>8.5.100</version>
+            <version>7.0.99</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Servlet API for embedded Tomcat tests (needed for newer Servlet methods) -->
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-logging-juli</artifactId>
+            <version>7.0.99</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- H2 in-memory database for testing -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>2.1.214</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -104,11 +135,16 @@
                 <configuration>
                     <!--
                       Keep compile-time servlet-api at 2.4, but do not put it on the test runtime classpath.
-                      Embedded Tomcat (8.5.x) needs newer Servlet APIs at runtime.
+                      Use newer Servlet API 3.1 for testing to support getContextPath() method.
                     -->
                     <classpathDependencyExcludes>
                         <classpathDependencyExclude>javax.servlet:servlet-api</classpathDependencyExclude>
+                        <classpathDependencyExclude>org.apache.tomcat:tomcat-servlet-api</classpathDependencyExclude>
                     </classpathDependencyExcludes>
+                    <!-- Use system properties to control test environment -->
+                    <systemPropertyVariables>
+                        <java.awt.headless>true</java.awt.headless>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
             <plugin>
