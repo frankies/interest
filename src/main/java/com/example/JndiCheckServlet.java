@@ -111,7 +111,7 @@ public class JndiCheckServlet extends HttpServlet {
                     }
 
                     if (!checkConnection) {
-                        out.println("❌" + name + "=NG");
+                        out.println("👉" + name + "=Found");
                         continue;
                     }
 

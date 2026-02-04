@@ -173,8 +173,8 @@
 				"cwd": "${workspaceFolder}"
 			},
 			"args": [
-				"-Dapp.contextPath=${config:applicationContextPath}",
-				"-Dtomcat.contextFile=${workspaceFolder}/.vscode/tomcat/Catalina/localhost/ROOT.xml",
+				"-Dapp.contextPath=${config:app.webContextPath}",
+				"-Dtomcat.contextFile=${workspaceFolder}${config:app.tomcatContextFile}",
 				"tomcat7:run"
 			],
 			"isBackground": true,
@@ -211,8 +211,8 @@
 				}
 			},
 			"args": [
-				"-Dapp.contextPath=${config:applicationContextPath}",
-				"-Dtomcat.contextFile=${workspaceFolder}/.vscode/tomcat/Catalina/localhost/ROOT.xml",
+				"-Dapp.contextPath=${config:app.webContextPath}",
+				"-Dtomcat.contextFile=${workspaceFolder}${config:app.tomcatContextFile}",
 				"tomcat7:run"
 			],
 			"isBackground": true,
@@ -232,7 +232,7 @@
 					"-ExecutionPolicy",
 					"Bypass",
 					"-Command",
-					"Start-Sleep -Seconds 8; Start-Process 'http://localhost:8080${config:applicationContextPath}'"
+					"Start-Sleep -Seconds 8; Start-Process 'http://localhost:8080${config:app.webContextPath}'"
 				]
 			},
 			"linux": {

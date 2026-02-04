@@ -48,6 +48,7 @@ simple-maven-pj/
 - **javax.servlet:servlet-api** (2.4, provided): Servlet API for web development (compatible with legacy containers/projects)
 - **org.apache.oltu.oauth2.client** (1.0.1): OAuth2 client library
 - **junit** (4.12): Unit testing framework
+- **com.h2database:h2** (2.1.214, runtime): H2 in-memory database for JNDI testing
 
 ## Usage Instructions
 
@@ -104,6 +105,7 @@ Access in browser:
 
 - Home: http://localhost:8080/
 - Hello servlet: http://localhost:8080/hello
+- JNDI 资源检查: http://localhost:8080/\_\_jndi?connect=true
 
 Stop:
 
@@ -174,7 +176,7 @@ Additionally includes Tomcat related tasks:
 #### Setting contextPath
 
 - Maven property: `app.contextPath` (default `/`, see `pom.xml`)
-- VS Code: workspace setting `applicationContextPath` (default `/`, see `.vscode/settings.json`)
+- VS Code: workspace setting `app.webContextPath` (default `/`, see `.vscode/settings.json`)
 
 You can override contextPath using either of these methods:
 
@@ -186,25 +188,25 @@ mvnw.cmd "-Dapp.contextPath=/demo" tomcat7:run
 
 2. Override with VS Code task:
 
-- Open `.vscode/settings.json`, modify `applicationContextPath` (e.g., `/demo`)
+- Open `.vscode/settings.json`, modify `app.webContextPath` (e.g., `/demo`)
 
 #### Context XML Naming Rules (JNDI DataSource)
 
-When using `tomcat: run (JNDI Context XML)` / `tomcat: debug (JNDI Context XML)`, Context XML is automatically selected based on contextPath:
+When using `tomcat: run` / `tomcat: debug` tasks, Context XML is automatically loaded via the `app.tomcatContextFile` setting:
 
-- `applicationContextPath=/demo` → uses `.vscode/tomcat/Catalina/localhost/demo.xml`
-- `applicationContextPath=/` or empty → uses `.vscode/tomcat/Catalina/localhost/ROOT.xml`
+- Setting `app.tomcatContextFile` (default: `/.vscode/tomcat/Catalina/localhost/ROOT.xml`)
+- Tasks pass `-Dtomcat.contextFile=${workspaceFolder}${config:app.tomcatContextFile}` to Maven
 
 This means when migrating to other projects, you typically only need to:
 
-- Modify `applicationContextPath`
+- Modify `app.webContextPath` and `app.tomcatContextFile` in `.vscode/settings.json`
 - Copy `.vscode/tomcat/Catalina/localhost/demo.xml` to corresponding xml filename (and modify JDBC URL/credentials per project)
 
 #### How to Add New `.vscode\\tomcat\\Catalina\\localhost\\*.xml`
 
 1. First decide your contextPath (e.g., `/demo`, `/`):
 
-- Recommend modifying `applicationContextPath` in `.vscode/settings.json`
+- Recommend modifying `app.webContextPath` in `.vscode/settings.json`
 
 2. Calculate the corresponding context filename:
 
@@ -220,6 +222,20 @@ Examples:
 
 ```xml
 <Context reloadable="false">
+	<!-- H2 in-memory database (for testing) -->
+	<Resource
+			auth="Container"
+			name="jdbc/demo_db"
+			type="javax.sql.DataSource"
+			driverClassName="org.h2.Driver"
+			url="jdbc:h2:mem:demo_db;DB_CLOSE_DELAY=-1"
+			username="sa"
+			password=""
+			maxTotal="100"
+			maxIdle="100"
+			maxWaitMillis="100000"/>
+
+	<!-- PostgreSQL example (requires postgresql driver dependency)
 	<Resource
 			auth="Container"
 			name="jdbc/demo_db"
@@ -231,6 +247,7 @@ Examples:
 			maxTotal="50"
 			maxIdle="10"
 			maxWaitMillis="10000"/>
+	-->
 </Context>
 ```
 
@@ -239,7 +256,11 @@ Notes:
 - Only need `<Context> + <Resource>`, don't include `docBase` / `path` (avoid startup failures due to path inconsistencies in embedded/plugin mode)
 - `<Resource name="jdbc/...">` corresponds to `<resource-ref>` in web.xml and runtime lookup of `java:comp/env/jdbc/...`
 
-4. Start:
+4. Configure VS Code settings:
+
+- Update `app.tomcatContextFile` in `.vscode/settings.json` to point to your new XML file
+
+5. Start:
 
 - With VS Code: In `TERMINAL` view, `Run Task...` and select `tomcat: run` (or debug version)
 

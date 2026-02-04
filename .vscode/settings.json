@@ -1,6 +1,9 @@
 {
     // App context path (used by VS Code tasks / Tomcat run scripts)
-    "applicationContextPath": "/",
+    "app.webContextPath": "/",
+    // Tomcat Context XML used by tasks to provide JNDI resources
+    "app.tomcatContextFile": "/.vscode/tomcat/Catalina/localhost/ROOT.xml",
+    
     "java.configuration.updateBuildConfiguration": "automatic",
     "java.compile.nullAnalysis.mode": "automatic",
     "maven.executable.preferMavenWrapper": true,
@@ -83,4 +86,5 @@
     "java.jdt.ls.vmargs": "-XX:+UseG1GC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx2G -Xms100m -Xlog:disable",
     "java.debug.settings.hotCodeReplace": "auto",
     "java.debug.settings.forceBuildBeforeLaunch": true,
+
 }
