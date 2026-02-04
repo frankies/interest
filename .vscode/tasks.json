@@ -4,7 +4,10 @@
 		{
 			"label": "maven: clean",
 			"type": "shell",
-			"command": ".\\mvnw.cmd",
+			"command": "${workspaceFolder}/mvnw",
+			"windows": {
+				"command": "${workspaceFolder}/mvnw.cmd"
+			},
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},
@@ -21,7 +24,10 @@
 		{
 			"label": "maven: compile",
 			"type": "shell",
-			"command": ".\\mvnw.cmd",
+			"command": "${workspaceFolder}/mvnw",
+			"windows": {
+				"command": "${workspaceFolder}/mvnw.cmd"
+			},
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},
@@ -38,7 +44,10 @@
 		{
 			"label": "maven: test",
 			"type": "shell",
-			"command": ".\\mvnw.cmd",
+			"command": "${workspaceFolder}/mvnw",
+			"windows": {
+				"command": "${workspaceFolder}/mvnw.cmd"
+			},
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},
@@ -54,11 +63,14 @@
 				"panel": "shared"
 			},
 			"problemMatcher": []
-		}, 
+		},
 		{
 			"label": "maven: package",
 			"type": "shell",
-			"command": ".\\mvnw.cmd",
+			"command": "${workspaceFolder}/mvnw",
+			"windows": {
+				"command": "${workspaceFolder}/mvnw.cmd"
+			},
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},
@@ -78,7 +90,10 @@
 		{
 			"label": "maven: install",
 			"type": "shell",
-			"command": ".\\mvnw.cmd",
+			"command": "${workspaceFolder}/mvnw",
+			"windows": {
+				"command": "${workspaceFolder}/mvnw.cmd"
+			},
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},
@@ -99,7 +114,10 @@
 		{
 			"label": "maven: clean install (skip tests)",
 			"type": "shell",
-			"command": ".\\mvnw.cmd",
+			"command": "${workspaceFolder}/mvnw",
+			"windows": {
+				"command": "${workspaceFolder}/mvnw.cmd"
+			},
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},
@@ -118,7 +136,10 @@
 		{
 			"label": "maven: dependency tree",
 			"type": "shell",
-			"command": ".\\mvnw.cmd",
+			"command": "${workspaceFolder}/mvnw",
+			"windows": {
+				"command": "${workspaceFolder}/mvnw.cmd"
+			},
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},
@@ -134,16 +155,12 @@
 		{
 			"label": "tomcat: run",
 			"type": "shell",
-			"command": ".\\mvnw.cmd",
+			"command": "${workspaceFolder}/mvnw",
+			"windows": {
+				"command": "${workspaceFolder}/mvnw.cmd"
+			},
 			"options": {
-				"cwd": "${workspaceFolder}",
-				"shell": {
-					"executable": "cmd.exe",
-					"args": [
-						"/d",
-						"/c"
-					]
-				}
+				"cwd": "${workspaceFolder}"
 			},
 			"args": [
 				"-Dapp.contextPath=${config:applicationContextPath}",
@@ -159,19 +176,13 @@
 		{
 			"label": "tomcat: debug",
 			"type": "shell",
-			"command": ".\\mvnw.cmd",
+			"command": "${workspaceFolder}/mvnw",
+			"windows": {
+				"command": "${workspaceFolder}/mvnw.cmd"
+			},
 			"options": {
 				"cwd": "${workspaceFolder}",
-				"shell": {
-					"executable": "cmd.exe",
-					"args": [
-						"/d",
-						"/c"
-					]
-				},
 				"env": {
-					"JAVA_HOME": "${env:JAVA_8_HOME}",
-					"PATH": "${env:JAVA_8_HOME}\\bin;${env:PATH}",
 					"MAVEN_OPTS": "-Xmx1024m -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000"
 				}
 			},
@@ -189,7 +200,30 @@
 		{
 			"label": "Open Browser",
 			"type": "shell",
-			"command": "Start-Sleep -Seconds 8; Start-Process 'http://localhost:8080${config:applicationContextPath}'",
+			"windows": {
+				"command": "powershell",
+				"args": [
+					"-NoProfile",
+					"-ExecutionPolicy",
+					"Bypass",
+					"-Command",
+					"Start-Sleep -Seconds 8; Start-Process 'http://localhost:8080${config:applicationContextPath}'"
+				]
+			},
+			"linux": {
+				"command": "sh",
+				"args": [
+					"-c",
+					"sleep 8 && xdg-open 'http://localhost:8080${config:applicationContextPath}'"
+				]
+			},
+			"osx": {
+				"command": "sh",
+				"args": [
+					"-c",
+					"sleep 8 && open 'http://localhost:8080${config:applicationContextPath}'"
+				]
+			},
 			"presentation": {
 				"reveal": "silent",
 				"panel": "shared"
@@ -213,18 +247,34 @@
 				"Open Browser"
 			],
 			"problemMatcher": []
-		}, 
+		},
 		{
 			"label": "tomcat: stop",
 			"type": "shell",
-			"command": "powershell",
-			"args": [
-				"-NoProfile",
-				"-ExecutionPolicy",
-				"Bypass",
-				"-Command",
-				"$p = (Get-NetTCPConnection -LocalPort 8080 -State Listen -ErrorAction SilentlyContinue | Select-Object -First 1).OwningProcess; if ($p) { Stop-Process -Id $p -Force; Write-Host ('Stopped process on 8080: ' + $p) } else { Write-Host 'No listening process found on 8080' }"
-			],
+			"windows": {
+				"command": "powershell",
+				"args": [
+					"-NoProfile",
+					"-ExecutionPolicy",
+					"Bypass",
+					"-Command",
+					"$p = (Get-NetTCPConnection -LocalPort 8080 -State Listen -ErrorAction SilentlyContinue | Select-Object -First 1).OwningProcess; if ($p) { Stop-Process -Id $p -Force; Write-Host ('Stopped process on 8080: ' + $p) } else { Write-Host 'No listening process found on 8080' }"
+				]
+			},
+			"linux": {
+				"command": "sh",
+				"args": [
+					"-c",
+					"pid=$(lsof -t -i:8080 2>/dev/null | head -n 1); if [ -n \"$pid\" ]; then kill -9 $pid && echo \"Stopped process on 8080: $pid\"; else echo \"No listening process found on 8080\"; fi"
+				]
+			},
+			"osx": {
+				"command": "sh",
+				"args": [
+					"-c",
+					"pid=$(lsof -t -i:8080 2>/dev/null | head -n 1); if [ -n \"$pid\" ]; then kill -9 $pid && echo \"Stopped process on 8080: $pid\"; else echo \"No listening process found on 8080\"; fi"
+				]
+			},
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},
@@ -237,7 +287,10 @@
 		{
 			"label": "tomcat: shutdown (tomcat7:shutdown) - remote",
 			"type": "shell",
-			"command": ".\\mvnw.cmd",
+			"command": "${workspaceFolder}/mvnw",
+			"windows": {
+				"command": "${workspaceFolder}/mvnw.cmd"
+			},
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},
