@@ -3,21 +3,177 @@ package com.example;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import org.junit.AfterClass;
+import org.junit.After;
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.example.utils.TomcatTestSupport;
 
+/**
+ * Integration test class for testing JNDI resource configuration.
+ * <p>
+ * This test class verifies that JNDI datasource resources can be correctly
+ * configured and accessed
+ * under different contextPath configurations. The tests use H2 in-memory
+ * databases as mock data sources
+ * and dynamically create Tomcat context configuration files in the system
+ * temporary directory.
+ * </p>
+ * 
+ * <h3>Test Scenarios:</h3>
+ * <ul>
+ * <li>JNDI resource access under root path ("/")</li>
+ * <li>JNDI resource access under default path configuration</li>
+ * <li>JNDI resource access under custom path ("/test")</li>
+ * </ul>
+ * 
+ * <h3>Tested JNDI Resources:</h3>
+ * <ul>
+ * <li>jdbc/a1_dms - Primary data management system datasource</li>
+ * <li>jdbc/a1_dms_cmmdb - Common data management database datasource</li>
+ * <li>jdbc/a1dms_bi - Business intelligence datasource</li>
+ * </ul>
+ * 
+ * @author Generated Test
+ * @version 1.0
+ * @since 1.0
+ */
 public class JndiResourcesTest extends BaseTomcatTest {
 
-    private static String contextPath;
-    private static File temporaryContextXml;
+    private String contextPath;
+    private File temporaryContextXml;
 
-    @BeforeClass
-    public static void startTomcatWithJndi() throws Exception {
-        contextPath = System.getProperty("app.contextPath", "/");
+    /**
+     * Tests JNDI resource lookup functionality under root path ("/").
+     * <p>
+     * This test verifies that when the application is deployed under the root path,
+     * all configured JNDI datasource resources can be properly bound and accessed.
+     * The test creates a temporary Tomcat context configuration, starts an embedded
+     * Tomcat server, and verifies JNDI resource availability through HTTP requests.
+     * </p>
+     * 
+     * @throws Exception if any exception occurs during testing, including server
+     *                   startup failure,
+     *                   HTTP request failure, or JNDI resource configuration errors
+     */
+    @Test
+    public void shouldLookupAllJndiResourcesWithRootPath() throws Exception {
+        setupJndiContextXml("/");
+        String body = TomcatTestSupport.httpGetText(server.getPort(), contextPath + "/__jndi");
+        assertJndiResourcesWork(body);
+    }
+
+    /**
+     * Tests JNDI resource lookup functionality under default path configuration.
+     * <p>
+     * This test verifies that when no contextPath is explicitly specified (passing
+     * null),
+     * all JNDI datasource resources work correctly under the default path
+     * configuration.
+     * This scenario typically corresponds to the default deployment scenario of the
+     * application.
+     * </p>
+     * 
+     * @throws Exception if any exception occurs during testing, including default
+     *                   configuration parsing failure,
+     *                   server startup failure, or JNDI resource binding errors
+     */
+    @Test
+    public void shouldLookupAllJndiResourcesWithDefaultPath() throws Exception {
+        setupJndiContextXml(null); // Use default contextPath value
+        String body = TomcatTestSupport.httpGetText(server.getPort(), contextPath + "/__jndi");
+        assertJndiResourcesWork(body);
+    }
+
+    /**
+     * Tests JNDI resource lookup functionality under custom path ("/test").
+     * <p>
+     * This test verifies that when the application is deployed under a custom
+     * context path,
+     * JNDI resource configuration remains effective. This scenario typically occurs
+     * in
+     * multi-application deployment environments where each application has its own
+     * independent context path.
+     * </p>
+     * 
+     * @throws Exception if any exception occurs during testing, including custom
+     *                   path configuration failure,
+     *                   context mapping errors, or JNDI resource access failures
+     */
+    @Test
+    public void shouldLookupAllJndiResourcesWithTestPath() throws Exception {
+        setupJndiContextXml("/test");
+        String body = TomcatTestSupport.httpGetText(server.getPort(), contextPath + "/__jndi");
+        assertJndiResourcesWork(body);
+    }
+
+    /**
+     * Cleans up temporary resources created during testing.
+     * <p>
+     * This method is automatically called after each test method execution and is
+     * responsible
+     * for cleaning up the following resources:
+     * </p>
+     * <ul>
+     * <li>Shutdown and destroy embedded Tomcat server instance</li>
+     * <li>Delete temporarily created context configuration XML file</li>
+     * </ul>
+     * <p>
+     * Ensures tests are independent of each other, avoiding resource leaks and
+     * inter-test interference.
+     * </p>
+     * 
+     * @throws Exception if exceptions occur during cleanup, but exceptions are
+     *                   caught to ensure other cleanup operations continue
+     */
+    @After
+    public void cleanupTemporaryFiles() throws Exception {
+        // Clean up server
+        if (server != null) {
+            try {
+                server.close();
+            } catch (Exception ignored) {
+            }
+            server = null;
+        }
+
+        // Clean up temporary context XML file if we created it
+        if (temporaryContextXml != null && temporaryContextXml.exists()) {
+            temporaryContextXml.delete();
+        }
+    }
+
+    /**
+     * Sets up JNDI context configuration and starts the Tomcat server for testing.
+     * <p>
+     * This method performs the following operations:
+     * </p>
+     * <ol>
+     * <li>Sets the application context path based on the passed contextPath
+     * parameter</li>
+     * <li>Generates the corresponding context name, handling the special case of
+     * root path</li>
+     * <li>Creates a temporary Tomcat context configuration file in the system
+     * temporary directory</li>
+     * <li>Writes JNDI resource configuration to the temporary configuration
+     * file</li>
+     * <li>Starts the embedded Tomcat server and configures the JNDI check
+     * servlet</li>
+     * </ol>
+     * 
+     * @param testContextPath the context path to use for testing. If null, the
+     *                        default value "/" will be used
+     * @throws Exception if any exception occurs during configuration, including
+     *                   file creation failure, server startup failure, etc.
+     */
+    private void setupJndiContextXml(String testContextPath) throws Exception {
+        // Set contextPath, use default value if null is passed
+        if (testContextPath != null) {
+            contextPath = testContextPath;
+        } else {
+            contextPath = "/"; // Default value
+        }
+
         String contextName = contextPath;
         if (contextName.startsWith("/")) {
             contextName = contextName.substring(1);
@@ -49,10 +205,23 @@ public class JndiResourcesTest extends BaseTomcatTest {
         });
     }
 
-    @Test
-    public void shouldLookupAllJndiResources() throws Exception {
-        String body = TomcatTestSupport.httpGetText(server.getPort(), contextPath + "/__jndi");
-
+    /**
+     * Verifies that JNDI resources are working properly.
+     * <p>
+     * This method parses the response content from the JNDI check servlet and
+     * verifies the following conditions:
+     * </p>
+     * <ul>
+     * <li>jdbc/a1_dms datasource status is OK or OK (connected)</li>
+     * <li>jdbc/a1_dms_cmmdb datasource status is OK or OK (connected)</li>
+     * <li>jdbc/a1dms_bi datasource status is OK or OK (connected)</li>
+     * <li>Response contains no FAIL status</li>
+     * </ul>
+     * 
+     * @param body the response content returned by the JNDI check servlet
+     * @throws AssertionError if any JNDI resource verification fails
+     */
+    private void assertJndiResourcesWork(String body) {
         // We expect at least these resources, and we expect them to be bound as
         // DataSource.
         Assert.assertTrue("Expected jdbc/a1_dms OK. Body:\n" + body,
@@ -65,15 +234,35 @@ public class JndiResourcesTest extends BaseTomcatTest {
         Assert.assertFalse("Unexpected FAIL in JNDI check. Body:\n" + body, body.contains("=FAIL"));
     }
 
-    @AfterClass
-    public static void cleanupTemporaryFiles() {
-        // Clean up temporary context XML file if we created it
-        if (temporaryContextXml != null && temporaryContextXml.exists()) {
-            temporaryContextXml.delete();
-        }
-    }
-
-    private static void createTemporaryContextXml(File contextXml) throws IOException {
+    /**
+     * Creates a temporary context XML file containing JNDI resource configuration.
+     * <p>
+     * This method generates a standard Tomcat context configuration file containing
+     * three H2 in-memory database datasource configurations:
+     * </p>
+     * <ul>
+     * <li><strong>jdbc/a1_dms</strong> - Primary data management system
+     * datasource</li>
+     * <li><strong>jdbc/a1_dms_cmmdb</strong> - Common data management database
+     * datasource</li>
+     * <li><strong>jdbc/a1dms_bi</strong> - Business intelligence datasource</li>
+     * </ul>
+     * <p>
+     * All datasources are configured to use H2 in-memory database with connection
+     * parameters including:
+     * </p>
+     * <ul>
+     * <li>Driver class: org.h2.Driver</li>
+     * <li>Maximum connections: 100</li>
+     * <li>Maximum idle connections: 100</li>
+     * <li>Maximum wait time: 100 seconds</li>
+     * <li>Authentication method: Container</li>
+     * </ul>
+     * 
+     * @param contextXml the context configuration file to create
+     * @throws IOException if I/O exception occurs during file writing
+     */
+    private void createTemporaryContextXml(File contextXml) throws IOException {
         // Create the context XML with mock JNDI resources
         String contextXmlContent = "<Context reloadable=\"false\">\n" +
                 "    <!-- Mock JNDI DataSource resources for testing using H2 in-memory database -->\n" +
