@@ -78,6 +78,7 @@
     "workbench.iconTheme": "vscode-icons",
     "explorer.confirmDelete": false,
     "explorer.confirmDragAndDrop": false,
+
+    // Java语言服务器JVM参数配置
     "java.jdt.ls.vmargs": "-XX:+UseG1GC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx2G -Xms100m -Xlog:disable",
-    "maven.view": "flat"
 }

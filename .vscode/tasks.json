@@ -157,7 +157,17 @@
 			"type": "shell",
 			"command": "${workspaceFolder}/mvnw",
 			"windows": {
-				"command": "${workspaceFolder}/mvnw.cmd"
+				"command": "${workspaceFolder}/mvnw.cmd",
+				"options": {
+					"cwd": "${workspaceFolder}",
+					"shell": {
+						"executable": "cmd.exe",
+						"args": [
+							"/d",
+							"/c"
+						]
+					}
+				}
 			},
 			"options": {
 				"cwd": "${workspaceFolder}"
@@ -178,7 +188,20 @@
 			"type": "shell",
 			"command": "${workspaceFolder}/mvnw",
 			"windows": {
-				"command": "${workspaceFolder}/mvnw.cmd"
+				"command": "${workspaceFolder}/mvnw.cmd",
+				"options": {
+					"cwd": "${workspaceFolder}",
+					"env": {
+						"MAVEN_OPTS": "-Xmx1024m -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000"
+					},  
+					"shell": {
+						"executable": "cmd.exe",
+						"args": [
+							"/d",
+							"/c"
+						]
+					}
+				}
 			},
 			"options": {
 				"cwd": "${workspaceFolder}",
