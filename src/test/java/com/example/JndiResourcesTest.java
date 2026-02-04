@@ -7,6 +7,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.example.base.BaseTomcatTest;
 import com.example.utils.TomcatTestSupport;
 
 /**
@@ -27,11 +28,9 @@ import com.example.utils.TomcatTestSupport;
  * <li>JNDI resource access under custom path ("/test")</li>
  * </ul>
  * 
- * <h3>Tested JNDI Resources:</h3>
+ * <h3>Tested JNDI Resource:</h3>
  * <ul>
  * <li>jdbc/a1_dms - Primary data management system datasource</li>
- * <li>jdbc/a1_dms_cmmdb - Common data management database datasource</li>
- * <li>jdbc/a1dms_bi - Business intelligence datasource</li>
  * </ul>
  * 
  * @author Generated Test
@@ -213,8 +212,7 @@ public class JndiResourcesTest extends BaseTomcatTest {
      * </p>
      * <ul>
      * <li>jdbc/a1_dms datasource status is OK or OK (connected)</li>
-     * <li>jdbc/a1_dms_cmmdb datasource status is OK or OK (connected)</li>
-     * <li>jdbc/a1dms_bi datasource status is OK or OK (connected)</li>
+     * 
      * <li>Response contains no FAIL status</li>
      * </ul>
      * 
@@ -222,14 +220,9 @@ public class JndiResourcesTest extends BaseTomcatTest {
      * @throws AssertionError if any JNDI resource verification fails
      */
     private void assertJndiResourcesWork(String body) {
-        // We expect at least these resources, and we expect them to be bound as
-        // DataSource.
+        // We expect the resource to be bound as DataSource.
         Assert.assertTrue("Expected jdbc/a1_dms OK. Body:\n" + body,
                 body.contains("jdbc/a1_dms=OK") || body.contains("jdbc/a1_dms=OK (connected)"));
-        Assert.assertTrue("Expected jdbc/a1_dms_cmmdb OK. Body:\n" + body,
-                body.contains("jdbc/a1_dms_cmmdb=OK") || body.contains("jdbc/a1_dms_cmmdb=OK (connected)"));
-        Assert.assertTrue("Expected jdbc/a1dms_bi OK. Body:\n" + body,
-                body.contains("jdbc/a1dms_bi=OK") || body.contains("jdbc/a1dms_bi=OK (connected)"));
 
         Assert.assertFalse("Unexpected FAIL in JNDI check. Body:\n" + body, body.contains("=FAIL"));
     }
@@ -238,17 +231,14 @@ public class JndiResourcesTest extends BaseTomcatTest {
      * Creates a temporary context XML file containing JNDI resource configuration.
      * <p>
      * This method generates a standard Tomcat context configuration file containing
-     * three H2 in-memory database datasource configurations:
+     * an H2 in-memory database datasource configuration:
      * </p>
      * <ul>
      * <li><strong>jdbc/a1_dms</strong> - Primary data management system
      * datasource</li>
-     * <li><strong>jdbc/a1_dms_cmmdb</strong> - Common data management database
-     * datasource</li>
-     * <li><strong>jdbc/a1dms_bi</strong> - Business intelligence datasource</li>
      * </ul>
      * <p>
-     * All datasources are configured to use H2 in-memory database with connection
+     * The datasource is configured to use H2 in-memory database with connection
      * parameters including:
      * </p>
      * <ul>
@@ -263,9 +253,9 @@ public class JndiResourcesTest extends BaseTomcatTest {
      * @throws IOException if I/O exception occurs during file writing
      */
     private void createTemporaryContextXml(File contextXml) throws IOException {
-        // Create the context XML with mock JNDI resources
+        // Create the context XML with mock JNDI resource
         String contextXmlContent = "<Context reloadable=\"false\">\n" +
-                "    <!-- Mock JNDI DataSource resources for testing using H2 in-memory database -->\n" +
+                "    <!-- Mock JNDI DataSource resource for testing using H2 in-memory database -->\n" +
                 "    \n" +
                 "    <!-- Mock database for a1_dms -->\n" +
                 "    <Resource\n" +
@@ -278,32 +268,6 @@ public class JndiResourcesTest extends BaseTomcatTest {
                 "            password=\"\"\n" +
                 "            type=\"javax.sql.DataSource\"\n" +
                 "            url=\"jdbc:h2:mem:a1_dms;DB_CLOSE_DELAY=-1\"\n" +
-                "            username=\"sa\"/>\n" +
-                "\n" +
-                "    <!-- Mock database for a1_dms_cmmdb -->\n" +
-                "    <Resource\n" +
-                "            auth=\"Container\"\n" +
-                "            driverClassName=\"org.h2.Driver\"\n" +
-                "            maxTotal=\"100\"\n" +
-                "            maxIdle=\"100\"\n" +
-                "            maxWaitMillis=\"100000\"\n" +
-                "            name=\"jdbc/a1_dms_cmmdb\"\n" +
-                "            password=\"\"\n" +
-                "            type=\"javax.sql.DataSource\"\n" +
-                "            url=\"jdbc:h2:mem:a1_dms_cmmdb;DB_CLOSE_DELAY=-1\"\n" +
-                "            username=\"sa\"/>\n" +
-                "\n" +
-                "    <!-- Mock database for a1dms_bi -->\n" +
-                "    <Resource\n" +
-                "            auth=\"Container\"\n" +
-                "            driverClassName=\"org.h2.Driver\"\n" +
-                "            maxTotal=\"100\"\n" +
-                "            maxIdle=\"100\"\n" +
-                "            maxWaitMillis=\"100000\"\n" +
-                "            name=\"jdbc/a1dms_bi\"\n" +
-                "            password=\"\"\n" +
-                "            type=\"javax.sql.DataSource\"\n" +
-                "            url=\"jdbc:h2:mem:a1dms_bi;DB_CLOSE_DELAY=-1\"\n" +
                 "            username=\"sa\"/>\n" +
                 "</Context>\n";
 

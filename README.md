@@ -1,30 +1,30 @@
 # Simple Maven Project
 
-这是一个使用Maven构建的Java Web项目。
+A Maven-based Java Web project.
 
-## 项目信息
+## Project Information
 
-- **JDK版本**: 1.8
-- **Maven版本**: 3.3.9 (使用Maven Wrapper)
-- **项目类型**: Web应用 (WAR)
-- **主要依赖**: Apache Oltu OAuth2 Client
+- **JDK Version**: 1.8
+- **Maven Version**: 3.3.9 (using Maven Wrapper)
+- **Project Type**: Web Application (WAR)
+- **Main Dependencies**: Apache Oltu OAuth2 Client
 
-## 项目结构
+## Project Structure
 
 ```
 simple-maven-pj/
-├── .mvn/                   # Maven Wrapper配置
-│   ├── .m2/                # Maven本地仓库目录（由 .mvn/settings.xml 指定）
+├── .mvn/                   # Maven Wrapper configuration
+│   ├── .m2/                # Maven local repository directory (specified by .mvn/settings.xml)
 │   ├── wrapper/
 │   │   └── maven-wrapper.properties
-│   └── settings.xml        # Maven设置（本地仓库配置）
+│   └── settings.xml        # Maven settings (local repository configuration)
 ├── src/
 │   ├── main/
 │   │   ├── java/
 │   │   │   └── com/example/
 │   │   │       ├── HelloServlet.java
 │   │   │       └── JndiCheckServlet.java
-│   │   ├── resources/          # 资源文件目录（可选配置文件等）
+│   │   ├── resources/          # Resource files directory (optional configuration files, etc.)
 │   │   └── webapp/
 │   │       ├── WEB-INF/
 │   │       │   └── web.xml
@@ -35,154 +35,154 @@ simple-maven-pj/
 │               ├── HelloServletTest.java
 │               ├── JndiResourcesTest.java
 │               └── TomcatTestSupport.java
-├── .vscode/                 # VS Code 配置（tasks/launch/settings等）
-│   └── tomcat/              # 本地 Tomcat/JNDI 相关脚本与 Context XML
-├── mvnw                    # Maven Wrapper脚本（Unix/Linux/Mac）
-├── mvnw.cmd                # Maven Wrapper脚本（Windows）
-├── pom.xml                 # Maven项目配置
-└── README.md               # 项目说明文档
+├── .vscode/                 # VS Code configuration (tasks/launch/settings, etc.)
+│   └── tomcat/              # Local Tomcat/JNDI related scripts and Context XML
+├── mvnw                    # Maven Wrapper script (Unix/Linux/Mac)
+├── mvnw.cmd                # Maven Wrapper script (Windows)
+├── pom.xml                 # Maven project configuration
+└── README.md               # Project documentation
 ```
 
-## 依赖说明
+## Dependencies
 
-- **javax.servlet:servlet-api** (2.4, provided): Servlet API，用于Web开发（兼容老容器/老项目）
-- **org.apache.oltu.oauth2.client** (1.0.1): OAuth2客户端库
-- **junit** (4.12): 单元测试框架
+- **javax.servlet:servlet-api** (2.4, provided): Servlet API for web development (compatible with legacy containers/projects)
+- **org.apache.oltu.oauth2.client** (1.0.1): OAuth2 client library
+- **junit** (4.12): Unit testing framework
 
-## 使用说明
+## Usage Instructions
 
-### 构建项目
+### Build Project
 
-在Windows上使用：
+On Windows:
 
 ```bash
 mvnw.cmd clean install
 ```
 
-在Unix/Linux/Mac上使用：
+On Unix/Linux/Mac:
 
 ```bash
 ./mvnw clean install
 ```
 
-### 编译项目
+### Compile Project
 
 ```bash
 mvnw.cmd compile
 ```
 
-### 运行测试
+### Run Tests
 
 ```bash
 mvnw.cmd test
 ```
 
-### 打包项目
+### Package Project
 
 ```bash
 mvnw.cmd package
 ```
 
-打包后的WAR文件将位于 `target/simple-maven-pj.war`
+The packaged WAR file will be located at `target/simple-maven-pj.war`
 
-## Maven配置
+## Maven Configuration
 
-项目配置了自定义的Maven本地仓库路径：`.mvn/.m2/repository`
+The project is configured with a custom Maven local repository path: `.mvn/.m2/repository`
 
-这意味着所有下载的依赖都会存储在项目目录的 `.mvn/.m2` 文件夹中，而不是系统默认的 `~/.m2` 目录。
+This means all downloaded dependencies will be stored in the `.mvn/.m2` folder within the project directory, rather than the system default `~/.m2` directory.
 
-## 部署说明
+## Deployment Instructions
 
-生成的WAR文件可以部署到任何支持Servlet 2.4+的Web容器中，例如：
+The generated WAR file can be deployed to any web container that supports Servlet 2.4+, such as:
 
-- Apache Tomcat 8.x 或更高版本
-- Jetty 9.x 或更高版本
+- Apache Tomcat 8.x or higher
+- Jetty 9.x or higher
 - WildFly/JBoss
 
-## 开发环境要求
+## Development Environment Requirements
 
-- JDK 1.8 或更高版本
-- Maven 3.3.9 (通过Maven Wrapper自动下载)
+- JDK 1.8 or higher
+- Maven 3.3.9 (automatically downloaded via Maven Wrapper)
 
-## VS Code开发环境
+## VS Code Development Environment
 
-项目已配置完整的VS Code开发环境支持：
+The project has complete VS Code development environment support configured:
 
-### 推荐扩展
+### Recommended Extensions
 
-安装以下扩展以获得最佳开发体验：
+Install the following extensions for the best development experience:
 
-- **Java扩展包** - Java开发核心工具
-- **Maven for Java** - Maven项目管理
-- **Tomcat for Java** - 本地Tomcat服务器支持
-- **XML** - XML文件支持
-- **GitLens** - Git增强工具
-- **SonarLint** - 代码质量检查
+- **Java Extension Pack** - Core Java development tools
+- **Maven for Java** - Maven project management
+- **Tomcat for Java** - Local Tomcat server support
+- **XML** - XML file support
+- **GitLens** - Git enhancement tools
+- **SonarLint** - Code quality checking
 
-打开项目后，VS Code会提示安装推荐的扩展。
+After opening the project, VS Code will prompt you to install the recommended extensions.
 
-### VS Code任务
+### VS Code Tasks
 
-项目配置了以下Maven任务（按 `Ctrl+Shift+P`，输入"Run Task"）：
+The project has the following Maven tasks configured (press `Ctrl+Shift+P`, type "Run Task"):
 
-- `maven: compile` - 编译项目
-- `maven: test` - 运行测试
-- `maven: package` - 打包WAR文件
-- `maven: install` - 清理并安装（默认构建任务，快捷键 `Ctrl+Shift+B`）
-- `maven: clean install (skip tests)` - 跳过测试的快速构建
+- `maven: compile` - Compile project
+- `maven: test` - Run tests
+- `maven: package` - Package WAR file
+- `maven: install` - Clean and install (default build task, shortcut `Ctrl+Shift+B`)
+- `maven: clean install (skip tests)` - Fast build skipping tests
 
-另外包含 Tomcat 相关任务：
+Additionally includes Tomcat related tasks:
 
-- `tomcat: run` / `tomcat: debug` - 使用 `tomcat7-maven-plugin` 启动（debug 端口 8000）, `Ctrl+C` 直接关闭
-- `tomcat: shutdown (tomcat7:shutdown)` - 停止 Tomcat
-- `tomcat: stop` - 强制停止（杀掉占用 8080 的监听进程，兜底用）
+- `tomcat: run` / `tomcat: debug` - Start using `tomcat7-maven-plugin` (debug port 8000), `Ctrl+C` to stop directly
+- `tomcat: shutdown (tomcat7:shutdown)` - Stop Tomcat
+- `tomcat: stop` - Force stop (kill process listening on port 8080, fallback option)
 
-#### 设置 contextPath
+#### Setting contextPath
 
-- Maven 属性：`app.contextPath`（默认 `/`，见 `pom.xml`）
-- VS Code：工作区设置 `applicationContextPath`（默认 `/a1stream`，见 `.vscode/settings.json`）
+- Maven property: `app.contextPath` (default `/`, see `pom.xml`)
+- VS Code: workspace setting `applicationContextPath` (default `/a1stream`, see `.vscode/settings.json`)
 
-你可以用以下任一方式覆盖 contextPath：
+You can override contextPath using either of these methods:
 
-1. 直接用 Maven 命令覆盖：
+1. Override directly with Maven command:
 
 ```bash
 mvnw.cmd "-Dapp.contextPath=/demo" tomcat7:run
 ```
 
-2. 用 VS Code 任务覆盖：
+2. Override with VS Code task:
 
-- 打开 `.vscode/settings.json`，修改 `applicationContextPath`（例如 `/demo`）
+- Open `.vscode/settings.json`, modify `applicationContextPath` (e.g., `/demo`)
 
-#### Context XML 命名规则（JNDI DataSource）
+#### Context XML Naming Rules (JNDI DataSource)
 
-当你使用 `tomcat: run (JNDI Context XML)` / `tomcat: debug (JNDI Context XML)` 时，会根据 contextPath 自动选择 Context XML：
+When using `tomcat: run (JNDI Context XML)` / `tomcat: debug (JNDI Context XML)`, Context XML is automatically selected based on contextPath:
 
-- `applicationContextPath=/demo` → 使用 `.vscode/tomcat/Catalina/localhost/demo.xml`
-- `applicationContextPath=/` 或空 → 使用 `.vscode/tomcat/Catalina/localhost/ROOT.xml`
+- `applicationContextPath=/demo` → uses `.vscode/tomcat/Catalina/localhost/demo.xml`
+- `applicationContextPath=/` or empty → uses `.vscode/tomcat/Catalina/localhost/ROOT.xml`
 
-也就是说，后续迁移到其它项目时，通常只需要：
+This means when migrating to other projects, you typically only need to:
 
-- 修改 `applicationContextPath`
-- 复制一份 `.vscode/tomcat/Catalina/localhost/demo.xml` 为对应名称的 xml（并按项目修改 JDBC URL/账号等）
+- Modify `applicationContextPath`
+- Copy `.vscode/tomcat/Catalina/localhost/demo.xml` to corresponding xml filename (and modify JDBC URL/credentials per project)
 
-#### 如何新增 `.vscode\\tomcat\\Catalina\\localhost\\*.xml`
+#### How to Add New `.vscode\\tomcat\\Catalina\\localhost\\*.xml`
 
-1. 先决定你的 contextPath（例如 `/demo`、`/`）：
+1. First decide your contextPath (e.g., `/demo`, `/`):
 
-- 推荐修改 `.vscode/settings.json` 里的 `applicationContextPath`
+- Recommend modifying `applicationContextPath` in `.vscode/settings.json`
 
-2. 计算 context 对应的文件名：
+2. Calculate the corresponding context filename:
 
-- 规则：去掉前导 `/`，剩下的就是文件名
-- 特例：`/`（或空）使用 `ROOT.xml`
+- Rule: Remove leading `/`, the remainder is the filename
+- Special case: `/` (or empty) uses `ROOT.xml`
 
-示例：
+Examples:
 
 - `/demo` → `demo.xml`
 - `/` → `ROOT.xml`
 
-3. 在 `.vscode/tomcat/Catalina/localhost/` 下创建对应文件（例如 `ROOT.xml`），内容示例：
+3. Create corresponding file in `.vscode/tomcat/Catalina/localhost/` (e.g., `ROOT.xml`), example content:
 
 ```xml
 <Context reloadable="false">
@@ -200,43 +200,43 @@ mvnw.cmd "-Dapp.contextPath=/demo" tomcat7:run
 </Context>
 ```
 
-注意：
+Notes:
 
-- 只需要 `<Context> + <Resource>`，不要写 `docBase` / `path`（避免嵌入式/插件模式下路径不一致导致启动失败）
-- `<Resource name="jdbc/...">` 对应 `web.xml` 里的 `<resource-ref>`，以及运行时 lookup 的 `java:comp/env/jdbc/...`
+- Only need `<Context> + <Resource>`, don't include `docBase` / `path` (avoid startup failures due to path inconsistencies in embedded/plugin mode)
+- `<Resource name="jdbc/...">` corresponds to `<resource-ref>` in web.xml and runtime lookup of `java:comp/env/jdbc/...`
 
-4. 启动：
+4. Start:
 
-- 用 VS Code：在`TERMINAL`视图中 `Run Task...` 运行 `tomcat: run`（或 debug 版本）
+- With VS Code: In `TERMINAL` view, `Run Task...` and select `tomcat: run` (or debug version)
 
-### 调试配置
+### Debug Configuration
 
-- **Debug (Attach) - Tomcat** - 附加到运行中的Tomcat（端口8000）
-- **Run All Tests** - 运行所有测试
+- **Debug (Attach) - Tomcat** - Attach to running Tomcat (port 8000)
+- **Run All Tests** - Run all tests
 
-### 代码片段
+### Code Snippets
 
-项目包含以下代码片段：
+Project includes the following code snippets:
 
-- `servlet` - 快速创建Servlet类
-- `test` - 快速创建JUnit测试类
-- `oauth2` - 快速创建OAuth2请求
+- `servlet` - Quickly create Servlet class
+- `test` - Quickly create JUnit test class
+- `oauth2` - Quickly create OAuth2 request
 
-## 注意事项
+## Important Notes
 
-1. 首次运行Maven Wrapper时，它会自动下载Maven 3.3.9
-2. 本地仓库配置在 `.mvn/settings.xml` 中
-3. 项目使用UTF-8编码
-4. 确保安装了JDK 1.8并正确配置了JAVA_HOME环境变量
+1. When running Maven Wrapper for the first time, it will automatically download Maven 3.3.9
+2. Local repository configuration is in `.mvn/settings.xml`
+3. Project uses UTF-8 encoding
+4. Ensure JDK 1.8 is installed and JAVA_HOME environment variable is properly configured
 
-## 本地 JNDI 可用性验证（可选）
+## Local JNDI Availability Verification (Optional)
 
-项目提供了一个检测端点与对应的集成测试，用于验证 `java:comp/env/jdbc/*` 是否已绑定：
+The project provides a diagnostic endpoint and corresponding integration test to verify if `java:comp/env/jdbc/*` is bound:
 
-- 运行时 Servlet：`/__jndi`（见 `WEB-INF/web.xml` 映射）
-- 集成测试：`JndiResourcesTest`
+- Runtime Servlet: `/__jndi` (see `WEB-INF/web.xml` mapping)
+- Integration Test: `JndiResourcesTest`
 
-如果你切换了 contextPath（例如 `/demo`），并且也准备了对应的 Context XML（例如 `demo.xml`），可这样跑单测：
+If you change contextPath (e.g., to `/demo`) and prepare the corresponding Context XML (e.g., `demo.xml`), you can run the integration test like this:
 
 ```bash
 mvnw.cmd "-Dapp.contextPath=/demo" "-Dtest=JndiResourcesTest" test

@@ -4,6 +4,7 @@ import org.apache.catalina.startup.Tomcat;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.example.base.BaseTomcatTest;
 import com.example.utils.TomcatTestSupport;
 
 import static org.junit.Assert.assertTrue;
@@ -12,16 +13,17 @@ import static org.junit.Assert.assertTrue;
  * Integration test class for the HelloServlet.
  * <p>
  * This test class verifies the functionality of the HelloServlet by deploying
- * it in an embedded Tomcat server and making HTTP requests to test its behavior.
+ * it in an embedded Tomcat server and making HTTP requests to test its
+ * behavior.
  * The test ensures that the servlet generates the expected HTML content and
  * responds correctly to HTTP GET requests.
  * </p>
  * 
  * <h3>Test Coverage:</h3>
  * <ul>
- *   <li>HTTP GET request handling</li>
- *   <li>HTML content generation</li>
- *   <li>Servlet deployment and mapping</li>
+ * <li>HTTP GET request handling</li>
+ * <li>HTML content generation</li>
+ * <li>Servlet deployment and mapping</li>
  * </ul>
  * 
  * @author Generated Test
