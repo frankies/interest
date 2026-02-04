@@ -1,14 +1,14 @@
 package com.example;
 
 import java.io.File;
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class JndiResourcesTest {
+import com.example.utils.TomcatTestSupport;
 
-    private static TomcatTestSupport.RunningTomcat server;
+public class JndiResourcesTest extends BaseTomcatTest {
+
     private static String contextPath;
 
     @BeforeClass
@@ -27,21 +27,13 @@ public class JndiResourcesTest {
 
         System.setProperty("jndi.contextFile", contextXml.getAbsolutePath());
 
-        server = TomcatTestSupport.start(contextPath, true, ctx -> {
-            TomcatTestSupport.addJndiResourcesFromContextXml(ctx, contextXml);
-
-            org.apache.catalina.startup.Tomcat.addServlet(ctx, "jndiCheck", new JndiCheckServlet());
-            ctx.addServletMappingDecoded("/__jndi", "jndiCheck");
+        startTomcatServer(contextPath, true, new ServletConfigurer() {
+            public void configure(org.apache.catalina.Context ctx) throws Exception {
+                TomcatTestSupport.addJndiResourcesFromContextXml(ctx, contextXml);
+                org.apache.catalina.startup.Tomcat.addServlet(ctx, "jndiCheck", new JndiCheckServlet());
+                ctx.addServletMapping("/__jndi", "jndiCheck");
+            }
         });
-    }
-
-    @AfterClass
-    public static void stopTomcat() throws Exception {
-        if (server == null) {
-            return;
-        }
-        server.close();
-        server = null;
     }
 
     @Test

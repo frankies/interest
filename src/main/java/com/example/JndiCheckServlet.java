@@ -51,8 +51,17 @@ public class JndiCheckServlet extends HttpServlet {
                     }
 
                     DataSource ds = (DataSource) obj;
-                    try (Connection c = ds.getConnection()) {
+                    Connection c = null;
+                    try {
+                        c = ds.getConnection();
                         out.println(name + "=OK (connected)");
+                    } finally {
+                        if (c != null) {
+                            try {
+                                c.close();
+                            } catch (Exception ignored) {
+                            }
+                        }
                     }
                 } catch (Exception e) {
                     out.println(name + "=FAIL (" + e.getClass().getSimpleName() + ": " + safeMessage(e) + ")");

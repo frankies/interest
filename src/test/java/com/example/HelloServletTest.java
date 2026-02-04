@@ -1,32 +1,22 @@
 package com.example;
 
-import org.apache.catalina.Context;
 import org.apache.catalina.startup.Tomcat;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.example.utils.TomcatTestSupport;
+
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
 
-public class HelloServletTest {
-
-    private static TomcatTestSupport.RunningTomcat server;
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-        if (server == null) {
-            return;
-        }
-        server.close();
-        server = null;
-    }
+public class HelloServletTest extends BaseTomcatTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        server = TomcatTestSupport.start("", false, ctx -> {
-            Tomcat.addServlet(ctx, "helloServlet", new HelloServlet());
-            ctx.addServletMappingDecoded("/hello", "helloServlet");
+        startTomcatServer("", false, new ServletConfigurer() {
+            public void configure(org.apache.catalina.Context ctx) throws Exception {
+                Tomcat.addServlet(ctx, "helloServlet", new HelloServlet());
+                ctx.addServletMapping("/hello", "helloServlet");
+            }
         });
     }
 
