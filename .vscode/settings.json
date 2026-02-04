@@ -3,7 +3,7 @@
     "applicationContextPath": "/",
     "java.configuration.updateBuildConfiguration": "automatic",
     "java.compile.nullAnalysis.mode": "automatic",
-    "maven.executable.path": "${workspaceFolder}/mvnw",
+    "maven.executable.preferMavenWrapper": true,
     "maven.settingsFile": "${workspaceFolder}/.mvn/settings.xml",
     "maven.terminal.useJavaHome": true,
     "maven.terminal.customEnv": [
