@@ -111,7 +111,7 @@ public class JndiCheckServlet extends HttpServlet {
                     }
 
                     if (!checkConnection) {
-                        out.println(name + "=OK");
+                        out.println("❌" + name + "=NG");
                         continue;
                     }
 
@@ -119,7 +119,17 @@ public class JndiCheckServlet extends HttpServlet {
                     Connection c = null;
                     try {
                         c = ds.getConnection();
-                        out.println(name + "=OK (connected)");
+                        String product = "";
+                        String version = "";
+                        try {
+                            java.sql.DatabaseMetaData md = c.getMetaData();
+                            if (md != null) {
+                                product = String.valueOf(md.getDatabaseProductName());
+                                version = String.valueOf(md.getDatabaseProductVersion());
+                            }
+                        } catch (Exception ignored) {
+                        }
+                        out.println(name + "=✅OK (connected, db=" + product + ", version=" + version + ")");
                     } finally {
                         if (c != null) {
                             try {
