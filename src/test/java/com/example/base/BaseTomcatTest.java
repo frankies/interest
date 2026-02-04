@@ -1,4 +1,4 @@
-package com.example;
+package com.example.base;
 
 import org.apache.catalina.Context;
 import org.junit.AfterClass;
@@ -16,15 +16,17 @@ import com.example.utils.TomcatTestSupport;
  * 
  * <h3>Features:</h3>
  * <ul>
- *   <li>Manages embedded Tomcat server lifecycle</li>
- *   <li>Provides servlet configuration interface</li>
- *   <li>Ensures proper cleanup after test execution</li>
- *   <li>Supports JNDI configuration for database testing</li>
+ * <li>Manages embedded Tomcat server lifecycle</li>
+ * <li>Provides servlet configuration interface</li>
+ * <li>Ensures proper cleanup after test execution</li>
+ * <li>Supports JNDI configuration for database testing</li>
  * </ul>
  * 
  * <h3>Usage:</h3>
- * <p>Extend this class and use the {@link #startTomcatServer} method in
- * your test setup to configure and start the server with your test servlets.</p>
+ * <p>
+ * Extend this class and use the {@link #startTomcatServer} method in
+ * your test setup to configure and start the server with your test servlets.
+ * </p>
  * 
  * @author Generated Test Base
  * @version 1.0
@@ -61,9 +63,9 @@ public abstract class BaseTomcatTest {
      * is configured using the provided ServletConfigurer implementation.
      * </p>
      * 
-     * @param contextPath  the web application context path
-     * @param enableJndi   whether to enable JNDI naming support
-     * @param configurer   the configurer to set up servlets and components
+     * @param contextPath the web application context path
+     * @param enableJndi  whether to enable JNDI naming support
+     * @param configurer  the configurer to set up servlets and components
      * @throws Exception if server startup or configuration fails
      */
     protected static void startTomcatServer(String contextPath, boolean enableJndi, ServletConfigurer configurer)
