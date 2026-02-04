@@ -159,7 +159,7 @@ public class JndiCheckServlet extends HttpServlet {
             }
         }
 
-        return new String[] { "jdbc/a1_dms" };
+        return new String[] { "jdbc/demo_db" };
     }
 
     /**

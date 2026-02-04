@@ -30,7 +30,7 @@ import com.example.utils.TomcatTestSupport;
  * 
  * <h3>Tested JNDI Resource:</h3>
  * <ul>
- * <li>jdbc/a1_dms - Primary data management system datasource</li>
+ * <li>jdbc/demo_db - Primary data management system datasource</li>
  * </ul>
  * 
  * @author Generated Test
@@ -211,7 +211,7 @@ public class JndiResourcesTest extends BaseTomcatTest {
      * verifies the following conditions:
      * </p>
      * <ul>
-     * <li>jdbc/a1_dms datasource status is OK or OK (connected)</li>
+     * <li>jdbc/demo_db datasource status is OK or OK (connected)</li>
      * 
      * <li>Response contains no FAIL status</li>
      * </ul>
@@ -221,8 +221,8 @@ public class JndiResourcesTest extends BaseTomcatTest {
      */
     private void assertJndiResourcesWork(String body) {
         // We expect the resource to be bound as DataSource.
-        Assert.assertTrue("Expected jdbc/a1_dms OK. Body:\n" + body,
-                body.contains("jdbc/a1_dms=OK") || body.contains("jdbc/a1_dms=OK (connected)"));
+        Assert.assertTrue("Expected jdbc/demo_db OK. Body:\n" + body,
+                body.contains("jdbc/demo_db=OK") || body.contains("jdbc/demo_db=OK (connected)"));
 
         Assert.assertFalse("Unexpected FAIL in JNDI check. Body:\n" + body, body.contains("=FAIL"));
     }
@@ -234,7 +234,7 @@ public class JndiResourcesTest extends BaseTomcatTest {
      * an H2 in-memory database datasource configuration:
      * </p>
      * <ul>
-     * <li><strong>jdbc/a1_dms</strong> - Primary data management system
+     * <li><strong>jdbc/demo_db</strong> - Primary data management system
      * datasource</li>
      * </ul>
      * <p>
@@ -264,7 +264,7 @@ public class JndiResourcesTest extends BaseTomcatTest {
                 "            maxTotal=\"100\"\n" +
                 "            maxIdle=\"100\"\n" +
                 "            maxWaitMillis=\"100000\"\n" +
-                "            name=\"jdbc/a1_dms\"\n" +
+                "            name=\"jdbc/demo_db\"\n" +
                 "            password=\"\"\n" +
                 "            type=\"javax.sql.DataSource\"\n" +
                 "            url=\"jdbc:h2:mem:a1_dms;DB_CLOSE_DELAY=-1\"\n" +

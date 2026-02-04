@@ -188,7 +188,7 @@ Examples:
 <Context reloadable="false">
 	<Resource
 			auth="Container"
-			name="jdbc/a1_dms"
+			name="jdbc/demo_db"
 			type="javax.sql.DataSource"
 			driverClassName="org.postgresql.Driver"
 			url="jdbc:postgresql://127.0.0.1:5432/yourdb"
