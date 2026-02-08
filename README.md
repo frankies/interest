@@ -50,9 +50,13 @@ sdk env install
 mkdir ~/.m2 
 mkdir /tmp/repo
 cat>~/.m2/settings.xml<<'EOF'
-<settings>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                              http://maven.apache.org/xsd/settings-1.0.0.xsd">
 	<localRepository>/tmp/repo</localRepository>
 </settings>
+
 EOF
 ```
 
@@ -63,3 +67,10 @@ EOF
 ./init.sh
 ```
 （运行前可执行 `chmod +x init.sh`）
+---
+
+## 执行jbang 命令
+
+```bash
+jbang hello@jbangdev
+```
