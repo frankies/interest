@@ -74,3 +74,8 @@ EOF
 ```bash
 jbang hello@jbangdev
 ```
+
+
+## 参考
+
+- [演示代码](https://asciinema.org/a/4AiobRxUwPUPztCtrDYcmoKjs?autoplay=true&theme=solarized-dark)
