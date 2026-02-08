@@ -442,3 +442,9 @@ jbang catalog list jreleaser
 
 
 
+## Junit
+
+```bash
+jbang app install --name junit cli@junit-team
+junit execute --scan-classpath -cp 
+```

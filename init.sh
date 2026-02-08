@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -o pipefail
 
 # init.sh - 初始化 SDKMan, 安装 JDK25 (GraalVM), 并设置 Maven 本地仓库为 /tmp/repo
 
@@ -52,3 +52,16 @@ cat > "$HOME/.m2/settings.xml" <<'EOF'
 EOF
 
 echo "==> 完成：SDKMan 安装于 $SDKMAN_DIR，Maven 本地仓库设置为 /tmp/repo"
+
+# 验证jdk
+
+echo "==> 验证 JDK25 (GraalVM) 安装结果"
+export JAVA_HOME="$SDKMAN_DIR/candidates/java/current"
+export PATH="$JAVA_HOME/bin:$PATH"
+java -version || echo "JDK25 (GraalVM) 未正确安装"  
+
+# 将 jbang路径加到PATH中以便验证
+echo "==> 验证安装结果"
+export PATH="$SDKMAN_DIR/candidates/jbang/current/bin:$PATH"
+jbang --version || echo "jbang 未正确安装"
+jbang env@jbangdev
