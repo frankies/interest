@@ -1,22 +1,65 @@
-# Best Practise(最佳实践)
+# Jbang QuickStart
+
+用于 jbang 工具使用
+
+[jbang - Unleash the power of Java by Max Rydahl Andersen](https://www.youtube.com/watch?v=cpKwBbz1sf0)
+
+## 安装 jbang
+
+## 安装 SDKMan 到 `/tmp/sdkman`
+
+备份并移除当前 `~/.sdkman`，然后安装到临时目录 `/tmp/sdkman`：
+
+```bash
+tar zcvf ~/sdkman-backup_$(date +%F-%kh%M).tar.gz -C ~/ .sdkman
+rm -rf ~/.sdkman
+export SDKMAN_DIR="/tmp/sdkman" && curl -s "https://get.sdkman.io" | bash
+```
+
+> 说明：使用 `SDKMAN_DIR` 环境变量可以临时指定安装目录为 `/tmp/sdkman`。
+
+## 安装 JDK 25 (GraalVM) 和 `jbang`
+
+使用 SDKMan 安装 Java 与 `jbang`：
+
+```shell
+sdk install java 25.0.2-graalce
+sdk install jbang 0.136.0
+```
+
+安装后可验证：
+
+```bash
+jbang --version
+```
+
+更方便的做法是把所需的 SDK 列入项目根目录下的 `.sdkmanrc`，然后运行批量安装：
+
+```bash
+# 在仓库根目录（包含 .sdkmanrc）运行：
+sdk env install
+```
+
+本仓库已提供一个示例 `.sdkmanrc`（包含 Java 25 和 jbang），以及 `init.sh` 初始化脚本会在本地创建并尝试执行 `sdk env install`（失败时回退到逐项安装）。
+
+注：关闭当前shell窗口，再重新开启新的，才生效。
+
+## 设置 Maven 本地仓库为 /tmp/repo
+
+```bash
+mkdir ~/.m2 
+mkdir /tmp/repo
+cat>~/.m2/settings.xml<<'EOF'
+<settings>
+	<localRepository>/tmp/repo</localRepository>
+</settings>
+EOF
+```
 
 
+或者运行仓库内提供的初始化脚本：
 
-1. <u>[Postgres 的流复制工具Slony使用示例](https://github.com/frankies/interest/tree/pg_slony)</u>  **(2017-12-15）**
-2. <u>[自启动脚本](https://github.com/frankies/interest/tree/shell_service_install_service)</u>  **(2017-12-25）**
-3. <u>[Gradle 中调用Ant任务执行](https://github.com/frankies/interest/tree/pg_slony)</u>  **(2018-02-03）**
-4. ​ <u>[Docker 中部署Springboot+mysql+nginx](https://github.com/frankies/interest/tree/docker-springboot-nginx-mysql)</u>  **(2018-03-27）**
-5. <u>[Web页面调用客户端的本地应用的例子](https://github.com/frankies/interest/tree/page-inovke-local-app)</u>  **(2018-06-12）**
-6. <u>[Springboot 调用 rabbitMQ 的例子](https://github.com/frankies/interest/tree/spring-rabitmq-demo)</u>  **(2018-11-20）**
-7. <u>[Websocket客户端的Java代码使用例子](https://github.com/frankies/interest/tree/websocket-client-java-backend)</u> 
-8. <u>[Spring MVC Async](https://github.com/frankies/interest/tree/spring-mvc-async)</u> 
-9. <u>[利用python uv进行飞鸟云订阅地址解析处理](https://github.com/frankies/interest/tree/python-uv)</u> 
-10. <u>[MCP服务器搭建-基于openweathermap.org的开放Api的天气查询](https://github.com/frankies/interest/tree/mcp-server)</u> 
-11.  <u>[https站点并发压力测试](https://github.com/frankies/interest/blob/https-press-test/api-test.http)</u> 
-12. <u>[RestClient in Vscode](https://github.com/frankies/interest/tree/rest-client-in-vscode)</u>
-13. <u>[Android apk builder](https://github.com/frankies/interest/tree/android-apk-builder)</u>
-14. <u>[Keycloak playground](https://github.com/frankies/interest/tree/keycloak-sso)</u>
-15. <u>[Kotlin Quick Start 入门练习](https://github.com/frankies/interest/tree/kotlin-quick-start)</u>
-16. <u>[Springboot 4 preview](https://github.com/frankies/interest/tree/springboot4-preview-test)</u>
- 
-待续。。。。
+```bash
+./init.sh
+```
+（运行前可执行 `chmod +x init.sh`）

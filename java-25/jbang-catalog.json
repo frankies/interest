@@ -1,0 +1,116 @@
+{
+  "aliases": {
+    "hello": {
+      "script-ref": "hello.java",
+      "description": "Script that says hello back for each argument"
+    },
+    "properties": {
+      "script-ref": "properties.java",
+      "description": "Dump table of System properties"
+    },
+    "deps": {
+      "script-ref": "deps.java",
+      "description": "Analyze JBang script dependencies"
+    },
+    "env": {
+      "script-ref": "env.java",
+      "description": "Dump table of Environment Variables"
+    },
+    "gavsearch": {
+      "script-ref": "gavsearch.java",
+      "description": "`gavsearch` lets you use search.maven.org from command line.\nExample: `gavsearch hibernate` will search for artifacts with hibernate in its name.\nYou can use any of the search modifiers search.maven.org supports, i.e.:\n`gavsearch c:QuarkusTest` will search for artifacts with class `QuarkusTest`"
+    },
+    "git": {
+      "script-ref": "jgit.java",
+      "description": "Git command line tool implemented with jgit. Lets you do basic git features without installing git!"
+    },
+    "bouncinglogo": {
+      "script-ref": "bouncinglogo.java"
+    },
+    "h2": {
+      "script-ref": "com.h2database:h2:1.4.200",
+      "arguments": [
+        "-webAllowOthers",
+        "-tcpAllowOthers"
+      ]
+    },
+    "catalog2readme": {
+      "script-ref": "catalog2readme.java"
+    },
+    "httpd": {
+      "script-ref": "httpd.java",
+      "description": "`httpd` runs a webserver serving out the content of a directory.\nExample: `jbang httpd@jbangdev -d _site` will serve out the `_site` folder on localhost:8000."
+    },
+    "getjava": {
+      "script-ref": "getjava.java",
+      "description": "Experimental utility to download Java distributions using api.foojay.io."
+    },
+    "ec": {
+      "script-ref": "ec.jsh"
+    },
+    "faker": {
+      "script-ref": "faker.jsh"
+    },
+    "dalle": {
+      "script-ref": "dalle.java"
+    },
+    "bootstrap": {
+      "script-ref": "bootstrap.java",
+      "description": "Bootstrap a jbang script to make it self-contained."
+    },
+    "jmc": {
+      "script-ref": "jmc.jsh"
+    },
+    "mf": {
+      "script-ref": "mf/mf.java",
+      "description": "# mf.java - JAR Manifest Reader CLI\n\n`mf` is a command-line tool for extracting and displaying JAR manifest information.\n\n## Usage\n\n```sh\nmf \u003cjar-file\u003e [--json] [--yaml] [--structured|-s]\n```\n\n- **`\u003cjar-file\u003e`**: Path to the JAR file to analyze (required). Use \u0027-\u0027 for stdin.\n- **`--json`**: Output manifest attributes as JSON.\n- **`--yaml`**: Output manifest attributes as YAML.\n- **`--structured`, `-s`**: Parse known attributes (e.g., Import-Package, Export-Package) into structured data (lists/maps).\n\n## Features\n\n- Reads the `META-INF/MANIFEST.MF` from the specified JAR file.\n- By default, prints manifest attributes as manifest.mf.\n- Supports machine-readable output with `--json` or `--yaml`.\n- Structured parsing of known attributes with `--structured`.\n- Returns a nonzero exit code if the manifest is missing or the JAR cannot be read.\n\n## Examples\n\n```sh\nmf mylib.jar\nmf mylib.jar --json\nmf `jbang info jar org.junit.jupiter:junit-jupiter:5.10.0` --yaml--structured\n```"
+    },
+    "jbang-fmt": {
+      "script-ref": "jbang-fmt@jbangdev/jbang-fmt",
+      "description": "Format Java code (without messing up JBang directives)."
+    },
+    "jbang-jupyter": {
+      "script-ref": "https://github.com/jbangdev/jbang-jupyter/releases/download/early-access/jbang-jupyter-0.1.0-SNAPSHOT-fatjar.jar",
+      "runtime-options": [
+        "--add-opens",
+        "jdk.jshell/jdk.jshell\u003dALL-UNNAMED"
+      ],
+      "java": "17+"
+    },
+    "trylink": {
+      "script-ref": "jupyter/trylink.java"
+    }
+  },
+  "templates": {
+    "github": {
+      "file-refs": {
+        "{basename}.java": "templates/github.java.qute"
+      },
+      "description": "Simple cli to querying github"
+    },
+    "qmcp": {
+      "file-refs": {
+        "{basename}.java": "templates/qmcp.java.qute"
+      },
+      "description": "Simple cli to querying github"
+    },
+    "jitpack": {
+      "file-refs": {
+        "jitpack.yml": "templates/jitpack.yml.qute"
+      },
+      "description": "Initializes a bare-bone jitpack.yml to enable publishing a jbang script as a maven artifact via jitpack.\n\nExample: `jbang init -t jitpack@jbangdev myapp.java` and then commit this to github and visit jitpack.io to trigger its build."
+    },
+    "renovate": {
+      "file-refs": {
+        "renovate.json": "templates/renovate.json.qute"
+      },
+      "description": "Initializes a renovate.json to enable automatic management of any .java file //DEPS section.\n\nExample: `jbang init -t renovate@jbangdev .github/renovate.json` and then commit this to github and if you installed https://github.com/apps/renovate renovate will make issues and PR\u0027s for dependency updates."
+    },
+    "junit": {
+      "file-refs": {
+        "{basename}Test.java": "templates/junit.java.qute"
+      },
+      "description": "Basic template for JUnit tests"
+    }
+  }
+}
