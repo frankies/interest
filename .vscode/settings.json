@@ -1,3 +1,6 @@
 {
-    "java.import.jbang.projectPerScript": true
+    "java.import.jbang.projectPerScript": true,
+    "jbang.completion.onSelect.autosave": true,
+    "jbang.wizard.templates.showDescriptions": true,
+    "jbang.home": "/tmp/sdkman/candidates/jbang/current"
 }

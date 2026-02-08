@@ -1,6 +1,6 @@
 
-class Calculator {
-    int multiple(int a, int b) {
+public class Calculate {
+    public   int multiple(int a, int b) {
         return a * b;
-    }
+    } 
 }

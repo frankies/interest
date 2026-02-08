@@ -65,3 +65,4 @@ echo "==> 验证安装结果"
 export PATH="$SDKMAN_DIR/candidates/jbang/current/bin:$PATH"
 jbang --version || echo "jbang 未正确安装"
 jbang env@jbangdev
+jbang app install --name junit cli@junit-team

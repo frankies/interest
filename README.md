@@ -75,6 +75,11 @@ EOF
 jbang hello@jbangdev
 ```
 
+## 创建junit代码
+
+```bash
+ jbang init -t junit@jbangdev CalculateTest.java
+ ```
 
 ## 参考
 
