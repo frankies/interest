@@ -1,0 +1,36 @@
+plugins {
+	id 'java'
+	id 'application'
+}
+
+
+repositories {
+	mavenCentral()
+	mavenLocal()
+}
+
+
+dependencies {
+	implementation 'org.junit.jupiter:junit-jupiter-engine:5.12.2'
+	implementation 'org.junit.platform:junit-platform-console:1.12.2'
+}
+
+application {
+	mainClass = ''
+	applicationDefaultJvmArgs = []
+}
+
+compileJava {
+	options.compilerArgs += ['-g', '-parameters']
+}
+
+
+
+jar {
+	manifest {
+		attributes(
+				'Main-Class': '',
+		)
+	}
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}

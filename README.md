@@ -81,6 +81,12 @@ jbang hello@jbangdev
  jbang init -t junit@jbangdev CalculateTest.java
  ```
 
+## 将脚本导出成 gradle项目
+
+```bash
+jbang export gradle --group org.acme --artifact myapp --version 1.0.0-SNAPSHOT CalculateTest.java
+```
+
 ## 参考
 
 - [演示代码](https://asciinema.org/a/4AiobRxUwPUPztCtrDYcmoKjs?autoplay=true&theme=solarized-dark)
