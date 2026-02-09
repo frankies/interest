@@ -4,7 +4,11 @@
 
 本项目包含多个专题分支，涵盖后端开发、DevOps、前端工具、编程语言等各个方面。按更新时间排列，最新分支优先。
 
----
+### 🎯 快速导航指南
+
+- **按时间查找**：往下翻看"最近更新"（⭐ 推荐新学习者优先）和"经典教学"两个章节
+- **按技术分类查找**：跳转到"分类速查"章节，按你感兴趣的技术栈快速定位
+- **按功能标签查找**：每个分支列表都包含功能标签（如 Java、框架、AI 等），帮助快速筛选
 
 ## 🚀 最近更新的分支（2025-2026）
 
@@ -47,32 +51,64 @@
 
 ## 📌 分支分类速查
 
+**快速找到你需要的分支：点击下方分支名可直接访问**
+
 ### 🔧 框架与开发工具
-- `spring-mvc-async` | `spring-rabitmq-demo` | `springboot4-preview-test` | `lab-springcloud-gateway`
+- [spring-mvc-async](https://github.com/frankies/interest/tree/spring-mvc-async)
+- [spring-rabitmq-demo](https://github.com/frankies/interest/tree/spring-rabitmq-demo)
+- [springboot4-preview-test](https://github.com/frankies/interest/tree/springboot4-preview-test)
+- [lab-springcloud-gateway](https://github.com/frankies/interest/tree/lab-springcloud-gateway)
 
 ### 🗄️ 数据库与存储
-- `pg_slony` | `hibernate-tools-test`
+- [pg_slony](https://github.com/frankies/interest/tree/pg_slony)
+- [hibernate-tools-test](https://github.com/frankies/interest/tree/hibernate-tools-test)
 
 ### 🐳 DevOps 与部署
-- `docker-springboot-nginx-mysql` | `keycloak-sso` | `wildfly-ecs-readonly-mode-playground`
+- [docker-springboot-nginx-mysql](https://github.com/frankies/interest/tree/docker-springboot-nginx-mysql)
+- [keycloak-sso](https://github.com/frankies/interest/tree/keycloak-sso)
+- [wildfly-ecs-readonly-mode-playground](https://github.com/frankies/interest/tree/wildfly-ecs-readonly-mode-playground)
 
 ### 🧪 测试与质量
-- `mockito-test` | `graalvm-native-reflection-test` | `https-press-test`
+- [mockito-test](https://github.com/frankies/interest/tree/mockito-test)
+- [graalvm-native-reflection-test](https://github.com/frankies/interest/tree/graalvm-native-reflection-test)
+- [https-press-test](https://github.com/frankies/interest/tree/https-press-test)
 
 ### 🔄 消息与通信
-- `spring-rabitmq-demo` | `websocket-client-java-backend` | `mcp-server`
+- [spring-rabitmq-demo](https://github.com/frankies/interest/tree/spring-rabitmq-demo)
+- [websocket-client-java-backend](https://github.com/frankies/interest/tree/websocket-client-java-backend)
+- [mcp-server](https://github.com/frankies/interest/tree/mcp-server)
 
 ### 📱 移动与跨平台
-- `android-apk-builder` | `cross/tasks`
+- [android-apk-builder](https://github.com/frankies/interest/tree/android-apk-builder)
+- [cross/tasks](https://github.com/frankies/interest/tree/cross/tasks)
 
 ### 🔐 认证与安全
-- `keycloak-sso`
+- [keycloak-sso](https://github.com/frankies/interest/tree/keycloak-sso)
 
 ### 🤖 AI 与实验
-- `ai-alibaba` | `lab/claude-test` | `lab/ai-spec`
+- [ai-alibaba](https://github.com/frankies/interest/tree/ai-alibaba)
+- [lab/claude-test](https://github.com/frankies/interest/tree/lab/claude-test)
+- [lab/ai-spec](https://github.com/frankies/interest/tree/lab/ai-spec)
 
 ### 🛠️ 编程语言与工具
-- `kotlin-quick-start` | `jbang-quickstart` | `python-uv`
+- [kotlin-quick-start](https://github.com/frankies/interest/tree/kotlin-quick-start)
+- [jbang-quickstart](https://github.com/frankies/interest/tree/jbang-quickstart)
+- [python-uv](https://github.com/frankies/interest/tree/python-uv)
 
 ### 💻 前端与工具链
-- `rest-client-in-vscode` | `lab/vscode_markdown_css` | `lab/maven-vscode-template`
+- [rest-client-in-vscode](https://github.com/frankies/interest/tree/rest-client-in-vscode)
+- [lab/vscode_markdown_css](https://github.com/frankies/interest/tree/lab/vscode_markdown_css)
+- [lab/maven-vscode-template](https://github.com/frankies/interest/tree/lab/maven-vscode-template)
+
+---
+
+## 📞 关于本文档
+
+**最后更新**：2026-02-09 | **包含分支**：29 个 | **文档版本**：v1.0
+
+本文档由以下数据源自动生成：
+```bash
+git for-each-ref --sort=-committerdate --format='%(refname:short)|%(committerdate:short)|%(subject)' refs/heads/ refs/remotes/
+```
+
+**维护说明**：如有新增分支或更新，可参考 [update-readme-branches.prompt.md](.github/prompts/update-readme-branches.prompt.md) 重新生成本文档。
