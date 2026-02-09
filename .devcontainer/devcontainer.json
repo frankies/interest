@@ -1,0 +1,5 @@
+{
+  "name": "Java development Codespace",
+  "image": "mcr.microsoft.com/devcontainers/base:jammy",
+  "postCreateCommand": "echo '每次初始化后运行'; ./init.sh"
+}
