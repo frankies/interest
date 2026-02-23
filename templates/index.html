@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>聊天室</title>
+    <style>
+        *{
+            margin:0; padding:0; box-sizing:border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body{
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background: #f5f7fa;
+            color:#333;
+        }
+        input,button{
+            font-family: inherit;
+            outline: none;
+            border:none;
+        }
+
+        /* 登录 */
+        .login-wrap{
+            display: flex; height:100vh; align-items:center; justify-content:center;
+            padding:20px;
+        }
+        .login-box{
+            width:100%; max-width:380px;
+            background:#fff; border-radius:16px;
+            padding:28px; box-shadow:0 6px 24px rgba(0,0,0,0.08);
+        }
+        .login-box h2{
+            text-align:center; margin-bottom:24px; color:#1677ff;
+        }
+        .login-box input{
+            width:100%; height:48px;
+            padding:0 16px; margin-bottom:14px;
+            border:1px solid #e5e7eb; border-radius:12px;
+            font-size:16px;
+        }
+        .login-box .btn{
+            width:100%; height:48px;
+            background:#1677ff; color:#fff;
+            border-radius:12px; font-size:16px;
+            margin-bottom:10px; cursor:pointer;
+        }
+        .login-box .btn.reg{
+            background:#f5f7fa; color:#333;
+        }
+
+        /* 主界面 */
+        .chat-wrap{
+            display:none;
+            height:100vh; display:flex; flex-direction:column;
+        }
+        .top-bar{
+            background:#1677ff; color:#fff;
+            padding:14px 16px; font-size:18px; font-weight:bold;
+            display:flex; justify-content:space-between; align-items:center;
+        }
+        .notice-btn{
+            background:rgba(255,255,255,0.2); color:#fff;
+            padding:6px 12px; border-radius:8px; font-size:14px; cursor:pointer;
+        }
+
+        .body{
+            flex:1; display:flex; flex-direction:column;
+            padding:10px; overflow:hidden;
+        }
+        .tab-row{
+            display:flex; gap:8px; margin-bottom:10px;
+        }
+        .tab{
+            flex:1; height:42px; border-radius:12px;
+            background:#fff; font-size:15px; cursor:pointer;
+        }
+        .tab.active{
+            background:#1677ff; color:#fff;
+        }
+
+        .tool-row{
+            display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px;
+        }
+        .tool-btn{
+            height:38px; padding:0 12px; border-radius:10px;
+            background:#fff; font-size:14px; cursor:pointer;
+        }
+        .admin-btn{
+            height:38px; padding:0 10px; border-radius:10px;
+            background:#ff4d4f; color:#fff; font-size:14px; cursor:pointer;
+        }
+        #emojiArea{
+            display:flex; gap:6px; flex-wrap:wrap; padding:6px 0;
+        }
+        .emoji{
+            font-size:20px; padding:4px; cursor:pointer;
+        }
+
+        /* 消息区 */
+        .msg-area{
+            flex:1; background:#fff; border-radius:12px;
+            padding:12px; overflow-y:auto; font-size:15px; line-height:1.5;
+            margin-bottom:10px;
+        }
+        .msg{
+            margin-bottom:8px;
+        }
+        .sys{
+            color:#999; text-align:center; font-size:13px;
+        }
+        .private{
+            color:#1677ff; font-weight:bold;
+        }
+        .file{
+            color:#00b42a;
+        }
+        .msg-area img{
+            max-width:180px; border-radius:8px; margin:4px 0;
+        }
+
+        /* 输入栏 */
+        .input-row{
+            display:flex; gap:10px;
+        }
+        #input{
+            flex:1; height:48px;
+            padding:0 16px; border-radius:12px;
+            background:#fff; font-size:16px;
+        }
+        .send-btn{
+            width:70px; height:48px;
+            background:#1677ff; color:#fff; border-radius:12px;
+            font-size:15px; cursor:pointer;
+        }
+        #fileInput{display:none;}
+
+        /* 列表弹窗（手机端用） */
+        .list-modal{
+            display:none;
+            position:fixed; top:0; left:0; width:100%; height:100%;
+            background:rgba(0,0,0,0.4); z-index:100;
+        }
+        .list-box{
+            position:absolute; bottom:0; left:0; width:100%; max-height:70vh;
+            background:#fff; border-radius:16px 16px 0 0; padding:16px;
+            overflow-y:auto;
+        }
+        .list-box h3{
+            margin-bottom:12px; font-size:16px;
+        }
+        .list-item{
+            padding:12px; background:#f7f8fa; border-radius:10px;
+            margin-bottom:8px; cursor:pointer;
+        }
+
+        /* 公告弹窗 */
+        .modal{
+            display:none;
+            position:fixed; top:0; left:0; width:100%; height:100%;
+            background:rgba(0,0,0,0.5); z-index:200;
+            align-items:center; justify-content:center;
+        }
+        .modal-body{
+            background:#fff; width:90%; max-width:360px;
+            border-radius:16px; padding:24px;
+        }
+        .modal-body h3{
+            color:#1677ff; margin-bottom:12px;
+        }
+        .modal-body p{
+            line-height:1.6; margin-bottom:18px;
+        }
+        .modal-close{
+            width:100%; height:44px;
+            background:#1677ff; color:#fff; border-radius:12px;
+            cursor:pointer;
+        }
+
+        /* 电脑端布局 */
+        @media (min-width:768px){
+            .chat-wrap{
+                flex-direction:row; padding:10px; gap:10px;
+            }
+            .sidebar{
+                width:260px; display:flex; flex-direction:column; gap:10px;
+            }
+            .panel{
+                flex:1; display:flex; flex-direction:column;
+            }
+            .list-modal{display:none !important;}
+            .list-box{
+                position:relative; max-height:none; flex:1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- 登录 -->
+<div class="login-wrap" id="loginWrap">
+    <div class="login-box">
+        <h2>聊天室登录</h2>
+        <input id="user" placeholder="用户名" type="text">
+        <input id="pwd" placeholder="密码" type="password">
+        <button class="btn" onclick="login()">登录</button>
+        <button class="btn reg" onclick="reg()">注册</button>
+    </div>
+</div>
+
+<!-- 主界面 -->
+<div class="chat-wrap" id="chatWrap">
+    <div class="sidebar">
+        <div class="list-box">
+            <h3>在线用户</h3>
+            <div id="onlineList"></div>
+        </div>
+        <div class="list-box">
+            <h3>我的好友</h3>
+            <div id="friendList"></div>
+        </div>
+        <div class="list-box">
+            <h3>好友申请</h3>
+            <div id="requestList"></div>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="top-bar">
+            <span>聊天室</span>
+            <button class="notice-btn" onclick="showNotice()">公告</button>
+        </div>
+
+        <div class="body">
+            <div class="tab-row">
+                <button class="tab active" id="tabPublic">公共聊天</button>
+                <button class="tab" id="tabPrivate">好友私聊</button>
+            </div>
+
+            <div class="tool-row">
+                <button class="tool-btn" onclick="toggleEmoji()">😊 表情</button>
+                <button class="tool-btn" onclick="addFriend()">➕ 加好友</button>
+                <button class="tool-btn" onclick="$('#fileInput').click()">📎 文件</button>
+            </div>
+
+            <div class="tool-row" id="adminBar" style="display:none;">
+                <button class="admin-btn" onclick="doAction('kick')">踢人</button>
+                <button class="admin-btn" onclick="doAction('mute')">禁言</button>
+                <button class="admin-btn" onclick="doAction('unmute')">解禁</button>
+                <button class="admin-btn" onclick="doAction('ban')">封号</button>
+            </div>
+
+            <div id="emojiArea"></div>
+
+            <div class="msg-area" id="msgArea"></div>
+
+            <div class="input-row">
+                <input id="input" placeholder="输入消息...">
+                <button class="send-btn" onclick="send()">发送</button>
+                <input type="file" id="fileInput">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 公告弹窗 -->
+<div class="modal" id="noticeModal">
+    <div class="modal-body">
+        <h3>📢 聊天室公告</h3>
+        <p>
+            欢迎使用本聊天室！<br><br>
+            1. 禁止骂人、刷屏、恶意注册<br>
+            2. 必须加好友才能私聊<br>
+            3. 违规将进行禁言/踢人/封号<br>
+            4. 文明聊天，禁止违法内容
+        </p>
+        <button class="modal-close" onclick="closeNotice()">我知道了</button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+<script>
+let me = null, socket = null, is_admin = false
+let mode = "public", chatTo = null
+let online = [], friends = [], requests = []
+let selectedTarget = null
+const chat = { public: [], private: {} }
+
+// 公告
+function showNotice() { $('#noticeModal').show() }
+function closeNotice() { $('#noticeModal').hide() }
+
+// 登录注册
+async function login() {
+    let u = $('#user').val(), p = $('#pwd').val()
+    let res = await $.post('/login', { user:u, pwd:p })
+    if (res.ok) { me = u; startChat() } else { alert(res.msg) }
+}
+async function reg() {
+    let u = $('#user').val(), p = $('#pwd').val()
+    let res = await $.post('/reg', { user:u, pwd:p })
+    alert(res.msg)
+}
+function startChat() {
+    $('#loginWrap').hide()
+    $('#chatWrap').show()
+    socket = io()
+    socket.emit('join', me)
+    init()
+    showNotice()
+}
+
+// 初始化
+function init() {
+    const emojis = ['😊','😂','😜','😎','😍','😢','😡','👍','👌','❤️','🎉','🙏','🤔']
+    emojis.forEach(e => {
+        $('<span class="emoji">').text(e).click(()=>{
+            $('#input').val($('#input').val() + e)
+            $('#input').focus()
+        }).appendTo('#emojiArea')
+    })
+    $('#emojiArea').hide()
+
+    $('#tabPublic').click(()=>{
+        mode="public"; chatTo=null; refresh(); setTab(1)
+    })
+    $('#tabPrivate').click(()=>{
+        mode="private"; refresh(); setTab(0)
+    })
+    $('#input').keydown(e => e.key == 'Enter' && send())
+    socketMsg()
+    fileInit()
+}
+
+function toggleEmoji() { $('#emojiArea').toggle() }
+function setTab(a) {
+    $('#tabPublic').toggleClass('active', a)
+    $('#tabPrivate').toggleClass('active', !a)
+}
+
+// 好友
+function selectFriend(user) {
+    if (!friends.includes(user)) { alert('请先加好友'); return }
+    chatTo = user
+    mode = "private"
+    refresh()
+    setTab(0)
+}
+function addFriend() {
+    let t = prompt('输入用户名')
+    if (t && t != me) socket.emit('add_friend', { me:me, target:t })
+}
+function accept(who) {
+    socket.emit('accept_friend', { me:me, you:who })
+}
+
+// 管理员
+function selectUserForAdmin(user) {
+    selectedTarget = user
+    alert('已选择：' + user)
+}
+function doAction(act) {
+    if (!is_admin) return
+    if (!selectedTarget) { alert('请先点在线用户选择对象'); return }
+    socket.emit('admin_action', { admin:me, target:selectedTarget, action:act })
+}
+
+// 发送
+function send() {
+    let t = $('#input').val().trim()
+    if (!t) return
+    $('#input').val('')
+    let data = { from:me, to:chatTo, msg:t, file:false }
+    if (mode == "public") socket.emit('public_msg', data)
+    else {
+        if (!chatTo || !friends.includes(chatTo)) { alert('请加好友'); return }
+        socket.emit('private_msg', data)
+    }
+}
+
+// 文件
+function fileInit() {
+    $('#fileInput').change(function(e){
+        let f = e.target.files[0]
+        if (!f) return
+        let r = new FileReader()
+        r.onload = ev => {
+            let data = {
+                from:me, to:chatTo,
+                msg:"📎"+f.name,
+                file:true, url:ev.target.result
+            }
+            if (mode=="public") socket.emit('public_msg',data)
+            else socket.emit('private_msg',data)
+        }
+        r.readAsDataURL(f)
+        $(this).val('')
+    })
+}
+
+// 刷新界面
+function refresh() {
+    let area = $('#msgArea')
+    area.html('')
+    if (mode == "public") {
+        chat.public.forEach(m => addUI(m))
+    } else {
+        if (!chatTo) { addUI({ text:"请选择好友", sys:true }); return }
+        (chat.private[chatTo] || []).forEach(m => addUI(m))
+    }
+    area.scrollTop(area[0].scrollHeight)
+}
+
+function addUI(m) {
+    let d = $('<div class="msg"></div>')
+    if (m.sys) d.addClass('sys')
+    if (m.private) d.addClass('private')
+    if (m.file) {
+        d.addClass('file').html(m.text + '<br><img src="'+m.url+'">')
+    } else {
+        d.text(m.text)
+    }
+    $('#msgArea').append(d)
+}
+
+function save(channel, text, isPrivate=false, isFile=false, url=null) {
+    let o = { text, private:isPrivate, file:isFile, url:url }
+    if (channel == "public") chat.public.push(o)
+    else {
+        if (!chat.private[channel]) chat.private[channel] = []
+        chat.private[channel].push(o)
+    }
+}
+
+// 消息
+function socketMsg() {
+    socket.on('user_data', d => {
+        online = d.online || []
+        friends = d.friends || []
+        requests = d.requests || []
+        is_admin = d.is_admin || false
+        if (is_admin) $('#adminBar').show()
+        renderList()
+    })
+    socket.on('online_update', d => { online = d; renderList() })
+    socket.on('friend_request', d => { requests.push(d.from); renderList() })
+    socket.on('friend_accept', d => { friends.push(d.name); renderList() })
+    socket.on('msg_sys', t => { save("public", t, true); refresh() })
+
+    socket.on('public_msg', d => {
+        let txt = d.file ? `${d.from}: ${d.msg}` : `${d.from}: ${d.msg}`
+        save("public", txt, false, d.file, d.url)
+        if (mode=="public") refresh()
+    })
+    socket.on('to_you_private', d => {
+        let txt = `[私聊]${d.from}:${d.msg}`
+        save(d.from, txt, true, d.file, d.url)
+        if (mode=="private" && chatTo==d.from) refresh()
+    })
+    socket.on('from_you_private', d => {
+        let txt = `[你→${d.to}]${d.msg}`
+        save(d.to, txt, true, d.file, d.url)
+        if (mode=="private" && chatTo==d.to) refresh()
+    })
+
+    socket.on('kicked', () => { alert("您已被踢出"); location.reload() })
+    socket.on('banned', () => { alert("您已被封号"); location.reload() })
+}
+
+function renderList() {
+    $('#onlineList').html('')
+    online.forEach(u => {
+        let $d = $('<div class="list-item">').text(u)
+        if (is_admin) $d.click(() => selectUserForAdmin(u))
+        else if (u != me) $d.click(() => addFriend())
+        $('#onlineList').append($d)
+    })
+    $('#friendList').html('')
+    friends.forEach(u => {
+        $('<div class="list-item">').text(u).click(() => selectFriend(u)).appendTo('#friendList')
+    })
+    $('#requestList').html('')
+    requests.forEach(u => {
+        $('<div class="list-item">').text(u + " 同意").click(() => accept(u)).appendTo('#requestList')
+    })
+}
+</script>
+</body>
+</html>

@@ -1,298 +1,82 @@
-# Simple Maven Project
+# py-simple-chat
 
-A Maven-based Java Web project.
+一个基于 Flask 和 Flask-SocketIO 的简单聊天室项目。
 
-## Project Information
+## 功能
+- 用户注册、登录
+- 公共聊天、私聊
+- 好友添加与请求
+- 管理员功能：禁言、踢人、封号
+- 在线用户显示
 
-- **JDK Version**: 1.8
-- **Maven Version**: 3.3.9 (using Maven Wrapper)
-- **Project Type**: Web Application (WAR)
-- **Main Dependencies**: Apache Oltu OAuth2 Client
+## 依赖环境
+- Python 3.7+
+- Flask
+- Flask-SocketIO
+- uv（推荐用于依赖管理和安装）
 
-## Project Structure
 
-```
-simple-maven-pj/
-├── .mvn/                   # Maven Wrapper configuration
-│   ├── .m2/                # Maven local repository directory (specified by .mvn/settings.xml)
-│   ├── wrapper/
-│   │   └── maven-wrapper.properties
-│   └── settings.xml        # Maven settings (local repository configuration)
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   └── com/example/
-│   │   │       ├── HelloServlet.java
-│   │   │       └── JndiCheckServlet.java
-│   │   ├── resources/          # Resource files directory (optional configuration files, etc.)
-│   │   └── webapp/
-│   │       ├── WEB-INF/
-│   │       │   └── web.xml
-│   │       └── index.html
-│   └── test/
-│       └── java/
-│           └── com/example/
-│               ├── HelloServletTest.java
-│               ├── JndiResourcesTest.java
-│               └── TomcatTestSupport.java
-├── .vscode/                 # VS Code configuration (tasks/launch/settings, etc.)
-│   └── tomcat/              # Local Tomcat/JNDI related scripts and Context XML
-├── mvnw                    # Maven Wrapper script (Unix/Linux/Mac)
-├── mvnw.cmd                # Maven Wrapper script (Windows)
-├── pom.xml                 # Maven project configuration
-└── README.md               # Project documentation
-```
+## 环境准备
 
-## Dependencies
+1. 安装 Python 3.7 及以上版本（可从 https://www.python.org/downloads/ 下载并安装）。
+2. 安装 uv（推荐，需先安装 Python）：
 
-- **javax.servlet:servlet-api** (2.4, provided): Servlet API for web development (compatible with legacy containers/projects)
-- **org.apache.oltu.oauth2.client** (1.0.1): OAuth2 client library
-- **junit** (4.12): Unit testing framework
-- **com.h2database:h2** (2.1.214, runtime): H2 in-memory database for JNDI testing
+    Windows 下可在命令行执行：
+    ```bash
+    pip install uv
+    ```
+    更多 uv 详情见：https://github.com/astral-sh/uv
 
-## Usage Instructions
+## 快速开始
 
-### Build Project
-
-On Windows:
+1. 安装依赖（推荐使用 uv）：
 
 ```bash
-mvnw.cmd clean install
+uv venv
+uv pip install -r requirements.txt
 ```
 
-On Unix/Linux/Mac:
+如在中国大陆，建议使用国内 PyPI 镜像源加速依赖安装。例如：
+
+- 清华大学镜像：
+    ```bash
+    uv pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+    ```
+- 阿里云镜像：
+    ```bash
+    uv pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple/
+    ```
+
+也可直接用 pip：
+```bash
+pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
+2. 启动服务：
 
 ```bash
-./mvnw clean install
+uv run python app.py
 ```
 
-### Compile Project
+3. 访问页面：
 
-```bash
-mvnw.cmd compile
+浏览器打开 http://localhost:5000
+
+## 目录结构
+
+```
+app.py
+requirements.txt
+.gitignore
+.gitattributes
+templates/
+    index.html
 ```
 
-### Run Tests
+## 说明
+- 用户、好友、封禁等数据以 json 文件存储在项目根目录。
+- 管理员用户名为 `admin`，可在 app.py 中修改。
 
-```bash
-mvnw.cmd test
-```
+---
 
-### Package Project
-
-```bash
-mvnw.cmd package
-```
-
-The packaged WAR file will be located at `target/simple-maven-pj.war`
-
-### Run Locally (Tomcat Plugin)
-
-Start the app using the Maven Tomcat plugin:
-
-On Windows:
-
-```bash
-mvnw.cmd tomcat7:run
-```
-
-Or use VS Code tasks:
-
-- Run: `tomcat: run`
-- Debug: `tomcat: debug` or `tomcat: debug and open browser`
-
-Access in browser:
-
-- Home: http://localhost:8080/
-- Hello servlet: http://localhost:8080/hello
-- JNDI 资源检查: http://localhost:8080/\_\_jndi?connect=true
-
-Stop:
-
-- VS Code task: `tomcat: stop` (kills the process on 8080)
-- Maven: `mvnw.cmd tomcat7:shutdown`
-
-### Debug + Hot Code Replace (HCR)
-
-- Start with VS Code task `tomcat: debug` (JDWP on port 8000).
-- Attach debugger: Run and Debug → "Debug (Attach) - Tomcat".
-- Edit method bodies (e.g., inside `HelloServlet#doGet()`), then save.
-- With workspace settings enabling HCR, changes apply live; refresh the page.
-
-Limitations: HCR supports method body edits; structural changes (new methods/fields, signatures, class hierarchy) usually require a restart.
-
-## Maven Configuration
-
-The project is configured with a custom Maven local repository path: `.mvn/.m2/repository`
-
-This means all downloaded dependencies will be stored in the `.mvn/.m2` folder within the project directory, rather than the system default `~/.m2` directory.
-
-## Deployment Instructions
-
-The generated WAR file can be deployed to any web container that supports Servlet 2.4+, such as:
-
-- Apache Tomcat 8.x or higher
-- Jetty 9.x or higher
-- WildFly/JBoss
-
-## Development Environment Requirements
-
-- JDK 1.8 or higher
-- Maven 3.3.9 (automatically downloaded via Maven Wrapper)
-
-## VS Code Development Environment
-
-The project has complete VS Code development environment support configured:
-
-### Recommended Extensions
-
-Install the following extensions for the best development experience:
-
-- **Java Extension Pack** - Core Java development tools
-- **Maven for Java** - Maven project management
-- **Tomcat for Java** - Local Tomcat server support
-- **XML** - XML file support
-- **GitLens** - Git enhancement tools
-- **SonarLint** - Code quality checking
-
-After opening the project, VS Code will prompt you to install the recommended extensions.
-
-### VS Code Tasks
-
-The project has the following Maven tasks configured (press `Ctrl+Shift+P`, type "Run Task"):
-
-- `maven: compile` - Compile project
-- `maven: test` - Run tests
-- `maven: package` - Package WAR file
-- `maven: install` - Clean and install (default build task, shortcut `Ctrl+Shift+B`)
-- `maven: clean install (skip tests)` - Fast build skipping tests
-
-Additionally includes Tomcat related tasks:
-
-- `tomcat: run` / `tomcat: debug` - Start using `tomcat7-maven-plugin` (debug port 8000), `Ctrl+C` to stop directly
-- `tomcat: shutdown (tomcat7:shutdown)` - Stop Tomcat
-- `tomcat: stop` - Force stop (kill process listening on port 8080, fallback option)
-
-#### Setting contextPath
-
-- Maven property: `app.contextPath` (default `/`, see `pom.xml`)
-- VS Code: workspace setting `app.webContextPath` (default `/`, see `.vscode/settings.json`)
-
-You can override contextPath using either of these methods:
-
-1. Override directly with Maven command:
-
-```bash
-mvnw.cmd "-Dapp.contextPath=/demo" tomcat7:run
-```
-
-2. Override with VS Code task:
-
-- Open `.vscode/settings.json`, modify `app.webContextPath` (e.g., `/demo`)
-
-#### Context XML Naming Rules (JNDI DataSource)
-
-When using `tomcat: run` / `tomcat: debug` tasks, Context XML is automatically loaded via the `app.tomcatContextFile` setting:
-
-- Setting `app.tomcatContextFile` (default: `/.vscode/tomcat/Catalina/localhost/ROOT.xml`)
-- Tasks pass `-Dtomcat.contextFile=${workspaceFolder}${config:app.tomcatContextFile}` to Maven
-
-This means when migrating to other projects, you typically only need to:
-
-- Modify `app.webContextPath` and `app.tomcatContextFile` in `.vscode/settings.json`
-- Copy `.vscode/tomcat/Catalina/localhost/demo.xml` to corresponding xml filename (and modify JDBC URL/credentials per project)
-
-#### How to Add New `.vscode\\tomcat\\Catalina\\localhost\\*.xml`
-
-1. First decide your contextPath (e.g., `/demo`, `/`):
-
-- Recommend modifying `app.webContextPath` in `.vscode/settings.json`
-
-2. Calculate the corresponding context filename:
-
-- Rule: Remove leading `/`, the remainder is the filename
-- Special case: `/` (or empty) uses `ROOT.xml`
-
-Examples:
-
-- `/demo` → `demo.xml`
-- `/` → `ROOT.xml`
-
-3. Create corresponding file in `.vscode/tomcat/Catalina/localhost/` (e.g., `ROOT.xml`), example content:
-
-```xml
-<Context reloadable="false">
-	<!-- H2 in-memory database (for testing) -->
-	<Resource
-			auth="Container"
-			name="jdbc/demo_db"
-			type="javax.sql.DataSource"
-			driverClassName="org.h2.Driver"
-			url="jdbc:h2:mem:demo_db;DB_CLOSE_DELAY=-1"
-			username="sa"
-			password=""
-			maxTotal="100"
-			maxIdle="100"
-			maxWaitMillis="100000"/>
-
-	<!-- PostgreSQL example (requires postgresql driver dependency)
-	<Resource
-			auth="Container"
-			name="jdbc/demo_db"
-			type="javax.sql.DataSource"
-			driverClassName="org.postgresql.Driver"
-			url="jdbc:postgresql://127.0.0.1:5432/yourdb"
-			username="your_user"
-			password="your_pass"
-			maxTotal="50"
-			maxIdle="10"
-			maxWaitMillis="10000"/>
-	-->
-</Context>
-```
-
-Notes:
-
-- Only need `<Context> + <Resource>`, don't include `docBase` / `path` (avoid startup failures due to path inconsistencies in embedded/plugin mode)
-- `<Resource name="jdbc/...">` corresponds to `<resource-ref>` in web.xml and runtime lookup of `java:comp/env/jdbc/...`
-
-4. Configure VS Code settings:
-
-- Update `app.tomcatContextFile` in `.vscode/settings.json` to point to your new XML file
-
-5. Start:
-
-- With VS Code: In `TERMINAL` view, `Run Task...` and select `tomcat: run` (or debug version)
-
-### Debug Configuration
-
-- **Debug (Attach) - Tomcat** - Attach to running Tomcat (port 8000)
-- **Run All Tests** - Run all tests
-
-### Code Snippets
-
-Project includes the following code snippets:
-
-- `servlet` - Quickly create Servlet class
-- `test` - Quickly create JUnit test class
-- `oauth2` - Quickly create OAuth2 request
-
-## Important Notes
-
-1. When running Maven Wrapper for the first time, it will automatically download Maven 3.3.9
-2. Local repository configuration is in `.mvn/settings.xml`
-3. Project uses UTF-8 encoding
-4. Ensure JDK 1.8 is installed and JAVA_HOME environment variable is properly configured
-
-## Local JNDI Availability Verification (Optional)
-
-The project provides a diagnostic endpoint and corresponding integration test to verify if `java:comp/env/jdbc/*` is bound:
-
-- Runtime Servlet: `/__jndi` (see `WEB-INF/web.xml` mapping)
-- Integration Test: `JndiResourcesTest`
-
-If you change contextPath (e.g., to `/demo`) and prepare the corresponding Context XML (e.g., `demo.xml`), you can run the integration test like this:
-
-```bash
-mvnw.cmd "-Dapp.contextPath=/demo" "-Dtest=JndiResourcesTest" test
-```
+如需自定义或扩展功能，请参考 app.py 代码。
