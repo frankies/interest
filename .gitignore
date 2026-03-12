@@ -1,0 +1,3 @@
+# Ignore all files in .nanobot directory but keep the directory
+.nanobot/*
+!.nanobot/.gitkeep

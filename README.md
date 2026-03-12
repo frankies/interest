@@ -1,114 +1,134 @@
-# Best Practise(最佳实践)
+# Nanobot - Simple Chat
 
-## 📚 分支导航
+A Python-based chatbot application with multi-channel support.
 
-本项目包含多个专题分支，涵盖后端开发、DevOps、前端工具、编程语言等各个方面。按更新时间排列，最新分支优先。
+## Prerequisites
 
-### 🎯 快速导航指南
+- Docker and Docker Compose
+- Python 3.8+ (for local development)
 
-- **按时间查找**：往下翻看"最近更新"（⭐ 推荐新学习者优先）和"经典教学"两个章节
-- **按技术分类查找**：跳转到"分类速查"章节，按你感兴趣的技术栈快速定位
-- **按功能标签查找**：每个分支列表都包含功能标签（如 Java、框架、AI 等），帮助快速筛选
+## Quick Start
 
-## 🚀 最近更新的分支（2025-2026）
 
-1. <u>[JBang 快速启动](https://github.com/frankies/interest/tree/jbang-quickstart)</u>  **(2026-02-09) | Java 构建工具**
-2. <u>[Maven + VSCode 集成模板](https://github.com/frankies/interest/tree/lab/maven-vscode-template)</u>  **(2026-02-04) | 开发工具**
-3. <u>[跨平台任务脚本](https://github.com/frankies/interest/tree/cross/tasks)</u>  **(2026-02-03) | 自动化脚本**
-4. <u>[Claude AI 测试实验](https://github.com/frankies/interest/tree/lab/claude-test)</u>  **(2026-01-25) | AI 实验室**
-5. <u>[VSCode Markdown CSS 样式](https://github.com/frankies/interest/tree/lab/vscode_markdown_css)</u>  **(2026-01-25) | 前端工具**
-6. <u>[AI 规范实验](https://github.com/frankies/interest/tree/lab/ai-spec)</u>  **(2026-01-21) | AI 实验室**
-7. <u>[Spring Cloud Gateway](https://github.com/frankies/interest/tree/lab-springcloud-gateway)</u>  **(2026-01-09) | 微服务**
-8. <u>[GraalVM 原生反射测试](https://github.com/frankies/interest/tree/graalvm-native-reflection-test)</u>  **(2025-12-28) | JVM 优化**
-9. <u>[JMX Exporter Agent](https://github.com/frankies/interest/tree/lab-jmx-exporter-agent)</u>  **(2025-12-19) | 监控**
-10. <u>[Kotlin Quick Start 入门练习](https://github.com/frankies/interest/tree/kotlin-quick-start)</u>  **(2025-12-15) | 编程语言**
-11. <u>[Springboot 4 preview](https://github.com/frankies/interest/tree/springboot4-preview-test)</u>  **(2025-12-05) | 框架版本**
-12. <u>[WildFly ECS 只读模式](https://github.com/frankies/interest/tree/wildfly-ecs-readonly-mode-playground)</u>  **(2025-11-08) | 应用服务器**
-13. <u>[Keycloak SSO 单点登录](https://github.com/frankies/interest/tree/keycloak-sso)</u>  **(2025-11-06) | 认证授权**
-14. <u>[Android APK 构建](https://github.com/frankies/interest/tree/android-apk-builder)</u>  **(2025-11-06) | 移动开发**
-15. <u>[RestClient in VSCode](https://github.com/frankies/interest/tree/rest-client-in-vscode)</u>  **(2025-10-26) | 开发工具**
-16. <u>[阿里巴巴 AI 系列](https://github.com/frankies/interest/tree/ai-alibaba)</u>  **(2025-08-16) | AI 实验**
+### 1. Build the Docker Image
 
----
-
-## 📖 经典教学分支（2018-2024）
-
-17. <u>[Hibernate ORM 工具测试](https://github.com/frankies/interest/tree/hibernate-tools-test)</u>  **(2025-05-29) | ORM 框架**
-18. <u>[MCP 服务器搭建 - 天气查询](https://github.com/frankies/interest/tree/mcp-server)</u>  **(2025-05-27) | MCP 服务**
-19. <u>[HTTPS 并发压力测试](https://github.com/frankies/interest/tree/https-press-test)</u>  **(2025-05-27) | <u>[API 测试文件](https://github.com/frankies/interest/blob/https-press-test/api-test.http)</u>**
-20. <u>[利用 Python UV 处理飞鸟云订阅](https://github.com/frankies/interest/tree/python-uv)</u>  **(2025-05-26) | Python 脚本**
-21. <u>[Spring MVC 异步处理](https://github.com/frankies/interest/tree/spring-mvc-async)</u>  **(2024-11-06) | Spring 框架**
-22. <u>[Websocket 客户端 Java 实现](https://github.com/frankies/interest/tree/websocket-client-java-backend)</u>  **(2024-07-23) | 实时通信**
-23. <u>[Springboot 调用 RabbitMQ](https://github.com/frankies/interest/tree/spring-rabitmq-demo)</u>  **(2018-11-20) | 消息队列**
-24. <u>[Mockito 单元测试框架](https://github.com/frankies/interest/tree/mockito-test)</u>  **(2018-10-15) | 测试框架**
-25. <u>[Web 页面调用本地应用](https://github.com/frankies/interest/tree/page-inovke-local-app)</u>  **(2018-06-12) | Web 交互**
-26. <u>[Docker 部署 Springboot + MySQL + Nginx](https://github.com/frankies/interest/tree/docker-springboot-nginx-mysql)</u>  **(2018-03-27) | 容器化部署**
-27. <u>[Gradle 中调用 Ant 任务](https://github.com/frankies/interest/tree/gradle-ant)</u>  **(2018-02-03) | 构建工具**
-28. <u>[自启动服务脚本](https://github.com/frankies/interest/tree/shell_service_install_service)</u>  **(2017-12-25) | 系统集成**
-29. <u>[PostgreSQL 流复制工具 Slony](https://github.com/frankies/interest/tree/pg_slony)</u>  **(2017-12-15) | 数据库复制**
-
----
-
-## 📌 分支分类速查
-
-**快速找到你需要的分支：点击下方分支名可直接访问**
-
-### 🔧 框架与开发工具
-- [spring-mvc-async](https://github.com/frankies/interest/tree/spring-mvc-async)
-- [spring-rabitmq-demo](https://github.com/frankies/interest/tree/spring-rabitmq-demo)
-- [springboot4-preview-test](https://github.com/frankies/interest/tree/springboot4-preview-test)
-- [lab-springcloud-gateway](https://github.com/frankies/interest/tree/lab-springcloud-gateway)
-
-### 🗄️ 数据库与存储
-- [pg_slony](https://github.com/frankies/interest/tree/pg_slony)
-- [hibernate-tools-test](https://github.com/frankies/interest/tree/hibernate-tools-test)
-
-### 🐳 DevOps 与部署
-- [docker-springboot-nginx-mysql](https://github.com/frankies/interest/tree/docker-springboot-nginx-mysql)
-- [keycloak-sso](https://github.com/frankies/interest/tree/keycloak-sso)
-- [wildfly-ecs-readonly-mode-playground](https://github.com/frankies/interest/tree/wildfly-ecs-readonly-mode-playground)
-
-### 🧪 测试与质量
-- [mockito-test](https://github.com/frankies/interest/tree/mockito-test)
-- [graalvm-native-reflection-test](https://github.com/frankies/interest/tree/graalvm-native-reflection-test)
-- [https-press-test](https://github.com/frankies/interest/tree/https-press-test)
-
-### 🔄 消息与通信
-- [spring-rabitmq-demo](https://github.com/frankies/interest/tree/spring-rabitmq-demo)
-- [websocket-client-java-backend](https://github.com/frankies/interest/tree/websocket-client-java-backend)
-- [mcp-server](https://github.com/frankies/interest/tree/mcp-server)
-
-### 📱 移动与跨平台
-- [android-apk-builder](https://github.com/frankies/interest/tree/android-apk-builder)
-- [cross/tasks](https://github.com/frankies/interest/tree/cross/tasks)
-
-### 🔐 认证与安全
-- [keycloak-sso](https://github.com/frankies/interest/tree/keycloak-sso)
-
-### 🤖 AI 与实验
-- [ai-alibaba](https://github.com/frankies/interest/tree/ai-alibaba)
-- [lab/claude-test](https://github.com/frankies/interest/tree/lab/claude-test)
-- [lab/ai-spec](https://github.com/frankies/interest/tree/lab/ai-spec)
-
-### 🛠️ 编程语言与工具
-- [kotlin-quick-start](https://github.com/frankies/interest/tree/kotlin-quick-start)
-- [jbang-quickstart](https://github.com/frankies/interest/tree/jbang-quickstart)
-- [python-uv](https://github.com/frankies/interest/tree/python-uv)
-
-### 💻 前端与工具链
-- [rest-client-in-vscode](https://github.com/frankies/interest/tree/rest-client-in-vscode)
-- [lab/vscode_markdown_css](https://github.com/frankies/interest/tree/lab/vscode_markdown_css)
-- [lab/maven-vscode-template](https://github.com/frankies/interest/tree/lab/maven-vscode-template)
-
----
-
-## 📞 关于本文档
-
-**最后更新**：2026-02-09 | **包含分支**：29 个 | **文档版本**：v1.0
-
-本文档由以下数据源自动生成：
 ```bash
-git for-each-ref --sort=-committerdate --format='%(refname:short)|%(committerdate:short)|%(subject)' refs/heads/ refs/remotes/
+docker compose build
 ```
 
-**维护说明**：如有新增分支或更新，可参考 [update-readme-branches.prompt.md](.github/prompts/update-readme-branches.prompt.md) 重新生成本文档。
+### 2. Create Local State Directory
+
+```bash
+mkdir -p .nanobot
+```
+
+### 3. Initialize Configuration (Onboarding)
+
+On first run, initialize the configuration:
+
+```bash
+docker compose --profile tools run --rm onboard
+```
+
+This generates the configuration skeleton in `.nanobot/` directory.
+
+## Usage
+
+### Running the Agent
+
+Run a single agent execution with a message:
+
+```bash
+docker compose --profile tools run --rm agent
+```
+
+Or with a custom message:
+
+```bash
+docker compose run --rm nanobot agent -m "Hello"
+```
+
+### Starting Gateway
+
+Start the gateway service (e.g., Telegram):
+
+```bash
+docker compose --profile runtime up gateway
+```
+
+### WhatsApp Setup (Linux Host Network Mode)
+
+Terminal 1 - Login to channels:
+
+```bash
+docker compose --profile whatsapp run --rm channels-login
+```
+
+Terminal 2 - Start gateway:
+
+```bash
+docker compose --profile whatsapp run --rm gateway-host
+```
+
+## Directory Structure
+
+```
+.
+├── .nanobot/                  # Local state directory (created on first run)
+│   ├── config.json           # Main configuration
+│   ├── workspace/             # Working directory
+│   └── memory/                # State storage
+├── .github/                   # GitHub workflows and configurations
+├── docker/                    # Docker build files
+│   └── Dockerfile            # Container image build configuration
+├── docker-compose.yml        # Service definitions and profiles
+├── README.md                 # This file
+└── SECURITY.md               # Security practices and guidelines
+```
+
+## Configuration
+
+Configuration files are automatically generated in `.nanobot/` during the onboarding process. Key files include:
+- `config.json` - Main application configuration
+- `workspace/` - Working directory for runtime operations
+- `memory/` - Persistent state and memory storage
+
+## Project Structure Details
+
+### Docker Setup
+The `docker/Dockerfile` is based on the official Nanobot Docker repository and includes:
+- Python 3.12 runtime environment
+- Node.js for bridge functionality
+- Nanobot source code and dependencies
+- Automated bridge setup on container startup
+
+**Dockerfile Source**: https://raw.githubusercontent.com/ciri/nanobot-docker/refs/heads/main/Dockerfile
+
+### Docker Compose Services
+- **nanobot** - Main container with default status command
+- **onboard** - One-time setup and configuration initialization
+- **gateway** - Gateway service for channel integration (Telegram, WhatsApp, etc.)
+- **agent** - Agent execution service for processing messages
+- **channels-login** - WhatsApp/channel authentication service
+
+## Development
+
+### For Local Development
+If you prefer to develop locally without Docker:
+
+```bash
+# Install Python dependencies
+pip install -e .
+
+# Run nanobot commands directly
+nanobot status
+nanobot onboard
+nanobot agent -m "test message"
+```
+
+## Support
+
+For issues or questions:
+- Check the [Security](SECURITY.md) guidelines
+- Review the Docker Compose configuration
+- Refer to the [official Nanobot documentation](https://github.com/HKUDS/nanobot)

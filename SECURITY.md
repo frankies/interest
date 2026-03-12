@@ -1,52 +1,58 @@
-# Security Practices for Spring Boot Application
+# Security Practices
 
-## Authentication
+## Overview
 
-- Use Spring Security to handle authentication.
-- Implement OAuth2 or JWT for token-based authentication.
-- Ensure strong password policies (minimum length, complexity).
-- Store passwords securely using bcrypt or similar hashing algorithms.
+This document outlines security practices and guidelines for the Nanobot project.
 
-## Authorization
+## Configuration Security
 
-- Implement role-based access control (RBAC) to manage user permissions.
-- Use annotations like `@PreAuthorize` and `@Secured` to secure methods based on roles.
-- Regularly review and update user roles and permissions.
-
-## Securing Endpoints
-
-- Use HTTPS to encrypt data in transit.
-- Protect sensitive endpoints with authentication and authorization checks.
-- Implement rate limiting to prevent brute force attacks.
+- **Protect Credentials**: Never commit sensitive data (API keys, tokens, passwords) to version control.
+- **Environment Variables**: Use environment variables or secure vaults for secrets.
+- **Configuration Files**: Store configuration files in `.nanobot/` directory and add to `.gitignore`.
 
 ## Data Protection
 
-- Use encryption for sensitive data at rest and in transit.
-- Regularly back up data and ensure backups are stored securely.
-- Implement logging and monitoring to detect unauthorized access attempts.
-
-## Security Headers
-
-- Configure security headers (e.g., Content Security Policy, X-Content-Type-Options) to protect against common vulnerabilities.
-- Use Spring Security's built-in features to add these headers.
+- **Encryption**: Ensure sensitive data is encrypted at rest and in transit.
+- **Access Control**: Restrict access to configuration and state directories.
+- **Backup Security**: Secure backups of `.nanobot/` state files appropriately.
 
 ## Dependency Management
 
-- Regularly update dependencies to patch known vulnerabilities.
-- Use tools like OWASP Dependency-Check to identify vulnerable libraries.
+- Regularly update Python dependencies to patch known vulnerabilities.
+- Review dependencies before adding new packages.
+- Use tools like `pip-audit` or `safety` to check for vulnerable packages.
 
-## Security Testing
+## API Security
 
-- Conduct regular security assessments and penetration testing.
-- Use automated tools to scan for vulnerabilities in the application.
+- Use HTTPS/TLS for all external API communications.
+- Validate and sanitize user inputs from all channels.
+- Implement rate limiting to prevent abuse.
+- Authenticate all external API calls with proper credentials.
+
+## Logging and Monitoring
+
+- Log security-relevant events (authentication, authorization, data access).
+- Monitor for suspicious activity and unauthorized access attempts.
+- Never log sensitive information (passwords, API keys).
+
+## Container Security
+
+- Keep Docker images and base images updated.
+- Run containers with minimal required privileges.
+- Scan container images for vulnerabilities.
 
 ## Vulnerability Reporting
 
-If you discover a security vulnerability in this project, please report it privately to the maintainers.  
-Contact: [your-email@example.com]  
-Please include as much detail as possible to help us address the issue quickly.  
-Do not disclose vulnerabilities publicly until they have been resolved.
+If you discover a security vulnerability in this project, please report it privately to the maintainers.
 
-## Conclusion
+**Do not disclose vulnerabilities publicly** until they have been resolved. Contact the project maintainers with:
+- Detailed description of the vulnerability
+- Steps to reproduce (if applicable)
+- Suggested fix (if available)
 
-By following these security practices, we can help ensure that our Spring Boot application remains secure and resilient against potential threats. Regularly review and update security measures as needed.
+## Code Review
+
+All code changes should be reviewed before merging to ensure:
+- No credentials are exposed
+- Input validation is implemented
+- Security best practices are followed

@@ -1,0 +1,71 @@
+services:
+  nanobot:
+    image: nanobot:local
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+
+    # 持久化 Nanobot 状态（config.json / workspace / memory 等）
+    volumes:
+      - ./.nanobot:/root/.nanobot
+
+    # 默认等同于 Dockerfile 的 CMD ["status"]
+    command: ["status"]
+
+    # 如需交互式使用（例如 onboarding 时），用 `docker compose run --rm nanobot ...`
+    stdin_open: true
+    tty: true
+
+  # 首次初始化（生成 .nanobot 下的配置骨架等）
+  onboard:
+    image: nanobot:local
+    depends_on: []
+    volumes:
+      - ./.nanobot:/root/.nanobot
+    command: ["onboard"]
+    stdin_open: true
+    tty: true
+    profiles: ["tools"]
+
+  # 启动 gateway（例如 Telegram）
+  gateway:
+    image: nanobot:local
+    volumes:
+      - ./.nanobot:/root/.nanobot
+    command: ["gateway"]
+    stdin_open: true
+    tty: true
+    profiles: ["runtime"]
+
+  # 跑一次 agent（示例：发一句话）
+  agent:
+    image: nanobot:local
+    volumes:
+      - ./.nanobot:/root/.nanobot
+    # 注意：这里给的是默认示例参数；你也可以在 run 时覆盖
+    command: ["agent", "-m", "Hello"]
+    stdin_open: true
+    tty: true
+    profiles: ["tools"]
+
+  # WhatsApp: channels login（README 用 host 网络）
+  channels-login:
+    image: nanobot:local
+    volumes:
+      - ./.nanobot:/root/.nanobot
+    command: ["channels", "login"]
+    stdin_open: true
+    tty: true
+    network_mode: host
+    profiles: ["whatsapp"]
+
+  # WhatsApp: gateway（README 也用 host 网络；如确实要对外暴露端口可自行在 host 上放通）
+  gateway-host:
+    image: nanobot:local
+    volumes:
+      - ./.nanobot:/root/.nanobot
+    command: ["gateway"]
+    stdin_open: true
+    tty: true
+    network_mode: host
+    profiles: ["whatsapp"]
